@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/11 17:30:02 by abahmani         ###   ########.fr       */
+/*   Created: 2021/01/09 18:24:04 by abahmani          #+#    #+#             */
+/*   Updated: 2021/01/16 14:03:56 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+char	*ft_strdup(const char *s1)
 {
-	
+	size_t	n;
+	char	*ptr;
+
+	n = ft_strlen(s1);
+	ptr = malloc((n + 1) * sizeof(char));
+	if (!ptr)
+		return (NULL);
+	return (ft_memmove(ptr, s1, n + 1));
 }

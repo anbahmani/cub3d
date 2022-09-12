@@ -6,25 +6,13 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 07:22:30 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/11 17:49:00 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/12 10:23:35 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-size_t			ft_strlen(char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
-static char		*ft_malloc(unsigned int start, size_t len, size_t size)
+static char	*ft_malloc(unsigned int start, size_t len, size_t size)
 {
 	char	*ptr;
 
@@ -42,7 +30,7 @@ static char		*ft_malloc(unsigned int start, size_t len, size_t size)
 	return (ptr);
 }
 
-char			*ft_substr_gnl(char *s, unsigned int start, size_t len, int f)
+char	*ft_substr_gnl(char *s, unsigned int start, size_t len, int f)
 {
 	size_t	size;
 	size_t	i;
@@ -80,7 +68,7 @@ static	char	*concat(char const *src, char *dest, size_t start)
 	return (dest);
 }
 
-char			*ft_strjoin_gnl(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	size_t	s1_len;
 	size_t	s2_len;

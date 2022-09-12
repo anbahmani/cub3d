@@ -6,15 +6,15 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 10:53:47 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/11 17:50:31 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/12 10:22:36 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int				find_new_line(char *str)
+int	find_new_line(char *str)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	while (str[i] && str[i] != '\n')
@@ -25,7 +25,7 @@ int				find_new_line(char *str)
 		return (-1);
 }
 
-int				end(int ret, char **str, char **line)
+int	end(int ret, char **str, char **line)
 {
 	int		newline;
 
@@ -46,7 +46,7 @@ int				end(int ret, char **str, char **line)
 	}
 }
 
-int				fill_buf(char *buf, char **line, char **str, int ret)
+int	fill_buf(char *buf, char **line, char **str, int ret)
 {
 	int		newline;
 
@@ -69,7 +69,7 @@ int				fill_buf(char *buf, char **line, char **str, int ret)
 	return (0);
 }
 
-int				free_str(int newline, char **str)
+int	free_str(int newline, char **str)
 {
 	if (newline == -1)
 	{
@@ -80,7 +80,7 @@ int				free_str(int newline, char **str)
 	return (newline);
 }
 
-int				get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	int				ret;
 	char			buf[100 + 1];

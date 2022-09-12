@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/11 18:05:42 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/12 22:38:53 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include "libft"
 
 typedef struct s_pos
 {
@@ -29,6 +32,13 @@ typedef struct s_rgb
 	int green;
 	int blue;
 } 	t_rgb;
+
+typedef struct s_ihm
+{
+	void	*mlx;
+	void	*mlx_win;
+	t_img	img;
+}	t_ihm;
 
 typedef struct s_map_data
 {
@@ -44,8 +54,28 @@ typedef struct s_map_data
 	t_pos	player;
 }	t_map_data;
 
+typedef struct s_engine
+{
+	t_map_data	map;
+	t_ihm		mlx_data;
+	t_list		garbage_coll;
+}	t_engine;
+
+
+
+/*-------------------------------GET NEXT LINE--------------------------------*/
+
 int		get_next_line(int fd, char **line);
 char	*ft_substr_gnl(char *s, unsigned int start, size_t len, int f);
 char	*ft_strjoin_gnl(char *s1, char *s2);
+
+/*-------------------------------ERROR CHECKING-------------------------------*/
+
+void	print_error(char *msg);
+char	**check_error(int ac, char **av);
+int		check_input_file_error(char const *file_name);
+int		open_img_xpm(char *texture_name, t_data *engine);
+int		open_img_xpm(char *texture_name, t_engine *engine);
+void	check_text_file_error(t_engine *engine);
 
 #endif

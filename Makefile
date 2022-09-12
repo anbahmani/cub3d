@@ -17,7 +17,7 @@ vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 SRC			= 	cub3d.c \
 				arg_error.c error.c input_file_error.c texture_file_error.c \
 				get_next_line.c get_next_line_utils.c 
-				
+
 
 
 OBJ			=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
@@ -38,6 +38,7 @@ re-install:
 
 fclean-install:
 	@make -C lib/libft fclean
+	@make -C lib/minilibx clean
 
 all:
 	@echo "\n___$(NAME) Setting___\n"

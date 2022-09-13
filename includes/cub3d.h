@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/12 22:38:53 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/13 13:12:37 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,15 @@
 # include <math.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include "libft"
+# include "libft.h"
+
+typedef enum s_texture
+{
+	NO,
+	SO,
+	WE,
+	EA,
+}	t_texture;
 
 typedef struct s_pos
 {
@@ -29,9 +37,9 @@ typedef struct s_pos
 typedef struct s_rgb
 {
 	int	red;
-	int green;
-	int blue;
-} 	t_rgb;
+	int	green;
+	int	blue;
+}	t_rgb;
 
 typedef struct s_ihm
 {
@@ -61,8 +69,6 @@ typedef struct s_engine
 	t_list		garbage_coll;
 }	t_engine;
 
-
-
 /*-------------------------------GET NEXT LINE--------------------------------*/
 
 int		get_next_line(int fd, char **line);
@@ -78,4 +84,14 @@ int		open_img_xpm(char *texture_name, t_data *engine);
 int		open_img_xpm(char *texture_name, t_engine *engine);
 void	check_text_file_error(t_engine *engine);
 
+/*-----------------------------GARBAGE COLLECTOR------------------------------*/
+
+void	ft_malloc(void	*content, size_t size, t_list *garb_coll);
+void	clear(t_list *garbage_collector);
+
+/*--------------------------------PARSING-------------------------------------*/
+
+void	get_file_data(const char *file_name, t_map_data *data, t_list *garb_c);
+void	get_file_data_bis(const char *file_name, t_map_data *data,
+		t_list *garb_c, char *line)
 #endif

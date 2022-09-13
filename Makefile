@@ -4,7 +4,7 @@ CC          	=   gcc
 
 SRC_DIR			= 	$(shell find srcs -type d)
 INC_DIR			= 	$(shell find includes -type d) \
-					#$(shell find lib/libft -type d) \
+					$(shell find lib -type d) \
 
 OBJ_DIR			=	obj
 
@@ -16,7 +16,8 @@ vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 
 SRC			= 	cub3d.c \
 				arg_error.c error.c input_file_error.c texture_file_error.c \
-				get_next_line.c get_next_line_utils.c 
+				get_next_line.c get_next_line_utils.c \
+				get_file_data.c get_map.c garbage_collector.c \
 
 
 

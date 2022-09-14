@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/11 18:05:42 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/14 17:30:29 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,22 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include "../lib/minilibx/mlx.h"
 # include <math.h>
+
+typedef struct s_win
+{
+	void	*mlx;
+	void	*mlx_win;
+	void	*mlx_img;
+	int		height;
+	int		width;
+	char	*str;
+	int		size;
+	int		height_map;
+	int		width_map;
+}	t_win;
 
 typedef struct s_pos
 {
@@ -26,9 +41,9 @@ typedef struct s_pos
 typedef struct s_rgb
 {
 	int	red;
-	int green;
-	int blue;
-} 	t_rgb;
+	int	green;
+	int	blue;
+}	t_rgb;
 
 typedef struct s_map_data
 {

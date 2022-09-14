@@ -49,11 +49,12 @@ show:
 	@echo "CFLAGS :\n$(CFLAGS)"
 	@echo "IFLAGS :\n$(IFLAGS)"
 	@echo "\n-----\n"
-	@echo "Compiling : \n$(CC) $(CFLAGS) $(OBJ) -o $(NAME)"
+	@echo "Compiling : \n$(CC) $(CFLAGS)  $(OBJ)  -o $(NAME)"
 
 $(NAME): install $(OBJ)
 	@echo "-----\nCreating Binary File $@ ... \c"
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)   ./lib/minilibx/libmlx_Linux.a -L./lib/minilibx -lm -lXext -lX11 
 	@echo "DONE\n-----"
 
 $(OBJ_DIR)/%.o : %.c

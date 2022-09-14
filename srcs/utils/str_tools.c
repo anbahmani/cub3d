@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   str_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/12 09:33:54 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/14 16:39:16 by abahmani         ###   ########.fr       */
+/*   Created: 2022/09/13 15:53:59 by abahmani          #+#    #+#             */
+/*   Updated: 2022/09/14 11:09:24 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	print_error(char *msg)
+int	is_in_set(char c, const char *set)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(msg, 2);
-	ft_putstr_fd("\n", 2);
-}
+	int	i;
 
-void	quit_error(char *msg)
-{
-	print_error(msg);
-	exit(1);
-}
-
-int		check_error(int ac, char **av)
-{
-	if (!check_arg_number_error(ac) || !check_input_file_error(av[1]))
-		return (1);
+	i = 0;
+	while (set[i])
+	{
+		if ((char)set[i] == c)
+			return (1);
+		i++;
+	}
 	return (0);
+}
+
+int	composed_with(char *str, const char *set)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (!is_in_set(str[i], set))
+			return (0);
+	}
+	return (1);
 }

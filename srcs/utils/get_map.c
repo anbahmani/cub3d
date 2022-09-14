@@ -6,23 +6,13 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 22:44:28 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/13 09:28:13 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:12:46 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	count_str(char const **tab)
-{
-	int	cmp;
-
-	cmp = 0;
-	while (tab[cmp] != NULL)
-		cmp++;
-	return (cmp);
-}
-
-static int	count_file_line(char const *file_name)
+int	count_file_line(char const *file_name)
 {
 	int		fd;
 	int		cmp;
@@ -42,64 +32,37 @@ static int	count_file_line(char const *file_name)
 	return (cmp + 1);
 }
 
-// test d'affichage de la map
-/*static void	print_map(char **tab)
+char	**get_map(char *line, int start, const char *file_name)
 {
-	int i;
-
-	i = 0;
-	while (tab[i] != NULL)
-	{
-		ft_putstr_fd(tab[i], 1);
-		ft_putstr_fd("\n", 1);
-		i++;
-	}
-}*/
-
-char	**file_to_tab(char const *file_name)
-{
-	char	**tab;
-	int		nb_line;
+	char	**map;
 	int		fd;
-	int		i;
 
-	nb_line = count_file_line(file_name);
-	if (nb_line == -1)
-		return (NULL);
-	i = -1;
 	fd = open(file_name, O_RDONLY);
-	if (fd == -1)
-		return (NULL);
-	tab = malloc(sizeof(char *) * (nb_line + 1));
-	if (tab == NULL)
-		return (NULL);
-	while (++i < nb_line)
-		get_next_line(fd, &tab[i]);
-	tab[nb_line] = NULL;
-	close(fd);
-	return (tab);
+	
 }
 
-int	get_player_position(t_map_data *map)
+void	find_map(const char *file_name, t_map_data *data, t_list *garb_c)
 {
-	int	i;
-	int	j;
+	int		fd;
+	int		i;
+	char	*line;
+	char	*tmp;
 
-	i = 1;
-	while (map->map[i] != NULL)
+	fd = open(file_name, O_RDONLY);
+	get_next_line(fd, &line);
+	i = 0;
+	while (line)
 	{
-		j = 1;
-		while (map->map[i][j])
-		{
-			if (map->map[i][j] == 'P')
-			{
-				map->player.x = j;
-				map->player.y = i;
-				return (1);
-			}
-			j++;
-		}
+		tmp = ft_strtrim(line, " \t");
+		if (composed_with(tmp, " \t10NWES"))
+			break ;
+		free(tmp);
+		free(line);
+		get_next_line(fd, &line);
 		i++;
 	}
-	return (0);
+	if (line)
+		free(tmp);
+	close(fd);
+	data->map = get_map(line, i, file_name);
 }

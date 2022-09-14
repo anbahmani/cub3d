@@ -8,16 +8,17 @@ INC_DIR			= 	$(shell find includes -type d) \
 
 OBJ_DIR			=	obj
 
-LIB_DIR			=	lib/minilibx lib/libft
+LIB_DIR			= lib/libft #lib/minilibx
 
 vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 
 # library -----------------------------------------------------------
 
 SRC			= 	cub3d.c \
-				arg_error.c error.c input_file_error.c texture_file_error.c \
 				get_next_line.c get_next_line_utils.c \
-				get_file_data.c get_map.c garbage_collector.c \
+				get_file_data.c get_map.c garbage_collector.c str_tools.c \
+			#	arg_error.c error.c input_file_error.c texture_file_error.c \
+				
 
 
 
@@ -31,6 +32,10 @@ IFLAGS		=	$(foreach dir, $(INC_DIR), -I $(dir))
 
 # main part ---------------------------------------------------------
 
+all:
+	@echo "\n___$(NAME) Setting___\n"
+	@make  $(NAME)
+
 install:
 	@$(foreach dir, $(LIB_DIR), make -C $(dir);)
 
@@ -39,11 +44,8 @@ re-install:
 
 fclean-install:
 	@make -C lib/libft fclean
-	@make -C lib/minilibx clean
 
-all:
-	@echo "\n___$(NAME) Setting___\n"
-	@make  $(NAME)
+# @make -C lib/minilibx clean
 
 bonus: fclean
 	@echo "\n___$(NAME) Setting___\n"

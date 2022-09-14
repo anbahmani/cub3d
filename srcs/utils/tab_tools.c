@@ -1,33 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   tab_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/12 09:33:54 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/14 16:39:16 by abahmani         ###   ########.fr       */
+/*   Created: 2022/09/14 10:45:20 by abahmani          #+#    #+#             */
+/*   Updated: 2022/09/14 11:07:59 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	print_error(char *msg)
+int	count_str(char **tab)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(msg, 2);
-	ft_putstr_fd("\n", 2);
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
 }
 
-void	quit_error(char *msg)
+void	clear_str_tab(char **tab)
 {
-	print_error(msg);
-	exit(1);
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
 }
 
-int		check_error(int ac, char **av)
+void	trim_split(char **tab)
 {
-	if (!check_arg_number_error(ac) || !check_input_file_error(av[1]))
-		return (1);
-	return (0);
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (tab[i])
+	{
+		tmp = tab[i];
+		tab[i] = ft_strtrim(tab[i]);
+		free(tmp);
+		i++;
+	}
 }

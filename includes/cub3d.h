@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/14 16:39:32 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:03:05 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include "libft.h"
+
+/*-------------------------------ERROR DEFINE---------------------------------*/
+
+# define FD_ERROR "An error occured during the file opening"
+
+/*---------------------------------STRUCTURE----------------------------------*/
 
 typedef enum s_texture
 {
@@ -92,24 +98,25 @@ int		check_error(int ac, char **av);
 int		check_input_file_error(char const *file_name);
 int		open_img_xpm(char *texture_name, t_engine *engine);
 void	check_text_file_error(t_engine *engine);
-void	quit_error(char *msg);
+void	quit_error(char *msg, t_list *garb_c);
 int		check_arg_number_error(int argc);
 
 
 /*-----------------------------GARBAGE COLLECTOR------------------------------*/
 
-void	ft_malloc(void	*content, size_t size, t_list *garb_coll);
+void	*ft_malloc(size_t size, t_list *garb_coll);
 void	clear(t_list *garbage_collector);
 
 /*--------------------------------PARSING-------------------------------------*/
 
 void	get_file_data(const char *file_name, t_map_data *data, t_list *garb_c);
-void	get_file_data_bis(const char *file_name, t_map_data *data,
-		t_list *garb_c, char *line);
-char	**get_map(char *line, int start, const char *file_name);
+void	get_file_data_bis(t_map_data *data, t_list *garb_c, char *line);
+char	**get_map(int start, const char *file_name, t_list *garb_c);
 void	get_text_file_name(char *line, t_map_data *data, t_texture text);
 void	set_color(t_rgb *colors, char **split);
 t_rgb	get_color(char *line, t_list *garb_coll);
+void	set_color(t_rgb *colors, char **split);
+int		count_file_line(char const *file_name, t_list *garb_c);
 
 
 /*----------------------------------UTILS-------------------------------------*/

@@ -17,9 +17,9 @@ vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 SRC			= 	cub3d.c \
 				get_next_line.c get_next_line_utils.c \
 				get_file_data.c get_map.c garbage_collector.c str_tools.c \
-			#	arg_error.c error.c input_file_error.c texture_file_error.c \
+				tab_tools.c digit_tools.c arg_error.c error.c input_file_error.c 
 				
-
+#texture_file_error.c
 
 
 OBJ			=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
@@ -29,6 +29,9 @@ OBJ			=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 CFLAGS		=	-Wall -Wextra -Werror -pthread #-g3 -fsanitize=thread
 
 IFLAGS		=	$(foreach dir, $(INC_DIR), -I $(dir))
+
+LFLAGS		=	$(foreach dir, $(LIB_DIR), -L $(dir)) \
+				$(foreach lib, $(LIB), -l $(lib))
 
 # main part ---------------------------------------------------------
 
@@ -61,7 +64,7 @@ show:
 
 $(NAME): install $(OBJ)
 	@echo "-----\nCreating Binary File $@ ... \c"
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $(NAME)
 	@echo "DONE\n-----"
 
 $(OBJ_DIR)/%.o : %.c

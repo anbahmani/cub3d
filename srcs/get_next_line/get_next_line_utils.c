@@ -6,13 +6,13 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 07:22:30 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/12 10:23:35 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/14 21:40:23 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char	*ft_malloc(unsigned int start, size_t len, size_t size)
+static char	*ft_malloc_gnl(unsigned int start, size_t len, size_t size)
 {
 	char	*ptr;
 
@@ -40,7 +40,7 @@ char	*ft_substr_gnl(char *s, unsigned int start, size_t len, int f)
 	i = 0;
 	if (!s)
 		return (0);
-	ptr = ft_malloc(start, len, size);
+	ptr = ft_malloc_gnl(start, len, size);
 	if (!ptr)
 		return (NULL);
 	while (start + i < size && s[start + i] && i < len)

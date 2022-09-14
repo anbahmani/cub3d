@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:53:59 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/14 11:09:24 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:03:26 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ int	is_in_set(char c, const char *set)
 int	composed_with(char *str, const char *set)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (str[i])
 	{
 		if (!is_in_set(str[i], set))

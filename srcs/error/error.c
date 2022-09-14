@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 09:33:54 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/14 16:39:16 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/14 19:30:20 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	print_error(char *msg)
 	ft_putstr_fd("\n", 2);
 }
 
-void	quit_error(char *msg)
+void	quit_error(char *msg, t_list *garb_c)
 {
+	clear(garb_c);
 	print_error(msg);
 	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/14 17:30:29 by raaga            ###   ########.fr       */
+/*   Updated: 2022/09/15 18:51:04 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@
 # include "../lib/minilibx/mlx.h"
 # include <math.h>
 
+typedef struct s_data
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_data;
+
 typedef struct s_win
 {
 	void	*mlx;
@@ -30,7 +39,9 @@ typedef struct s_win
 	int		size;
 	int		height_map;
 	int		width_map;
+	t_data	data;
 }	t_win;
+
 
 typedef struct s_pos
 {

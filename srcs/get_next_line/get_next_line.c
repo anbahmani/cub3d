@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 10:53:47 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/14 21:40:30 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/15 10:37:50 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	fill_buf(char *buf, char **line, char **str, int ret)
 	newline = find_new_line(buf);
 	if (newline > -1)
 	{
-		*str = ft_strjoin(*str, buf);
+		*str = ft_strjoin_gnl(*str, buf);
 		newline = find_new_line(*str);
 		*line = ft_substr_gnl(*str, 0, newline, 1);
 		*str = ft_substr_gnl(*str, newline + 1, ft_strlen(*str) - newline, 0);

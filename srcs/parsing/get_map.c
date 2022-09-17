@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 22:44:28 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/14 22:02:59 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/15 00:33:33 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	**get_map(int start, const char *file_name, t_list *garb_c)
 	map = ft_malloc(sizeof(char *) * count_file_line(file_name, garb_c),
 			garb_c);
 	fd = open(file_name, O_RDONLY);
+	i = 0;
 	while (i < start)
 	{
 		get_next_line(fd, &line);

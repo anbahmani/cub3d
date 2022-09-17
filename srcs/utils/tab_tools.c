@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 10:45:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/14 22:05:30 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/16 18:24:22 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	clear_str_tab(char **tab)
 	free(tab);
 }
 
-/*
+
 void	trim_split(char **tab)
 {
 	int		i;
@@ -46,7 +46,7 @@ void	trim_split(char **tab)
 		free(tmp);
 		i++;
 	}
-}*/
+}
 
 char	**ft_tabncpy(char **tab, int n, t_list *garb_c)
 {

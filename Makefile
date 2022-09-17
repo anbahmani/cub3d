@@ -85,7 +85,6 @@ re:	fclean all
 clean:
 	@echo "Deleting Objects Directory $(OBJ_DIR) ... \c"
 	@$(foreach file, $(OBJ), rm -rf $(file))
-	@rm ${DEPS}
 	@echo "DONE\n-----"
 
 fclean:	clean

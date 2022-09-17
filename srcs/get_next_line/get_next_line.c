@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 10:53:47 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/15 10:37:50 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/17 15:20:48 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ int	end(int ret, char **str, char **line)
 	{
 		*line = *str;
 		*str = NULL;
-		return (0);
+		if (*line[0])
+			return (0);
+		return (-1);
 	}
 	else
 	{

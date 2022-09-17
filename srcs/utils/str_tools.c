@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:53:59 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/14 22:03:26 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/17 18:36:29 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,25 @@ int	composed_with(char *str, const char *set)
 	{
 		if (!is_in_set(str[i], set))
 			return (0);
+		i++;
 	}
 	return (1);
+}
+
+
+//maybe unused
+char	*ft_str_dup_cub(char *str, t_list *garb_c)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	new = ft_malloc(sizeof(char) * ft_strlen(str) + 1, garb_c);
+	while (str[i])
+	{
+		new[i] = str[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
 }

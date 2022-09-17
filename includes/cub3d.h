@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/15 10:07:17 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/17 18:49:00 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,20 @@
 
 /*-------------------------------ERROR DEFINE---------------------------------*/
 
-# define FD_ERROR "An error occured during the file opening"
+# define FD_ERROR "An error occured during the file opening."
+# define MALLOC_ERROR "An error occured during the memory allocation."
 
 /*---------------------------------STRUCTURE----------------------------------*/
 
+//Unuse
+/*
 typedef enum s_texture
 {
 	NO,
 	SO,
 	WE,
 	EA,
-}	t_texture;
+}	t_texture;*/
 
 typedef struct s_img
 {
@@ -112,11 +115,13 @@ void	clear(t_list *garbage_collector);
 void	get_file_data(const char *file_name, t_map_data *data, t_list *garb_c);
 void	get_file_data_bis(t_map_data *data, t_list *garb_c, char *line);
 char	**get_map(int start, const char *file_name, t_list *garb_c);
-void	get_text_file_name(char *line, t_map_data *data, t_texture text);
+void	find_map(const char *file_name, t_map_data *data, t_list *garb_c);
+int		is_map_line(char *line);
 void	set_color(t_rgb *colors, char **split);
 t_rgb	get_color(char *line, t_list *garb_coll);
 void	set_color(t_rgb *colors, char **split);
 int		count_file_line(char const *file_name, t_list *garb_c);
+char	**copy_tab(char **tab, t_list *garb_c);
 
 
 /*----------------------------------UTILS-------------------------------------*/
@@ -126,5 +131,12 @@ int		is_in_set(char c, const char *set);
 int		count_str(char **tab);
 void	clear_str_tab(char **tab);
 void	trim_split(char **tab);
+char	*ft_str_dup_cub(char *str, t_list *garb_c);
+
+
+//Function for test
+
+
+void	display_tab(char	**split);
 
 #endif

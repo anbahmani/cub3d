@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/15 18:51:04 by raaga            ###   ########.fr       */
+/*   Updated: 2022/09/21 17:50:14 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,9 @@ typedef struct s_map_data
 int		get_next_line(int fd, char **line);
 char	*ft_substr_gnl(char *s, unsigned int start, size_t len, int f);
 char	*ft_strjoin_gnl(char *s1, char *s2);
+
+/* ray_casting.c*/
+
+int main_loop(void);
 
 #endif

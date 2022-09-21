@@ -15,6 +15,7 @@ vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 # library -----------------------------------------------------------
 
 SRC			= 	cub3d.c \
+				ray_casting.c \
 
 OBJ			=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 

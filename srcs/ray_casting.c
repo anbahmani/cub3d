@@ -14,8 +14,8 @@
 
 #define mapWidth 24
 #define mapHeight 24
-#define screenWidth 1080
-#define screenHeight 720
+#define width 1920
+#define height 1080
 
 int worldMap[mapWidth][mapHeight]=
 {
@@ -45,70 +45,72 @@ int worldMap[mapWidth][mapHeight]=
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
-int main_loop(void)
+void    print_line(t_win *data, int x, int y1, int y2, int color)
 {
-	t_win mlx;
-	double posX = 22;
-	double posY = 12;
-	double dirX = -1;
-	double dirY = 0;
-	double planeX = 0;
-	double planeY = 0.66;
-	
-	double time = 0;
-	double oldTime = 0;
+    int y;
 
+    y = y1;
+	   
+	while (y <= y2)
+    {
+        my_mlx_pixel_put(data,  x, y, color);
+        y++;
+    }
+}
+
+int calcul(t_win *mlx)
+{	
 	int x = 0;
-	int w;
 	
-	mlx.mlx = mlx_init();
-	mlx.mlx_win = mlx_new_window(mlx.mlx, screenWidth, screenHeight, "cub3d");
-	while (1)
-	{
-		while (x < 1080)
+		while (x < width)
 		{
-			double cameraX = 2 * x / double(w) -1;
-			double rayDirX = dirX + planeX * cameraX;
-			double rayDirY = dirY + planeY * cameraY;
+			double cameraX = 2 * x / (double)width - 1;
+			double rayDirX = mlx->perso.dirX + mlx->perso.planeX * cameraX;
+			double rayDirY = mlx->perso.dirY + mlx->perso.planeY * cameraX;
 
-			int mapX = int(posX);
-			int mapY = int(posY);
+			int mapX = (int)mlx->perso.posX;
+			int mapY = (int)mlx->perso.posY;
+
+			//length of ray from current position to next x or y-side
 			double sideDistX;
 			double sideDistY;
 
-			double deltaDistX = sqrt(1 + (rayDirY * rayDirY)/ (rayDirX * rayDirX));
-			double deltaDistY = sqrt(1 + (rayDirX * rayDirX)/ (rayDirY * rayDirY));
+			 //length of ray from one x or y-side to next x or y-side
+			double deltaDistX = fabs(1 / rayDirX);
+			double deltaDistY = fabs(1 / rayDirY);
 			double perpWallDist;
 
+			//what direction to step in x or y-direction (either +1 or -1)
 			int stepX;
 			int stepY;
 
-			int hit = 0;
-			int side ;
+			int hit = 0; //was there a wall hit?
+			int side; //was a NS or a EW wall hit?
 
 			if (rayDirX < 0)
 			{
 				stepX = -1;
-				sideDistX = (posX - mapX) * deltaDistX;
+				sideDistX = (mlx->perso.posX - mapX) * deltaDistX;
 			}
 			else
 			{
 				stepX = 1;
-				sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+				sideDistX = (mapX + 1.0 - mlx->perso.posX) * deltaDistX;
 			}
 			if (rayDirY < 0)
 			{
 				stepY = -1;
-				sideDistY = (posY - mapY) * deltaDistY;
+				sideDistY = (mlx->perso.posY - mapY) * deltaDistY;
 			}
 			else
 			{
 				stepY = 1;
-				sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+				sideDistY = (mapY + 1.0 - mlx->perso.posY) * deltaDistY;
 			}
+
 			while (hit == 0)
 			{
-				//jump to next map square, either in x-direction, or in y-direction
+				//jump to next map square, OR in x-direction, OR in y-direction
 				if (sideDistX < sideDistY)
 				{
 					sideDistX += deltaDistX;
@@ -122,52 +124,89 @@ int main_loop(void)
 					side = 1;
 				}
 				//Check if ray has hit a wall
-				if (worldMap[mapX][mapY] > 0)
-					hit = 1;
-				if(side == 0) 
-					perpWallDist = (sideDistX - deltaDistX);
-      			else          
-					perpWallDist = (sideDistY - deltaDistY);
-					
-				int lineHeight = (int)(h / perpWallDist);
-				int drawStart = -lineHeight / 2 + h / 2;
-				if(drawStart < 0)
-					drawStart = 0;
-				int drawEnd = lineHeight / 2 + h / 2;
-				if(drawEnd >= h)
-					drawEnd = h - 1;
-				ColorRGB color;
-				switch(worldMap[mapX][mapY])
-				{
-					case 1:  color = RGB_Red;  break; //red
-					case 2:  color = RGB_Green;  break; //green
-					case 3:  color = RGB_Blue;   break; //blue
-					case 4:  color = RGB_White;  break; //white
-					default: color = RGB_Yellow; break; //yellow
-				}
+				if (worldMap[mapX][mapY] > 0) hit = 1;
+			}
+			if (side == 0)
+				perpWallDist = (mapX - mlx->perso.posX + (1 - stepX) / 2) / rayDirX;
+			else
+				perpWallDist = (mapY - mlx->perso.posY + (1 - stepY) / 2) / rayDirY;
 
-				//give x and y sides different brightness
-				if (side == 1) {color = color / 2;}
+			//Calculate height of line to draw on screen
+			int lineHeight = (int)(height / perpWallDist);
 
-				//draw the pixels of the stripe as a vertical line
-				verLine(x, drawStart, drawEnd, color);
-			} 
-			   	oldTime = time;
-   				time = getTicks();
-   				double frameTime = (time - oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
-   				print(1.0 / frameTime); //FPS counter
-   				redraw();
-   				cls();
-			
-   				//speed modifiers
-   				double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
-   				double rotSpeed = frameTime * 3.0;
+			//calculate lowest and highest pixel to fill in current stripe
+			int drawStart = -lineHeight / 2 + height / 2;
+			if(drawStart < 0)
+				drawStart = 0;
+			int drawEnd = lineHeight / 2 + height / 2;
+			if(drawEnd >= height)
+				drawEnd = height - 1;
+
+			int	color;
+			if (worldMap[mapY][mapX] == 1)
+				color = 0xFF0000;
+			else if (worldMap[mapY][mapX] == 2)
+				color = 0x00FF00;
+			else if (worldMap[mapY][mapX] == 3)
+				color = 0x0000FF;
+			else if (worldMap[mapY][mapX] == 4)
+				color = 0xFFFFFF;
+			else
+				color = 0xFFFF00;
+
+			if (side == 1)
+				color = color / 2;
+
+			print_line(mlx, x, drawStart, drawEnd, color);
+
+			x++;
 		}
+	
+	return (0);
+}
 
-			
-		
+int	key_press(int key, t_win *mlx)
+{
+	fprintf(stderr, "lslslsl %d\n", key);
+	if (key == 119)
+	{
+		if (!worldMap[(int)(mlx->perso.posX + mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
+			mlx->perso.posX += mlx->perso.dirX * mlx->perso.moveSpeed;
+		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY + mlx->perso.dirY * mlx->perso.moveSpeed)])
+			mlx->perso.posY += mlx->perso.dirY * mlx->perso.moveSpeed;
+	}
+	//move backwards if no wall behind you
+	if (key == 115)
+	{
+		if (!worldMap[(int)(mlx->perso.posX - mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
+			mlx->perso.posX -= mlx->perso.dirX * mlx->perso.moveSpeed;
+		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY - mlx->perso.dirY * mlx->perso.moveSpeed)])
+			mlx->perso.posY -= mlx->perso.dirY * mlx->perso.moveSpeed;
+	}
+	//rotate to the right
+	if (key == 100)
+	{
+		//both camera direction and camera plane must be rotated
+		double oldDirX = mlx->perso.dirX;
+		mlx->perso.dirX = mlx->perso.dirX * cos(-mlx->perso.rotSpeed) - mlx->perso.dirY * sin(-mlx->perso.rotSpeed);
+		mlx->perso.dirY = oldDirX * sin(-mlx->perso.rotSpeed) + mlx->perso.dirY * cos(-mlx->perso.rotSpeed);
+		double oldPlaneX = mlx->perso.planeX;
+		mlx->perso.planeX = mlx->perso.planeX * cos(-mlx->perso.rotSpeed) - mlx->perso.planeY * sin(-mlx->perso.rotSpeed);
+		mlx->perso.planeY = oldPlaneX * sin(-mlx->perso.rotSpeed) + mlx->perso.planeY * cos(-mlx->perso.rotSpeed);
+	}
+	//rotate to the left
+	if (key == 97)
+	{
+		//both camera direction and camera plane must be rotated
+		double oldDirX = mlx->perso.dirX;
+		mlx->perso.dirX = mlx->perso.dirX * cos(mlx->perso.rotSpeed) - mlx->perso.dirY * sin(mlx->perso.rotSpeed);
+		mlx->perso.dirY = oldDirX * sin(mlx->perso.rotSpeed) + mlx->perso.dirY * cos(mlx->perso.rotSpeed);
+		double oldPlaneX = mlx->perso.planeX;
+		mlx->perso.planeX = mlx->perso.planeX * cos(mlx->perso.rotSpeed) - mlx->perso.planeY * sin(mlx->perso.rotSpeed);
+		mlx->perso.planeY = oldPlaneX * sin(mlx->perso.rotSpeed) + mlx->perso.planeY * cos(mlx->perso.rotSpeed);
+	}
 	
-	
-	mlx_loop(mlx.mlx);
+	if (key == 53)
+		exit(0);
 	return (0);
 }

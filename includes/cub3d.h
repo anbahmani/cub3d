@@ -19,6 +19,9 @@
 # include "../lib/minilibx/mlx.h"
 # include <math.h>
 
+#define X_EVENT_KEY_PRESS	2
+#define X_EVENT_KEY_EXIT	17
+
 typedef struct s_data
 {
 	void	*img;
@@ -27,6 +30,18 @@ typedef struct s_data
 	int		line_length;
 	int		endian;
 }	t_data;
+
+typedef struct s_perso
+{
+	double posX;
+	double posY;
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+	double moveSpeed;
+	double rotSpeed;
+}				t_perso;
 
 typedef struct s_win
 {
@@ -39,8 +54,10 @@ typedef struct s_win
 	int		size;
 	int		height_map;
 	int		width_map;
+	t_perso perso;
 	t_data	data;
 }	t_win;
+
 
 
 typedef struct s_pos
@@ -76,6 +93,12 @@ char	*ft_strjoin_gnl(char *s1, char *s2);
 
 /* ray_casting.c*/
 
-int main_loop(void);
+int calcul(t_win *mlx);
+void    print_line(t_win *data, int x, int y1, int y2, int color);
+int	key_press(int key, t_win *mlx);
+
+/* cub3d.c */
+
+void	my_mlx_pixel_put(t_win *mlx, int x, int y, int color);
 
 #endif

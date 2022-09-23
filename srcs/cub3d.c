@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/23 20:20:48 by raaga            ###   ########.fr       */
+/*   Updated: 2022/09/23 21:40:49 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,16 @@ int	main(int ac, char **av)
 	mlx.perso.dirY = 0;
 	mlx.perso.planeX = 0;
 	mlx.perso.planeY = 0.66;
-    mlx.perso.moveSpeed = 0.05;
-	mlx.perso.rotSpeed = 0.05;
+    mlx.perso.moveSpeed = 0.17;
+	mlx.perso.rotSpeed = 0.14;
 
 	mlx.mlx_win = mlx_new_window(mlx.mlx, screenWidth, screenHeight, "cub3d");
    // mlx.data.img = mlx_new_image(mlx.mlx, 1920, 1080);
     //mlx.data.addr = mlx_get_data_addr(mlx.data.img, &mlx.data.bits_per_pixel, &mlx.data.line_length, &mlx.data.endian);
 
     mlx_loop_hook(mlx.mlx, &main_loop, &mlx);
-    mlx_hook(mlx.mlx_win, 3, 1L << 0, &key_press, &mlx);
+    mlx_hook(mlx.mlx_win, 2, 1L << 0, &key_press, &mlx);
+    mlx_hook(mlx.mlx_win, 2, 1L << 0, &key_press, &mlx);
     
     mlx_loop(mlx.mlx);
 }

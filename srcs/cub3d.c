@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/23 19:57:32 by raaga            ###   ########.fr       */
+/*   Updated: 2022/09/23 20:20:48 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	main_loop(t_win *mlx)
 	calcul(mlx);
     mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->data.img, 0, 0);
     mlx_destroy_image(mlx->mlx, mlx->data.img);
-
 	return (0);
 }
 
@@ -64,7 +63,7 @@ int	main(int ac, char **av)
     //mlx.data.addr = mlx_get_data_addr(mlx.data.img, &mlx.data.bits_per_pixel, &mlx.data.line_length, &mlx.data.endian);
 
     mlx_loop_hook(mlx.mlx, &main_loop, &mlx);
-    mlx_key_hook(mlx.mlx_win, &key_press, &mlx);
+    mlx_hook(mlx.mlx_win, 3, 1L << 0, &key_press, &mlx);
     
     mlx_loop(mlx.mlx);
 }

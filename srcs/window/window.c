@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arg_error.c                                        :+:      :+:    :+:   */
+/*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/11 17:56:12 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/24 01:16:28 by abahmani         ###   ########.fr       */
+/*   Created: 2022/09/24 04:08:04 by abahmani          #+#    #+#             */
+/*   Updated: 2022/09/24 04:08:07 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_arg_number_error(int argc, t_list *garb_c)
+void    win(char *map_name)
 {
-	if (argc < 2)
-	{
-		quit_error(TOO_FEW_ARG_ERROR, garb_c);
-		return (0);
-	}
-	else if (argc > 2)
-	{
-		quit_error(TOO_MUCH_ARG_ERROR, garb_c);
-		return (0);
-	}
-	return (1);
+    t_win   mlx;
+    (void)map_name;
+
+    mlx.mlx = mlx_init();
+    mlx.win = mlx_new_window(mlx.mlx, 500, 800, "cub3d");
 }

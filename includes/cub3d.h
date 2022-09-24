@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/17 18:49:00 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/24 04:05:04 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,25 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include "libft.h"
+# include "mlx.h"
 
 /*-------------------------------ERROR DEFINE---------------------------------*/
 
 # define FD_ERROR "An error occured during the file opening."
 # define MALLOC_ERROR "An error occured during the memory allocation."
+# define TOO_MUCH_ARG_ERROR "There is too much argument."
+# define TOO_FEW_ARG_ERROR "There is too few argument."
+# define INCORRECT_FILE_NAME_ERROR "The input file name is incorrect."
+# define FILE_NOT_EXIST_ERROR "The input file doesn't exist."
+# define FILE_IS_DIR_ERROR "The input file is a directory."
+# define FILE_IS_SYM_LINK "The input file is a symbolic link."
+
+/*-------------------------------KEY EVENT DEFINE-----------------------------*/
+
+# define X_EVENT_KEY_PRESS	2
+# define X_EVENT_KEY_EXIT	17
 
 /*---------------------------------STRUCTURE----------------------------------*/
-
-//Unuse
-/*
-typedef enum s_texture
-{
-	NO,
-	SO,
-	WE,
-	EA,
-}	t_texture;*/
 
 typedef struct s_img
 {
@@ -47,11 +49,40 @@ typedef struct s_img
 	int		*colors;
 }	t_img;
 
-typedef struct s_pos
+typedef struct s_data
 {
-	int	x;
-	int	y;
-}	t_pos;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_data;
+
+typedef struct s_win
+{
+	void	*mlx;
+	void	*mlx_win;
+	void	*mlx_img;
+	int		height;
+	int		width;
+	char	*str;
+	int		size;
+	int		height_map;
+	int		width_map;
+	t_data	data;
+}	t_win;
+
+typedef struct s_perso
+{
+	double posX;
+	double posY;
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+	double moveSpeed;
+	double rotSpeed;
+} t_perso;
 
 typedef struct s_rgb
 {
@@ -78,14 +109,14 @@ typedef struct s_map_data
 	char	*west_text;
 	t_rgb	floor_rgb;
 	t_rgb	ceiling_rgb;
-	t_pos	player;
+	t_perso	player;
 }	t_map_data;
 
 typedef struct s_engine
 {
-	t_map_data	map;
-	t_ihm		mlx_data;
-	t_list		garbage_coll;
+	t_map_data	*map_data;
+	t_win		mlx_data;
+	t_list		*garbage_coll;
 }	t_engine;
 
 /*-------------------------------GET NEXT LINE--------------------------------*/
@@ -97,12 +128,12 @@ char	*ft_strjoin_gnl(char *s1, char *s2);
 /*-------------------------------ERROR CHECKING-------------------------------*/
 
 void	print_error(char *msg);
-int		check_error(int ac, char **av);
-int		check_input_file_error(char const *file_name);
+int		check_error(int ac, char **av, t_list *garb_c);
+int		check_input_file_error(char const *file_name, t_list *garb_c);
 int		open_img_xpm(char *texture_name, t_engine *engine);
 void	check_text_file_error(t_engine *engine);
 void	quit_error(char *msg, t_list *garb_c);
-int		check_arg_number_error(int argc);
+int		check_arg_number_error(int argc, t_list *garb_c);
 
 
 /*-----------------------------GARBAGE COLLECTOR------------------------------*/
@@ -121,8 +152,16 @@ void	set_color(t_rgb *colors, char **split);
 t_rgb	get_color(char *line, t_list *garb_coll);
 void	set_color(t_rgb *colors, char **split);
 int		count_file_line(char const *file_name, t_list *garb_c);
-char	**copy_tab(char **tab, t_list *garb_c);
 
+/*--------------------------------RAYCASTING----------------------------------*/
+
+int		calcul(t_win *mlx);
+void	print_line(t_win *data, int x, int y1, int y2, int color);
+int		key_press(int key, t_win *mlx);
+
+/*--------------------------------DISPLAYING----------------------------------*/
+
+void	my_mlx_pixel_put(t_win *mlx, int x, int y, int color);
 
 /*----------------------------------UTILS-------------------------------------*/
 

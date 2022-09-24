@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:58:53 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/11 17:59:13 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/24 01:28:20 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,26 +63,26 @@ static int	check_input_not_symbolic_link(char const *file_name)
 	return (1);
 }
 
-int	check_input_file_error(char const *file_name)
+int	check_input_file_error(char const *file_name, t_list *garb_c)
 {
 	if (!check_input_file_name(file_name))
 	{
-		print_error("Le nom du fichier est incorrecte.");
+		quit_error(INCORRECT_FILE_NAME_ERROR, garb_c);
 		return (0);
 	}
 	if (!check_input_file_existing(file_name))
 	{
-		print_error("Le fichier entré est inexistant.\n");
+		quit_error(FILE_NOT_EXIST_ERROR, garb_c);
 		return (0);
 	}
 	if (!check_input_not_directory(file_name))
 	{
-		print_error("Le fichier entré est un dossier.");
+		quit_error(FILE_IS_DIR_ERROR, garb_c);
 		return (0);
 	}
 	if (!check_input_not_symbolic_link(file_name))
 	{
-		print_error("Le fichier entré est un lien symbolique.");
+		quit_error(FILE_IS_SYM_LINK, garb_c);
 		return (0);
 	}
 	return (1);

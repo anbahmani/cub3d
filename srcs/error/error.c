@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 09:33:54 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/14 19:30:20 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/24 01:22:19 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ void	quit_error(char *msg, t_list *garb_c)
 	exit(1);
 }
 
-int		check_error(int ac, char **av)
+int		check_error(int ac, char **av, t_list *garb_c)
 {
-	if (!check_arg_number_error(ac) || !check_input_file_error(av[1]))
+	if (!check_arg_number_error(ac, garb_c)
+		|| !check_input_file_error(av[1], garb_c))
 		return (1);
 	return (0);
 }

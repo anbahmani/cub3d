@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 22:44:28 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/17 18:48:10 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/24 01:35:39 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,12 @@ char	**get_map(int start, const char *file_name, t_list *garb_c)
 	while (get_next_line(fd, &line) != -1)
 	{
 		map[i] = line;
+		ft_lstadd_back(&garb_c, ft_lstnew(line));
 		i++;
 	}
 	map[i] = NULL;
 	close(fd);
-	return (copy_tab(map, garb_c));
+	return (map);
 }
 
 void	find_map(const char *file_name, t_map_data *data, t_list *garb_c)
@@ -102,7 +103,7 @@ void	find_map(const char *file_name, t_map_data *data, t_list *garb_c)
 			break ;
 		i++;
 	}
-	while (get_next_line(fd, &line))
+	while (get_next_line(fd, &line) != -1)
 		ft_lstadd_back(&garb_c, ft_lstnew(line));
 	close(fd);
 	data->map = get_map(i, file_name, garb_c);

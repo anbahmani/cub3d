@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 10:45:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/17 18:41:30 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/24 01:36:40 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,31 +82,3 @@ void	del_last_empty_str(char **tab, t_list *garb_c)
 	tab = ft_tabncpy(tab, nb_str - empty_str, garb_c);
 }
 
-char	**copy_tab(char **tab, t_list *garb_c)
-{
-	char	**new;
-	int		i;
-
-	new = tab;
-	i = 0;
-	while(tab[i])
-	{
-		new[i] = tab[i];
-		ft_lstadd_back(&garb_c, ft_lstnew(new[i]));
-		i++;
-	}
-	new[i] = NULL;
-	//clear_str_tab(tab);
-	return (new);
-}
-//function made for test - TODO : del before pushing for evaluation
-void	display_tab(char **split)
-{
-	int i = 0;
-
-	while (split[i])
-	{
-		printf("split[%d] = \t%s\n", i, split[i]);
-		i++;
-	}
-}

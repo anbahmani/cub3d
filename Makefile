@@ -5,14 +5,15 @@ CC          	=   gcc
 SRC_DIR			= 	$(shell find srcs -type d) \
 
 INC_DIR			= 	$(shell find includes -type d) \
-					$(shell find lib/libft -type d) #$(shell find lib/minilibx -type d) \
+					$(shell find lib/libft -type d) \
+					$(shell find lib/minilibx -type d) \
 
 
 INCSDIR			=	includes
 
 OBJ_DIR			=	obj
 
-LIB_DIR			= lib/libft/ #lib/minilibx
+LIB_DIR			= lib/libft/ lib/minilibx
 
 vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 
@@ -21,7 +22,8 @@ vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 SRC			= 	cub3d.c \
 				get_next_line.c get_next_line_utils.c \
 				get_file_data.c get_map.c garbage_collector.c str_tools.c \
-				tab_tools.c digit_tools.c arg_error.c error.c input_file_error.c 
+				tab_tools.c digit_tools.c arg_error.c error.c 
+				input_file_error.c raycasting.c init.c map_element.c \
 				
 #texture_file_error.c
 
@@ -47,15 +49,14 @@ all:
 install:
 	@make -C lib/libft bonus
 
-# @make -C lib/minilibx
+ @make -C lib/minilibx
 
 re-install:
 	@$(foreach dir, $(LIB_DIR), make -C $(dir) re;)
 
 fclean-install:
 	@make -C lib/libft fclean
-
-# @make -C lib/minilibx clean
+	@make -C lib/minilibx clean
 
 show:
 	@echo "SRC :\n$(SRC)"

@@ -6,39 +6,35 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 18:00:05 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/14 16:40:10 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/24 06:25:34 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	open_img_xpm(char *texture_name, t_engine *engine)
+static void	open_img_xpm(char *texture_name, t_engine *engine)
 {
 	void	*tmp;
 	int		width;
 	int		height;
 	char	*msg;
 
-	tmp = mlx_xpm_file_to_image(engine->mlx_data.mlx, texture_name,
+	tmp = mlx_xpm_file_to_image(engine->mlx_data->mlx, texture_name,
 			&height, &width);
 	if (!tmp)
 	{
-		msg = ft_strjoin("Le fichier texture est errone : ", texture_name);
-		print_error(msg);
-		free(msg);
-		return (0);
+		mlx_destroy_image(engine->mlx_data->mlx, tmp);
+		msg = ft_strjoin(TEXTURE_FILE_ERROR, texture_name);
+		ft_lstadd_back(&engine->garbage_coll, ft_lstnew(msg));
+		quit_error(msg, engine->garbage_coll);
 	}
-	mlx_destroy_image(engine->mlx_data.mlx, tmp);
-	return (1);
+	mlx_destroy_image(engine->mlx_data->mlx, tmp);
 }
 
 void	check_text_file_error(t_engine *engine)
 {
-	if (!open_img_xpm(engine->map.north_text, engine)
-		|| !open_img_xpm(engine->map.south_text, engine)
-		|| !open_img_xpm(engine->map.east_text, engine)
-		|| !open_img_xpm(engine->map.west_text, engine))
-	{
-		end_game(engine);
-	}
+	open_img_xpm(engine->map_data->north_text, engine);
+	open_img_xpm(engine->map_data->south_text, engine);
+	open_img_xpm(engine->map_data->east_text, engine);
+	open_img_xpm(engine->map_data->west_text, engine);
 }

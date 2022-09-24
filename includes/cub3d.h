@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/24 04:05:04 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/24 06:23:15 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,34 @@
 # define TOO_MUCH_ARG_ERROR "There is too much argument."
 # define TOO_FEW_ARG_ERROR "There is too few argument."
 # define INCORRECT_FILE_NAME_ERROR "The input file name is incorrect."
-# define FILE_NOT_EXIST_ERROR "The input file doesn't exist."
+# define FILE_NOT_EXIST_ERROR "The input file does not exist."
 # define FILE_IS_DIR_ERROR "The input file is a directory."
 # define FILE_IS_SYM_LINK "The input file is a symbolic link."
+# define TEXTURE_FILE_ERROR "This texture file is not correctly filled : "
 
 /*-------------------------------KEY EVENT DEFINE-----------------------------*/
 
 # define X_EVENT_KEY_PRESS	2
 # define X_EVENT_KEY_EXIT	17
+
+/*-------------------------------MAP DATA DEFINE------------------------------*/
+/*
+# define mapWidth 24
+# define mapHeight 24
+# define width 1920
+# define height 1080
+*/
+/*----------------------------SCREEN DATA DEFINE------------------------------*/
+
+# define SCREEN_WIDTH 1920
+# define SCREEN_HEIGHT 1080
+
+/*----------------------------PERSO CONFIG DEFINE-----------------------------*/
+
+# define PERSO_MOVEMENT_SPEED 0.17
+# define PERSO_ROTATION_SPEED 0.14
+# define PERSO_PLANE_X 0
+# define PERSO_PLANE_Y 0.66
 
 /*---------------------------------STRUCTURE----------------------------------*/
 
@@ -91,12 +111,14 @@ typedef struct s_rgb
 	int	blue;
 }	t_rgb;
 
+/*
 typedef struct s_ihm
 {
 	void	*mlx;
 	void	*mlx_win;
 	t_img	img;
 }	t_ihm;
+*/
 
 typedef struct s_map_data
 {
@@ -115,7 +137,7 @@ typedef struct s_map_data
 typedef struct s_engine
 {
 	t_map_data	*map_data;
-	t_win		mlx_data;
+	t_win		*mlx_data;
 	t_list		*garbage_coll;
 }	t_engine;
 
@@ -130,7 +152,6 @@ char	*ft_strjoin_gnl(char *s1, char *s2);
 void	print_error(char *msg);
 int		check_error(int ac, char **av, t_list *garb_c);
 int		check_input_file_error(char const *file_name, t_list *garb_c);
-int		open_img_xpm(char *texture_name, t_engine *engine);
 void	check_text_file_error(t_engine *engine);
 void	quit_error(char *msg, t_list *garb_c);
 int		check_arg_number_error(int argc, t_list *garb_c);
@@ -159,9 +180,11 @@ int		calcul(t_win *mlx);
 void	print_line(t_win *data, int x, int y1, int y2, int color);
 int		key_press(int key, t_win *mlx);
 
-/*--------------------------------DISPLAYING----------------------------------*/
+/*------------------------------------IHM-------------------------------------*/
 
 void	my_mlx_pixel_put(t_win *mlx, int x, int y, int color);
+void	init_ihm(t_win *mlx_data);
+int		main_loop(t_engine eng);
 
 /*----------------------------------UTILS-------------------------------------*/
 
@@ -171,6 +194,7 @@ int		count_str(char **tab);
 void	clear_str_tab(char **tab);
 void	trim_split(char **tab);
 char	*ft_str_dup_cub(char *str, t_list *garb_c);
+int		is_orientation_char(char c);
 
 
 //Function for test

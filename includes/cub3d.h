@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/24 06:23:15 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/24 15:49:29 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int		check_input_file_error(char const *file_name, t_list *garb_c);
 void	check_text_file_error(t_engine *engine);
 void	quit_error(char *msg, t_list *garb_c);
 int		check_arg_number_error(int argc, t_list *garb_c);
-
+int		check_number_player(char **map);
 
 /*-----------------------------GARBAGE COLLECTOR------------------------------*/
 

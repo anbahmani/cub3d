@@ -13,7 +13,7 @@ INCSDIR			=	includes
 
 OBJ_DIR			=	obj
 
-LIB_DIR			= lib/libft/ lib/minilibx
+LIB_DIR			= lib/libft lib/minilibx
 
 vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 
@@ -22,8 +22,8 @@ vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 SRC			= 	cub3d.c \
 				get_next_line.c get_next_line_utils.c \
 				get_file_data.c get_map.c garbage_collector.c str_tools.c \
-				tab_tools.c digit_tools.c arg_error.c error.c 
-				input_file_error.c raycasting.c init.c map_element.c \
+				tab_tools.c digit_tools.c arg_error.c error.c texture_file_error.c \
+				input_file_error.c init.c map_element.c \
 				
 #texture_file_error.c
 
@@ -34,7 +34,7 @@ DEPS		= 	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.d))
 
 # Compilation flags -------------------------------------------------
 
-CFLAGS		=	-Wall -Wextra -Werror -I ${INCSDIR}
+CFLAGS		=	-Wall -Wextra -Werror -I ${INCSDIR}  -g3
 
 IFLAGS		=	$(foreach dir, $(LIB_DIR), -I $(dir))
 
@@ -48,8 +48,7 @@ all:
 
 install:
 	@make -C lib/libft bonus
-
- @make -C lib/minilibx
+	@make -C lib/minilibx
 
 re-install:
 	@$(foreach dir, $(LIB_DIR), make -C $(dir) re;)
@@ -70,7 +69,7 @@ show:
 $(NAME): $(OBJ)
 	@echo "-----\nCreating Binary File $@ ... \c"
 	make install
-	@$(CC) $(CFLAGS) $(LFLAGS) $^ -o $@ ./lib/libft/libft.a
+	@$(CC) $(CFLAGS) $(LFLAGS) $^ -o $@ ./lib/libft/libft.a ./lib/minilibx/libmlx_Linux.a -lm -lXext -lX11
 	@echo "DONE\n-----"
 
 -include	${DEPS}

@@ -6,13 +6,13 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 17:57:42 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/14 19:15:18 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/25 16:50:37 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_malloc_gnl(unsigned int start, size_t len, size_t size)
+static char	*ft_malloc_substr(unsigned int start, size_t len, size_t size)
 {
 	char	*ptr;
 
@@ -38,7 +38,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	if (!s)
 		return (0);
-	ptr = ft_malloc_gnl(start, len, size);
+	ptr = ft_malloc_substr(start, len, size);
 	if (!ptr)
 		return (NULL);
 	while (start + i < size && s[start + i] && i < len)

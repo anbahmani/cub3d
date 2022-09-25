@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/24 15:49:29 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:48:47 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ int		key_press(int key, t_win *mlx);
 
 void	my_mlx_pixel_put(t_win *mlx, int x, int y, int color);
 void	init_ihm(t_win *mlx_data);
-int		main_loop(t_engine eng);
+int		main_loop(t_win *mlx);
 
 /*----------------------------------UTILS-------------------------------------*/
 
@@ -195,11 +195,6 @@ void	clear_str_tab(char **tab);
 void	trim_split(char **tab);
 char	*ft_str_dup_cub(char *str, t_list *garb_c);
 int		is_orientation_char(char c);
-
-
-//Function for test
-
-
-void	display_tab(char	**split);
+void	fill_map(t_map_data *data, t_list *garb_c);
 
 #endif

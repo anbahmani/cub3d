@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/21 17:50:14 by raaga            ###   ########.fr       */
+/*   Updated: 2022/09/26 18:55:39 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include "../lib/libft/libft.h"
 # include "../lib/minilibx/mlx.h"
 # include <math.h>
 
-#define X_EVENT_KEY_PRESS	2
-#define X_EVENT_KEY_EXIT	17
+# define screenWidth 1920
+# define screenHeight 1080
+# define X_EVENT_KEY_PRESS	2
+# define X_EVENT_KEY_EXIT	17
 
 typedef struct s_data
 {

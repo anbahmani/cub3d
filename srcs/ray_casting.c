@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:12:11 by raaga             #+#    #+#             */
-/*   Updated: 2022/09/21 20:20:01 by raaga            ###   ########.fr       */
+/*   Updated: 2022/09/26 20:23:53 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,8 +156,9 @@ int calcul(t_win *mlx)
 
 			if (side == 1)
 				color = color / 2;
-
+			print_line(mlx, x, 0, drawStart, 2552456);
 			print_line(mlx, x, drawStart, drawEnd, color);
+			print_line(mlx, x,drawEnd, screenHeight, 0xFFCC66);
 
 			x++;
 		}

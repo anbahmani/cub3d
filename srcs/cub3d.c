@@ -6,13 +6,12 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/23 21:40:49 by raaga            ###   ########.fr       */
+/*   Updated: 2022/09/26 21:00:33 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-#define screenWidth 1920
-#define screenHeight 1080
+
 
 void    win(t_win mlx)
 {
@@ -40,15 +39,92 @@ int	main_loop(t_win *mlx)
 	return (0);
 }
 
+
+char    to_lower(char c)
+{
+    if (c >= 'A' && c <= 'Z')
+        return (c + ('a' - 'A'));
+    return (c);
+}
+ 
+int     get_digit(char c, int digits_in_base)
+{
+    int max_digit;
+    if (digits_in_base <= 10)
+        max_digit = digits_in_base + '0';
+    else
+        max_digit = digits_in_base - 10 + 'a';
+ 
+    if (c >= '0' && c <= '9' && c <= max_digit)
+        return (c - '0');
+    else if (c >= 'a' && c <= 'f' && c <= max_digit)
+        return (10 + c - 'a');
+    else
+        return (-1);
+}
+ 
+int     ft_atoi_base(const char *str, int str_base)
+{
+    int result = 0;
+    int sign = 1;
+    int digit;
+ 
+    if (*str == '-')
+    {
+        sign = -1;
+        ++str;
+    }
+ 
+    while ((digit = get_digit(to_lower(*str), str_base)) >= 0)
+    {
+        result = result * str_base;
+        result = result + (digit * sign);
+        ++str;
+    }
+    return (result);
+}
+
+
+char int_to_hexa(int nb)
+{
+    char *base;
+    char color;
+    
+    base = malloc(sizeof(char) * 16);
+    base = "0123456789ABCDEF";
+    color = base[nb % 16];
+    free(base);
+    return (color);
+}
+
+int rgb_to_hexa(t_rgb rgb)
+{
+    char hexa[6];
+    int x = rgb.red;
+    int y = rgb.green;
+    int z = rgb.blue;
+    
+    
+    hexa[0] = int_to_hexa(x/16);
+    hexa[1] = int_to_hexa(x);
+    hexa[2] = int_to_hexa(y/16);
+    hexa[3] = int_to_hexa(y);
+    hexa[4] = int_to_hexa(z/16);
+    hexa[5] = int_to_hexa(z);
+    hexa[6] = '\0';
+    
+    return(ft_atoi_base(hexa, 16));
+}
+
 int	main(int ac, char **av)
 {
     t_win mlx;
+    t_map_data data;
     (void)ac;
     (void)av;
 
 
     mlx.mlx = mlx_init();
-
     mlx.perso.posX = 12;
 	mlx.perso.posY = 5;
 	mlx.perso.dirX = -1;
@@ -58,6 +134,7 @@ int	main(int ac, char **av)
     mlx.perso.moveSpeed = 0.17;
 	mlx.perso.rotSpeed = 0.14;
 
+    rgb_to_hexa(data->floor_rgb);
 	mlx.mlx_win = mlx_new_window(mlx.mlx, screenWidth, screenHeight, "cub3d");
    // mlx.data.img = mlx_new_image(mlx.mlx, 1920, 1080);
     //mlx.data.addr = mlx_get_data_addr(mlx.data.img, &mlx.data.bits_per_pixel, &mlx.data.line_length, &mlx.data.endian);

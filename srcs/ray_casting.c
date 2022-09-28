@@ -174,7 +174,7 @@ int calcul(t_win *mlx)
 			for (int z = 0; z < drawStart; z++)
 			{
 				// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-				mlx->buf[z][x] = 0xFFCC66;
+				mlx->buf[z][x] = 0xAAFFFF;
 				mlx->re_buf = 1;
 			}
 			for (int t = drawEnd; t < screenHeight; t++)

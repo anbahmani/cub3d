@@ -34,13 +34,8 @@ void	my_mlx_pixel_put(t_win *mlx, int x, int y, int color)
 
 int	main_loop(t_win *mlx)
 {
-    //mlx->data.img = mlx_new_image(mlx->mlx, 1920, 1080);
-    //mlx->data.addr = mlx_get_data_addr(mlx->data.img, &mlx->data.bits_per_pixel, &mlx->data.line_length, &mlx->data.endian);
 	calcul(mlx);
 	draw(mlx);
-
-    //mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->data.img, 0, 0);
-    //mlx_destroy_image(mlx->mlx, mlx->data.img);
 	return (0);
 }
 
@@ -84,7 +79,6 @@ int	main(int ac, char **av)
 			mlx.texture[i][j] = 0;
 		}
 	}
-	fprintf(stderr, "lalalalal\n");
 	load_texture(&mlx);
 
 	mlx.perso.moveSpeed = 0.17;
@@ -93,12 +87,8 @@ int	main(int ac, char **av)
 	mlx.mlx_win = mlx_new_window(mlx.mlx, screenWidth, screenHeight, "cub3d");
     mlx.data.img = mlx_new_image(mlx.mlx, 1920, 1080);
     mlx.data.data = (int *)mlx_get_data_addr(mlx.data.img, &mlx.data.bits_per_pixel, &mlx.data.line_length, &mlx.data.endian);
-    fprintf(stderr, "lalalaladsadasdasl\n");
 	mlx_loop_hook(mlx.mlx, &main_loop, &mlx);
 
     mlx_hook(mlx.mlx_win, 2, 1L << 0, &key_press, &mlx);
-		//mlx_destroy_image(mlx.mlx, mlx.data.img);
-	fprintf(stderr, "lalalaladsadasdasl\n");
-    
     mlx_loop(mlx.mlx);
 }

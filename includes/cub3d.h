@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/26 18:55:39 by raaga            ###   ########.fr       */
+/*   Updated: 2022/09/28 18:43:15 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,22 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include "../lib/libft/libft.h"
 # include "../lib/minilibx/mlx.h"
 # include <math.h>
+# include <strings.h>
 
-#define X_EVENT_KEY_PRESS	2
-#define X_EVENT_KEY_EXIT	17
-#define screenWidth 1920
-#define screenHeight 1080
-#define texWidth 64
-#define texHeight 64
+# define X_EVENT_KEY_PRESS 2
+# define X_EVENT_KEY_EXIT 17
+# define screenWidth 1920
+# define screenHeight 1080
+# define texWidth 64
+# define texHeight 64
+# define mapWidth 24
+# define mapHeight 24
+
+# define WIDTH 1920
+# define HEIGHT 1080
 
 typedef struct s_data
 {
@@ -53,6 +60,13 @@ typedef struct s_perso
 
 typedef struct s_win
 {
+	int color;
+	int up;
+	int down;
+	int right;
+	int left;
+	int left_pers;
+	int right_pers;
 	void	*mlx;
 	void	*mlx_win;
 	void	*mlx_img;
@@ -98,6 +112,8 @@ typedef struct s_map_data
 	t_pos	player;
 }	t_map_data;
 
+
+
 int		get_next_line(int fd, char **line);
 char	*ft_substr_gnl(char *s, unsigned int start, size_t len, int f);
 char	*ft_strjoin_gnl(char *s1, char *s2);
@@ -110,6 +126,7 @@ int	key_press(int key, t_win *mlx);
 void	draw(t_win *mlx);
 void	load_texture(t_win *mlx);
 void	load_image(t_win *mlx, int *texture, char *path, t_data *data);
+int	key_release(int key, t_win *mlx);
 
 /* cub3d.c */
 

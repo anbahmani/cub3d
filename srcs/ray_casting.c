@@ -6,16 +6,11 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:12:11 by raaga             #+#    #+#             */
-/*   Updated: 2022/09/26 20:23:53 by raaga            ###   ########.fr       */
+/*   Updated: 2022/09/28 19:55:12 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-#define mapWidth 24
-#define mapHeight 24
-#define width 1920
-#define height 1080
 
 int worldMap[mapWidth][mapHeight]=
 {
@@ -30,8 +25,8 @@ int worldMap[mapWidth][mapHeight]=
 	{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -45,13 +40,85 @@ int worldMap[mapWidth][mapHeight]=
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
+int	main_loop(t_win *mlx)
+{
+	fprintf(stderr, "%f %f %d %d\n", mlx->perso.dirX, mlx->perso.dirY, mlx->right, mlx->left_pers);
+    if (mlx->up)
+	{
+		if (!worldMap[(int)(mlx->perso.posX + mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
+			mlx->perso.posX += mlx->perso.dirX * mlx->perso.moveSpeed;
+		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY + mlx->perso.dirY * mlx->perso.moveSpeed)])
+			mlx->perso.posY += mlx->perso.dirY * mlx->perso.moveSpeed;
+	}
+	if (mlx->down)
+	{
+		if (!worldMap[(int)(mlx->perso.posX - mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
+			mlx->perso.posX -= mlx->perso.dirX * mlx->perso.moveSpeed;
+		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY - mlx->perso.dirY * mlx->perso.moveSpeed)])
+			mlx->perso.posY -= mlx->perso.dirY * mlx->perso.moveSpeed;
+	}
+	if (mlx->right)
+	{
+		double oldDirX = mlx->perso.dirX;
+		mlx->perso.dirX = mlx->perso.dirX * cos(-mlx->perso.rotSpeed) - mlx->perso.dirY * sin(-mlx->perso.rotSpeed);
+		mlx->perso.dirY = oldDirX * sin(-mlx->perso.rotSpeed) + mlx->perso.dirY * cos(-mlx->perso.rotSpeed);
+		double oldPlaneX = mlx->perso.planeX;
+		mlx->perso.planeX = mlx->perso.planeX * cos(-mlx->perso.rotSpeed) - mlx->perso.planeY * sin(-mlx->perso.rotSpeed);
+		mlx->perso.planeY = oldPlaneX * sin(-mlx->perso.rotSpeed) + mlx->perso.planeY * cos(-mlx->perso.rotSpeed);
+	}
+	if (mlx->left)
+	{
+		double oldDirX = mlx->perso.dirX;
+		mlx->perso.dirX = mlx->perso.dirX * cos(mlx->perso.rotSpeed) - mlx->perso.dirY * sin(mlx->perso.rotSpeed);
+		mlx->perso.dirY = oldDirX * sin(mlx->perso.rotSpeed) + mlx->perso.dirY * cos(mlx->perso.rotSpeed);
+		double oldPlaneX = mlx->perso.planeX;
+		mlx->perso.planeX = mlx->perso.planeX * cos(mlx->perso.rotSpeed) - mlx->perso.planeY * sin(mlx->perso.rotSpeed);
+		mlx->perso.planeY = oldPlaneX * sin(mlx->perso.rotSpeed) + mlx->perso.planeY * cos(mlx->perso.rotSpeed);
+	}
+	/* si dirY ou dirX est negative ou pas le 1 change */
+	if (mlx->right_pers)
+	{
+		if (!worldMap[(int)(mlx->perso.posX + mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
+			mlx->perso.posX += (mlx->perso.dirX + 1) * mlx->perso.moveSpeed;
+		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY + mlx->perso.dirY * mlx->perso.moveSpeed)])
+			mlx->perso.posY += (mlx->perso.dirY - 1 )* mlx->perso.moveSpeed;
+	}
+	if (mlx->left_pers)
+	{
+		if (!worldMap[(int)(mlx->perso.posX + mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
+			mlx->perso.posX += (mlx->perso.dirX - 1) * mlx->perso.moveSpeed;
+		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY + mlx->perso.dirY * mlx->perso.moveSpeed)])
+			mlx->perso.posY += (mlx->perso.dirY - 1 )* mlx->perso.moveSpeed;
+	}
+	calcul(mlx);
+	draw(mlx);
+	return (0);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned char	*tmp;
+	size_t			i;
+
+	tmp = s;
+	i = 0;
+	while (i < n)
+	{
+		*tmp = '\0';
+		tmp++;
+		i++;
+	}
+}
+
+
 void	draw(t_win *mlx)
 {
-	for (int y = 0; y < height; y++)
+	ft_bzero(mlx->data.data, screenWidth * screenHeight);
+	for (int y = 0; y < HEIGHT; y++)
 	{
-		for (int x = 0; x < width; x++)
+		for (int x = 0; x < WIDTH; x++)
 		{
-			mlx->data.data[y * width + x] = mlx->buf[y][x];
+			mlx->data.data[y * WIDTH + x] = mlx->buf[y][x];
 		}
 	}
 	 mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->data.img, 0, 0);
@@ -74,9 +141,9 @@ int calcul(t_win *mlx)
 {	
 	int x = 0;
 	
-		while (x < width)
+		while (x < WIDTH)
 		{
-			double cameraX = 2 * x / (double)width - 1;
+			double cameraX = 2 * x / (double)WIDTH - 1;
 			double rayDirX = mlx->perso.dirX + mlx->perso.planeX * cameraX;
 			double rayDirY = mlx->perso.dirY + mlx->perso.planeY * cameraX;
 
@@ -131,7 +198,6 @@ int calcul(t_win *mlx)
 					mapY += stepY;
 					side = 1;
 				}
-				//Check if ray has hit a wall
 				if (worldMap[mapX][mapY] > 0) hit = 1;
 			}
 			if (side == 0)
@@ -139,20 +205,17 @@ int calcul(t_win *mlx)
 			else
 				perpWallDist = (mapY - mlx->perso.posY + (1 - stepY) / 2) / rayDirY;
 
-			//Calculate height of line to draw on screen
-			int lineHeight = (int)(height / perpWallDist);
+			int lineHeight = (int)(HEIGHT / perpWallDist);
 
-			//calculate lowest and highest pixel to fill in current stripe
-			int drawStart = -lineHeight / 2 + height / 2;
+			int drawStart = -lineHeight / 2 + HEIGHT / 2;
 			if(drawStart < 0)
 				drawStart = 0;
-			int drawEnd = lineHeight / 2 + height / 2;
-			if(drawEnd >= height)
-				drawEnd = height - 1;
+			int drawEnd = lineHeight / 2 + HEIGHT / 2;
+			if(drawEnd >= HEIGHT)
+				drawEnd = HEIGHT - 1;
 			
 			int texNum = worldMap[mapX][mapY];
 
-			// calculate value of wallX
 			double wallX;
 			if (side == 0)
 				wallX = mlx->perso.posY + perpWallDist * rayDirY;
@@ -160,61 +223,34 @@ int calcul(t_win *mlx)
 				wallX = mlx->perso.posX + perpWallDist * rayDirX;
 			wallX -= floor(wallX);
 
-			// x coordinate on the texture
 			int texX = (int)(wallX * (double)texWidth);
 			if (side == 0 && rayDirX > 0)
 				texX = texWidth - texX - 1;
 			if (side == 1 && rayDirY < 0)
 				texX = texWidth - texX - 1;
 
-			// How much to increase the texture coordinate perscreen pixel
 			double step = 1.0 * texHeight / lineHeight;
-			// Starting texture coordinate
-			double texPos = (drawStart - height / 2 + lineHeight / 2) * step;
+			double texPos = (drawStart - HEIGHT / 2 + lineHeight / 2) * step;
 			for (int z = 0; z < drawStart; z++)
 			{
-				// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-				mlx->buf[z][x] = 0xAAFFFF;
+				mlx->buf[z][x] = mlx->color;
 				mlx->re_buf = 1;
 			}
 			for (int t = drawEnd; t < screenHeight; t++)
 			{
-				// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
 				mlx->buf[t][x] = 0xFFCC66;
 				mlx->re_buf = 1;
 			}
 			for (int y = drawStart; y < drawEnd; y++)
 			{
-				// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
 				int texY = (int)texPos & (texHeight - 1);
 				texPos += step;
 				int color = mlx->texture[texNum][texHeight * texY + texX];
-				// make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 				if (side == 1)
 					color = (color >> 1) & 8355711;
 				mlx->buf[y][x] = color;
 				mlx->re_buf = 1;
 			}
-
-			/*
-			int	color;
-			if (worldMap[mapY][mapX] == 1)
-				color = 0xFF0000;
-			else if (worldMap[mapY][mapX] == 2)
-				color = 0x00FF00;
-			else if (worldMap[mapY][mapX] == 3)
-				color = 0x0000FF;
-			else if (worldMap[mapY][mapX] == 4)
-				color = 0xFFFFFF;
-			else
-				color = 0xFFFF00;
-
-			if (side == 1)
-				color = color / 2;
-
-			print_line(mlx, x, drawStart, drawEnd, color);
-			*/
-			//print_line(mlx, x, 0, drawStart, 0xFFCC66);
 			x++;
 		}
 	
@@ -225,7 +261,6 @@ void	load_image(t_win *mlx, int *texture, char *path, t_data *data)
 {
 	
 	data->img = mlx_xpm_file_to_image(mlx->mlx, path, &data->img_width, &data->img_height);
-	fprintf(stderr, "asadasdasd\n");
 	data->data = (int *)mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->size_l, &data->endian);
 	for (int y = 0; y < data->img_height; y++)
 	{
@@ -251,7 +286,79 @@ void	load_texture(t_win *mlx)
 	load_image(mlx, mlx->texture[7],"./pics/redbrick.xpm", &img);
 }
 
+
+
 int	key_press(int key, t_win *mlx)
+{
+	fprintf(stderr, "lalalal %d\n", key);
+	
+	if (key == 119)
+	{
+		mlx->up = 1;
+	}
+	if (key == 115)
+	{
+		mlx->down = 1;
+	}
+	if (key == 100)
+	{
+		mlx->right = 1;
+
+	}
+	if (key == 97)
+	{
+		mlx->left = 1;
+	}
+	if (key == 65361)
+	{
+		//left_pers;
+		mlx->left_pers = 1;
+	}
+	if (key == 65363)
+	{
+		mlx->right_pers = 1;
+	}
+
+	
+/*	if (key == 53)
+		exit(0); 
+	mlx_clear_window(mlx->mlx, mlx->mlx_win);
+	main_loop(mlx);*/
+	return (0);
+}
+
+int	key_release(int key, t_win *mlx)
+{
+	if (key == 119)
+	{
+		mlx->up = 0;
+	}
+	if (key == 115)
+	{
+		mlx->down = 0;
+	}
+	if (key == 100)
+	{
+		mlx->right = 0;
+
+	}
+	if (key == 97)
+	{
+		mlx->left = 0;
+	}
+	if (key == 65361)
+		mlx->left_pers = 0;
+	if (key == 65363)
+		mlx->right_pers = 0;
+	
+/*	if (key == 53)
+		exit(0); 
+	mlx_clear_window(mlx->mlx, mlx->mlx_win);
+	main_loop(mlx);*/
+	return (0);
+}
+/*
+int	key_release(int key, t_win *mlx)
 {
 	if (key == 119)
 	{
@@ -260,7 +367,6 @@ int	key_press(int key, t_win *mlx)
 		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY + mlx->perso.dirY * mlx->perso.moveSpeed)])
 			mlx->perso.posY += mlx->perso.dirY * mlx->perso.moveSpeed;
 	}
-	//move backwards if no wall behind you
 	if (key == 115)
 	{
 		if (!worldMap[(int)(mlx->perso.posX - mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
@@ -268,10 +374,8 @@ int	key_press(int key, t_win *mlx)
 		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY - mlx->perso.dirY * mlx->perso.moveSpeed)])
 			mlx->perso.posY -= mlx->perso.dirY * mlx->perso.moveSpeed;
 	}
-	//rotate to the right
 	if (key == 100)
 	{
-		//both camera direction and camera plane must be rotated
 		double oldDirX = mlx->perso.dirX;
 		mlx->perso.dirX = mlx->perso.dirX * cos(-mlx->perso.rotSpeed) - mlx->perso.dirY * sin(-mlx->perso.rotSpeed);
 		mlx->perso.dirY = oldDirX * sin(-mlx->perso.rotSpeed) + mlx->perso.dirY * cos(-mlx->perso.rotSpeed);
@@ -279,10 +383,8 @@ int	key_press(int key, t_win *mlx)
 		mlx->perso.planeX = mlx->perso.planeX * cos(-mlx->perso.rotSpeed) - mlx->perso.planeY * sin(-mlx->perso.rotSpeed);
 		mlx->perso.planeY = oldPlaneX * sin(-mlx->perso.rotSpeed) + mlx->perso.planeY * cos(-mlx->perso.rotSpeed);
 	}
-	//rotate to the left
 	if (key == 97)
 	{
-		//both camera direction and camera plane must be rotated
 		double oldDirX = mlx->perso.dirX;
 		mlx->perso.dirX = mlx->perso.dirX * cos(mlx->perso.rotSpeed) - mlx->perso.dirY * sin(mlx->perso.rotSpeed);
 		mlx->perso.dirY = oldDirX * sin(mlx->perso.rotSpeed) + mlx->perso.dirY * cos(mlx->perso.rotSpeed);
@@ -296,4 +398,4 @@ int	key_press(int key, t_win *mlx)
 	mlx_clear_window(mlx->mlx, mlx->mlx_win);
 	main_loop(mlx);
 	return (0);
-}
+}*/

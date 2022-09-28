@@ -114,5 +114,6 @@ void	load_image(t_win *mlx, int *texture, char *path, t_data *data);
 /* cub3d.c */
 
 void	my_mlx_pixel_put(t_win *mlx, int x, int y, int color);
+int	main_loop(t_win *mlx);
 
 #endif

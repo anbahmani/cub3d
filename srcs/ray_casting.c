@@ -54,7 +54,7 @@ void	draw(t_win *mlx)
 			mlx->data.data[y * width + x] = mlx->buf[y][x];
 		}
 	}
-	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->data.img, 0, 0);
+	 mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->data.img, 0, 0);
 }
 
 void    print_line(t_win *data, int x, int y1, int y2, int color)
@@ -171,6 +171,18 @@ int calcul(t_win *mlx)
 			double step = 1.0 * texHeight / lineHeight;
 			// Starting texture coordinate
 			double texPos = (drawStart - height / 2 + lineHeight / 2) * step;
+			for (int z = 0; z < drawStart; z++)
+			{
+				// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+				mlx->buf[z][x] = 0xFFCC66;
+				mlx->re_buf = 1;
+			}
+			for (int t = drawEnd; t < screenHeight; t++)
+			{
+				// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+				mlx->buf[t][x] = 0xFFCC66;
+				mlx->re_buf = 1;
+			}
 			for (int y = drawStart; y < drawEnd; y++)
 			{
 				// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
@@ -202,6 +214,7 @@ int calcul(t_win *mlx)
 
 			print_line(mlx, x, drawStart, drawEnd, color);
 			*/
+			//print_line(mlx, x, 0, drawStart, 0xFFCC66);
 			x++;
 		}
 	
@@ -214,7 +227,6 @@ void	load_image(t_win *mlx, int *texture, char *path, t_data *data)
 	data->img = mlx_xpm_file_to_image(mlx->mlx, path, &data->img_width, &data->img_height);
 	fprintf(stderr, "asadasdasd\n");
 	data->data = (int *)mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->size_l, &data->endian);
-	fprintf(stderr, "lalalaladsadasdasl\n");
 	for (int y = 0; y < data->img_height; y++)
 	{
 		for (int x = 0; x < data->img_width; x++)
@@ -230,14 +242,13 @@ void	load_texture(t_win *mlx)
 	t_data img;
 
 	load_image(mlx, mlx->texture[0], "./pics/redbrick.xpm", &img);
-	fprintf(stderr, "jhkjgjgkj\n");
-	/*load_image(mlx, mlx->texture[1], "pics/redbrick.png", &img);
-	load_image(mlx, mlx->texture[2], "pics/purplestone.png", &img);
-	load_image(mlx, mlx->texture[3], "pics/greystone.png", &img);
-	load_image(mlx, mlx->texture[4], "pics/bluestone.png", &img);
-	load_image(mlx, mlx->texture[5], "pics/mossy.png", &img);
-	load_image(mlx, mlx->texture[6], "pics/wood.png", &img);
-	load_image(mlx, mlx->texture[7], "pics/colorstone.png", &img);*/
+	load_image(mlx, mlx->texture[1], "./pics/redbrick.xpm", &img);
+	load_image(mlx, mlx->texture[2], "./pics/redbrick.xpm", &img);
+	load_image(mlx, mlx->texture[3], "./pics/redbrick.xpm", &img);
+	load_image(mlx, mlx->texture[4], "./pics/redbrick.xpm", &img);
+	load_image(mlx, mlx->texture[5], "./pics/redbrick.xpm", &img);
+	load_image(mlx, mlx->texture[6], "./pics/redbrick.xpm", &img);
+	load_image(mlx, mlx->texture[7],"./pics/redbrick.xpm", &img);
 }
 
 int	key_press(int key, t_win *mlx)
@@ -281,6 +292,8 @@ int	key_press(int key, t_win *mlx)
 	}
 	
 	if (key == 53)
-		exit(0);
+		exit(0); 
+	mlx_clear_window(mlx->mlx, mlx->mlx_win);
+	main_loop(mlx);
 	return (0);
 }

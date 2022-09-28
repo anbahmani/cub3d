@@ -26,9 +26,9 @@ void    win(t_win mlx)
 
 void	my_mlx_pixel_put(t_win *mlx, int x, int y, int color)
 {
-	char	*dst;
+	int	*dst;
  
-	dst = mlx->data.addr + (y * mlx->data.line_length + x * (mlx->data.bits_per_pixel / 8));
+	dst = mlx->data.data + (y * mlx->data.line_length + x * (mlx->data.bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
 
@@ -37,7 +37,8 @@ int	main_loop(t_win *mlx)
     //mlx->data.img = mlx_new_image(mlx->mlx, 1920, 1080);
     //mlx->data.addr = mlx_get_data_addr(mlx->data.img, &mlx->data.bits_per_pixel, &mlx->data.line_length, &mlx->data.endian);
 	calcul(mlx);
-    draw(mlx);
+	draw(mlx);
+
     //mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->data.img, 0, 0);
     //mlx_destroy_image(mlx->mlx, mlx->data.img);
 	return (0);
@@ -58,8 +59,8 @@ int	main(int ac, char **av)
 	mlx.perso.dirY = 0;
 	mlx.perso.planeX = 0;
 	mlx.perso.planeY = 0.66;
-    mlx.perso.moveSpeed = 0.17;
-	mlx.perso.rotSpeed = 0.14;
+
+	mlx.re_buf = 0;
 
     for (int i = 0; i < screenHeight; i++)
 	{
@@ -85,11 +86,19 @@ int	main(int ac, char **av)
 	}
 	fprintf(stderr, "lalalalal\n");
 	load_texture(&mlx);
+
+	mlx.perso.moveSpeed = 0.17;
+	mlx.perso.rotSpeed = 0.14;
+
 	mlx.mlx_win = mlx_new_window(mlx.mlx, screenWidth, screenHeight, "cub3d");
-    //mlx.data.img = mlx_new_image(mlx.mlx, 1920, 1080);
-   // mlx.data.data = (int *)mlx_get_data_addr(mlx.data.img, &mlx.data.bits_per_pixel, &mlx.data.line_length, &mlx.data.endian);
-    mlx_loop_hook(mlx.mlx, &main_loop, &mlx);
+    mlx.data.img = mlx_new_image(mlx.mlx, 1920, 1080);
+    mlx.data.data = (int *)mlx_get_data_addr(mlx.data.img, &mlx.data.bits_per_pixel, &mlx.data.line_length, &mlx.data.endian);
+    fprintf(stderr, "lalalaladsadasdasl\n");
+	mlx_loop_hook(mlx.mlx, &main_loop, &mlx);
+
     mlx_hook(mlx.mlx_win, 2, 1L << 0, &key_press, &mlx);
+		//mlx_destroy_image(mlx.mlx, mlx.data.img);
+	fprintf(stderr, "lalalaladsadasdasl\n");
     
     mlx_loop(mlx.mlx);
 }

@@ -16,19 +16,24 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "../lib/libft/libft.h"
 # include "../lib/minilibx/mlx.h"
 # include <math.h>
 
-# define screenWidth 1920
-# define screenHeight 1080
-# define X_EVENT_KEY_PRESS	2
-# define X_EVENT_KEY_EXIT	17
+#define X_EVENT_KEY_PRESS	2
+#define X_EVENT_KEY_EXIT	17
+#define screenWidth 1920
+#define screenHeight 1080
+#define texWidth 64
+#define texHeight 64
 
 typedef struct s_data
 {
 	void	*img;
 	char	*addr;
+	int		*data;
+	int		img_width;
+	int		img_height;
+	int		size_l;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
@@ -57,6 +62,9 @@ typedef struct s_win
 	int		size;
 	int		height_map;
 	int		width_map;
+	int		**texture;
+	int     re_buf;
+	int		buf[screenHeight][screenWidth];
 	t_perso perso;
 	t_data	data;
 }	t_win;
@@ -99,6 +107,9 @@ char	*ft_strjoin_gnl(char *s1, char *s2);
 int calcul(t_win *mlx);
 void    print_line(t_win *data, int x, int y1, int y2, int color);
 int	key_press(int key, t_win *mlx);
+void	draw(t_win *mlx);
+void	load_texture(t_win *mlx);
+void	load_image(t_win *mlx, int *texture, char *path, t_data *data);
 
 /* cub3d.c */
 

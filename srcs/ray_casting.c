@@ -45,6 +45,18 @@ int worldMap[mapWidth][mapHeight]=
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
+void	draw(t_win *mlx)
+{
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+			mlx->data.data[y * width + x] = mlx->buf[y][x];
+		}
+	}
+	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->data.img, 0, 0);
+}
+
 void    print_line(t_win *data, int x, int y1, int y2, int color)
 {
     int y;
@@ -71,21 +83,18 @@ int calcul(t_win *mlx)
 			int mapX = (int)mlx->perso.posX;
 			int mapY = (int)mlx->perso.posY;
 
-			//length of ray from current position to next x or y-side
 			double sideDistX;
 			double sideDistY;
 
-			 //length of ray from one x or y-side to next x or y-side
 			double deltaDistX = fabs(1 / rayDirX);
 			double deltaDistY = fabs(1 / rayDirY);
 			double perpWallDist;
 
-			//what direction to step in x or y-direction (either +1 or -1)
 			int stepX;
 			int stepY;
 
-			int hit = 0; //was there a wall hit?
-			int side; //was a NS or a EW wall hit?
+			int hit = 0;
+			int side;
 
 			if (rayDirX < 0)
 			{
@@ -110,7 +119,6 @@ int calcul(t_win *mlx)
 
 			while (hit == 0)
 			{
-				//jump to next map square, OR in x-direction, OR in y-direction
 				if (sideDistX < sideDistY)
 				{
 					sideDistX += deltaDistX;
@@ -141,7 +149,42 @@ int calcul(t_win *mlx)
 			int drawEnd = lineHeight / 2 + height / 2;
 			if(drawEnd >= height)
 				drawEnd = height - 1;
+			
+			int texNum = worldMap[mapX][mapY];
 
+			// calculate value of wallX
+			double wallX;
+			if (side == 0)
+				wallX = mlx->perso.posY + perpWallDist * rayDirY;
+			else
+				wallX = mlx->perso.posX + perpWallDist * rayDirX;
+			wallX -= floor(wallX);
+
+			// x coordinate on the texture
+			int texX = (int)(wallX * (double)texWidth);
+			if (side == 0 && rayDirX > 0)
+				texX = texWidth - texX - 1;
+			if (side == 1 && rayDirY < 0)
+				texX = texWidth - texX - 1;
+
+			// How much to increase the texture coordinate perscreen pixel
+			double step = 1.0 * texHeight / lineHeight;
+			// Starting texture coordinate
+			double texPos = (drawStart - height / 2 + lineHeight / 2) * step;
+			for (int y = drawStart; y < drawEnd; y++)
+			{
+				// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+				int texY = (int)texPos & (texHeight - 1);
+				texPos += step;
+				int color = mlx->texture[texNum][texHeight * texY + texX];
+				// make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+				if (side == 1)
+					color = (color >> 1) & 8355711;
+				mlx->buf[y][x] = color;
+				mlx->re_buf = 1;
+			}
+
+			/*
 			int	color;
 			if (worldMap[mapY][mapX] == 1)
 				color = 0xFF0000;
@@ -156,19 +199,49 @@ int calcul(t_win *mlx)
 
 			if (side == 1)
 				color = color / 2;
-			print_line(mlx, x, 0, drawStart, 2552456);
-			print_line(mlx, x, drawStart, drawEnd, color);
-			print_line(mlx, x,drawEnd, screenHeight, 0xFFCC66);
 
+			print_line(mlx, x, drawStart, drawEnd, color);
+			*/
 			x++;
 		}
 	
 	return (0);
 }
 
+void	load_image(t_win *mlx, int *texture, char *path, t_data *data)
+{
+	
+	data->img = mlx_xpm_file_to_image(mlx->mlx, path, &data->img_width, &data->img_height);
+	fprintf(stderr, "asadasdasd\n");
+	data->data = (int *)mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->size_l, &data->endian);
+	fprintf(stderr, "lalalaladsadasdasl\n");
+	for (int y = 0; y < data->img_height; y++)
+	{
+		for (int x = 0; x < data->img_width; x++)
+		{
+			texture[data->img_width * y + x] = data->data[data->img_width * y + x];
+		}
+	}
+	mlx_destroy_image(mlx->mlx, data->img);
+}
+
+void	load_texture(t_win *mlx)
+{
+	t_data img;
+
+	load_image(mlx, mlx->texture[0], "./pics/redbrick.xpm", &img);
+	fprintf(stderr, "jhkjgjgkj\n");
+	/*load_image(mlx, mlx->texture[1], "pics/redbrick.png", &img);
+	load_image(mlx, mlx->texture[2], "pics/purplestone.png", &img);
+	load_image(mlx, mlx->texture[3], "pics/greystone.png", &img);
+	load_image(mlx, mlx->texture[4], "pics/bluestone.png", &img);
+	load_image(mlx, mlx->texture[5], "pics/mossy.png", &img);
+	load_image(mlx, mlx->texture[6], "pics/wood.png", &img);
+	load_image(mlx, mlx->texture[7], "pics/colorstone.png", &img);*/
+}
+
 int	key_press(int key, t_win *mlx)
 {
-	fprintf(stderr, "lslslsl %d\n", key);
 	if (key == 119)
 	{
 		if (!worldMap[(int)(mlx->perso.posX + mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])

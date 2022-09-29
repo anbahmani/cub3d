@@ -42,8 +42,8 @@ int	main(int ac, char **av)
 
     mlx.mlx = mlx_init();
 
-    mlx.perso.posX = 8;
-	mlx.perso.posY = 2;
+    mlx.perso.posX = 2;
+	mlx.perso.posY = 4;
 	mlx.perso.dirX = 0;
 	mlx.perso.dirY = 1;
 	mlx.perso.planeX = (0.66 * mlx.perso.dirY);

@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/25 15:48:47 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/01 08:31:28 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <math.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <strings.h>
 # include "libft.h"
 # include "mlx.h"
 
@@ -32,6 +33,7 @@
 # define FILE_IS_DIR_ERROR "The input file is a directory."
 # define FILE_IS_SYM_LINK "The input file is a symbolic link."
 # define TEXTURE_FILE_ERROR "This texture file is not correctly filled : "
+# define COLOR_ERROR "The colors from the file are not correctly written."
 
 /*-------------------------------KEY EVENT DEFINE-----------------------------*/
 
@@ -59,6 +61,9 @@
 
 /*---------------------------------STRUCTURE----------------------------------*/
 
+
+//TODO - delete if unused
+/*
 typedef struct s_img
 {
 	void	*img;
@@ -68,11 +73,16 @@ typedef struct s_img
 	int		endian;
 	int		*colors;
 }	t_img;
+*/
 
 typedef struct s_data
 {
 	void	*img;
 	char	*addr;
+	int		*data;
+	int		img_width;
+	int		img_height;
+	int		size_l;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
@@ -80,6 +90,13 @@ typedef struct s_data
 
 typedef struct s_win
 {
+	int color;
+	int up;
+	int down;
+	int right;
+	int left;
+	int left_pers;
+	int right_pers;
 	void	*mlx;
 	void	*mlx_win;
 	void	*mlx_img;
@@ -89,6 +106,9 @@ typedef struct s_win
 	int		size;
 	int		height_map;
 	int		width_map;
+	int		**texture;
+	int     re_buf;
+	int		buf[SCREEN_HEIGHT][SCREEN_WIDTH];
 	t_data	data;
 }	t_win;
 
@@ -111,6 +131,7 @@ typedef struct s_rgb
 	int	blue;
 }	t_rgb;
 
+//TODO - delete if unused
 /*
 typedef struct s_ihm
 {
@@ -154,6 +175,7 @@ int		check_error(int ac, char **av, t_list *garb_c);
 int		check_input_file_error(char const *file_name, t_list *garb_c);
 void	check_text_file_error(t_engine *engine);
 void	quit_error(char *msg, t_list *garb_c);
+void	quit_error_no_free(char *msg);
 int		check_arg_number_error(int argc, t_list *garb_c);
 int		check_number_player(char **map);
 
@@ -176,9 +198,9 @@ int		count_file_line(char const *file_name, t_list *garb_c);
 
 /*--------------------------------RAYCASTING----------------------------------*/
 
-int		calcul(t_win *mlx);
-void	print_line(t_win *data, int x, int y1, int y2, int color);
-int		key_press(int key, t_win *mlx);
+int		calcul(t_engine *eng);
+void    print_line(t_engine *eng, int x, int y1, int y2, int color);
+int		key_press(int key, t_engine *engine);
 
 /*------------------------------------IHM-------------------------------------*/
 

@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 09:20:12 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/25 19:08:54 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/01 04:34:31 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,30 @@ t_rgb	get_color(char *line, t_list *garb_coll)
 		|| !composed_with(split[2], "0123456789"))
 	{
 		clear_str_tab(split);
-		clear(garb_coll);
-		exit(1);
+		quit_error(COLOR_ERROR, garb_coll);
 	}
 	colors = (t_rgb *)ft_malloc(sizeof(t_rgb), garb_coll);
+	printf("lstsize color -> %d\n", ft_lstsize(garb_coll));
 	set_color(colors, split);
 	return (*colors);
+}
+
+static void	trim_and_add_gc(char **text, t_list *garb_c, char *line)
+{
+	*text = ft_strtrim(line + 2, " \t");
+	ft_lstadd_back(&garb_c, ft_lstnew(*text));
 }
 
 void	get_file_data_bis(t_map_data *data, t_list *garb_c, char *line)
 {
 	if (!ft_strncmp((const char *) line, "NO ", 3))
-		data->north_text = ft_strtrim(line + 2, " \t");
+		trim_and_add_gc(&data->north_text, garb_c, line);
 	else if (!ft_strncmp((const char *) line, "SO ", 3))
-		data->south_text = ft_strtrim(line + 2, " \t");
+		trim_and_add_gc(&data->south_text, garb_c, line);
 	else if (!ft_strncmp((const char *) line, "WE ", 3))
-		data->west_text = ft_strtrim(line + 2, " \t");
+		trim_and_add_gc(&data->west_text, garb_c, line);
 	else if (!ft_strncmp((const char *) line, "EA ", 3))
-		data->east_text = ft_strtrim(line + 2, " \t");
+		trim_and_add_gc(&data->east_text, garb_c, line);
 	else if (!ft_strncmp((const char *) line, "C ", 2))
 		data->ceiling_rgb = get_color(line, garb_c);
 	else if (!ft_strncmp((const char *) line, "F ", 2))
@@ -73,7 +79,10 @@ void	get_file_data(const char *file_name, t_map_data *data, t_list *garb_c)
 	while (get_next_line(fd, &line) != -1)
 	{
 		ft_lstadd_back(&garb_c, ft_lstnew(line));
+		printf("lstsize gnl get data -> %d\n", ft_lstsize(garb_c));
 		get_file_data_bis(data, garb_c, line);
 	}
+	if (line)
+		ft_lstadd_back(&garb_c, ft_lstnew(line));
 	close(fd);
 }

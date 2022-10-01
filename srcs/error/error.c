@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 09:33:54 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/24 01:22:19 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/01 04:20:37 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,24 @@ void	print_error(char *msg)
 
 void	quit_error(char *msg, t_list *garb_c)
 {
+	print_error(msg);
+	/*
+	t_list *tmp;
+	tmp = garb_c;
+	while (tmp)
+	{
+		printf("tmp -> %p\n", tmp->content);
+		tmp = tmp->next;
+	}
+	*/
+	printf("lstsize -> %d\n", ft_lstsize(garb_c));
 	clear(garb_c);
+	exit(1);
+}
+
+
+void	quit_error_no_free(char *msg)
+{
 	print_error(msg);
 	exit(1);
 }

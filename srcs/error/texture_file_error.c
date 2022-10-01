@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 18:00:05 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/24 06:25:34 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/01 04:06:23 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	open_img_xpm(char *texture_name, t_engine *engine)
 			&height, &width);
 	if (!tmp)
 	{
-		mlx_destroy_image(engine->mlx_data->mlx, tmp);
 		msg = ft_strjoin(TEXTURE_FILE_ERROR, texture_name);
 		ft_lstadd_back(&engine->garbage_coll, ft_lstnew(msg));
 		quit_error(msg, engine->garbage_coll);

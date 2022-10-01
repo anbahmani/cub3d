@@ -6,12 +6,12 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 07:27:56 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/24 01:33:11 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/01 03:54:20 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
+#include <stdio.h>
 void	ft_lstadd_back(t_list **alst, t_list *new)
 {
 	t_list	*l;
@@ -25,5 +25,6 @@ void	ft_lstadd_back(t_list **alst, t_list *new)
 	{
 		while ((l->next))
 			l = l->next;
+		l->next = new;
 	}
 }

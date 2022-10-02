@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/01 08:31:28 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/02 11:46:44 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@
 
 # define X_EVENT_KEY_PRESS	2
 # define X_EVENT_KEY_EXIT	17
+
+/*-------------------------------TEXTURE SIZE DEFINE--------------------------*/
+
+#define texWidth 64
+#define texHeight 64
 
 /*-------------------------------MAP DATA DEFINE------------------------------*/
 /*

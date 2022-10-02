@@ -6,13 +6,13 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 04:06:55 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/01 08:35:57 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/02 11:44:04 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int worldMap[mapWidth][mapHeight]=
+/*
+int eng->map_data->map[mapWidth][mapHeight]=
 {
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	{1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -39,21 +39,21 @@ int worldMap[mapWidth][mapHeight]=
 	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
-
+*/
 int	main_loop(t_engine *eng)
 {
     if (eng->mlx_data->up)
 	{
-		if (!worldMap[(int)(eng->map_data->player.posX + eng->map_data->player.dirX * eng->map_data->player.moveSpeed)][(int)(eng->map_data->player.posY)])
+		if (!eng->map_data->map[(int)(eng->map_data->player.posX + eng->map_data->player.dirX * eng->map_data->player.moveSpeed)][(int)(eng->map_data->player.posY)])
 			eng->map_data->player.posX += eng->map_data->player.dirX * eng->map_data->player.moveSpeed;
-		if (!worldMap[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY + eng->map_data->player.dirY * eng->map_data->player.moveSpeed)])
+		if (!eng->map_data->map[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY + eng->map_data->player.dirY * eng->map_data->player.moveSpeed)])
 			eng->map_data->player.posY += eng->map_data->player.dirY * eng->map_data->player.moveSpeed;
 	}
 	if (eng->mlx_data->down)
 	{
-		if (!worldMap[(int)(eng->map_data->player.posX - eng->map_data->player.dirX * eng->map_data->player.moveSpeed)][(int)(eng->map_data->player.posY)])
+		if (!eng->map_data->map[(int)(eng->map_data->player.posX - eng->map_data->player.dirX * eng->map_data->player.moveSpeed)][(int)(eng->map_data->player.posY)])
 			eng->map_data->player.posX -= eng->map_data->player.dirX * eng->map_data->player.moveSpeed;
-		if (!worldMap[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY - eng->map_data->player.dirY * eng->map_data->player.moveSpeed)])
+		if (!eng->map_data->map[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY - eng->map_data->player.dirY * eng->map_data->player.moveSpeed)])
 			eng->map_data->player.posY -= eng->map_data->player.dirY * eng->map_data->player.moveSpeed;
 	}
 	if (eng->mlx_data->right)
@@ -79,31 +79,31 @@ int	main_loop(t_engine *eng)
 	{
 		if (eng->map_data->player.dirX >= 0 && eng->map_data->player.dirY >= 0)
 		{
-			if (!worldMap[(int)(eng->map_data->player.posX + ((1 - eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX + ((1 - eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
 				eng->map_data->player.posX +=  (1 - eng->map_data->player.dirX) * eng->map_data->player.moveSpeed;
-			if (!worldMap[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY - (1 - eng->map_data->player.dirY)* eng->map_data->player.moveSpeed)])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY - (1 - eng->map_data->player.dirY)* eng->map_data->player.moveSpeed)])
 				eng->map_data->player.posY -=  (1 - eng->map_data->player.dirY) * eng->map_data->player.moveSpeed;
 		}
 		else if (eng->map_data->player.dirX < 0 && eng->map_data->player.dirY >= 0)
 		{
-			if (!worldMap[(int)(eng->map_data->player.posX - ((1 + eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX - ((1 + eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
 				eng->map_data->player.posX += (1 + eng->map_data->player.dirX) * eng->map_data->player.moveSpeed;
-			if (!worldMap[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY + (1 - eng->map_data->player.dirY)* eng->map_data->player.moveSpeed)])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY + (1 - eng->map_data->player.dirY)* eng->map_data->player.moveSpeed)])
 				eng->map_data->player.posY += (1 - eng->map_data->player.dirY)* eng->map_data->player.moveSpeed;
 		}
 	
 		else if (eng->map_data->player.dirY < 0 && eng->map_data->player.dirX < 0)
 		{
-			if (!worldMap[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY + ((1 - eng->map_data->player.dirY)* eng->map_data->player.moveSpeed))])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY + ((1 - eng->map_data->player.dirY)* eng->map_data->player.moveSpeed))])
 				eng->map_data->player.posY += (1 + eng->map_data->player.dirY)* eng->map_data->player.moveSpeed;
-			if (!worldMap[(int)(eng->map_data->player.posX - ((1 + eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX - ((1 + eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
 				eng->map_data->player.posX -= (1 + eng->map_data->player.dirX) * eng->map_data->player.moveSpeed;
 		}
 		else if (eng->map_data->player.dirY < 0 && eng->map_data->player.dirX >= 0)
 		{
-			if (!worldMap[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY - ((1 + eng->map_data->player.dirY)* eng->map_data->player.moveSpeed))])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY - ((1 + eng->map_data->player.dirY)* eng->map_data->player.moveSpeed))])
 				eng->map_data->player.posY -= (1 + eng->map_data->player.dirY)* eng->map_data->player.moveSpeed;
-			if (!worldMap[(int)(eng->map_data->player.posX - ((1 - eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX - ((1 - eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
 				eng->map_data->player.posX -= (1 - eng->map_data->player.dirX) * eng->map_data->player.moveSpeed;
 		}
 	}
@@ -111,31 +111,31 @@ int	main_loop(t_engine *eng)
 	{
 		if (eng->map_data->player.dirX >= 0 && eng->map_data->player.dirY >= 0)
 		{
-			if (!worldMap[(int)(eng->map_data->player.posX - ((1 - eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX - ((1 - eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
 				eng->map_data->player.posX -=  (1 - eng->map_data->player.dirX) * eng->map_data->player.moveSpeed;
-			if (!worldMap[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY + (1 - eng->map_data->player.dirY)* eng->map_data->player.moveSpeed)])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY + (1 - eng->map_data->player.dirY)* eng->map_data->player.moveSpeed)])
 				eng->map_data->player.posY +=  (1 - eng->map_data->player.dirY) * eng->map_data->player.moveSpeed;
 		}
 		else if (eng->map_data->player.dirX < 0 && eng->map_data->player.dirY >= 0)
 		{
-			if (!worldMap[(int)(eng->map_data->player.posX - ((1 + eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX - ((1 + eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
 				eng->map_data->player.posX -= (1 + eng->map_data->player.dirX) * eng->map_data->player.moveSpeed;
-			if (!worldMap[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY - (1 - eng->map_data->player.dirY)* eng->map_data->player.moveSpeed)])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY - (1 - eng->map_data->player.dirY)* eng->map_data->player.moveSpeed)])
 				eng->map_data->player.posY -= (1 - eng->map_data->player.dirY)* eng->map_data->player.moveSpeed;
 		}
 	
 		else if (eng->map_data->player.dirY < 0 && eng->map_data->player.dirX < 0)
 		{
-			if (!worldMap[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY - ((1 - eng->map_data->player.dirY)* eng->map_data->player.moveSpeed))])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY - ((1 - eng->map_data->player.dirY)* eng->map_data->player.moveSpeed))])
 				eng->map_data->player.posY -= (1 + eng->map_data->player.dirY)* eng->map_data->player.moveSpeed;
-			if (!worldMap[(int)(eng->map_data->player.posX + ((1 + eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX + ((1 + eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
 				eng->map_data->player.posX += (1 + eng->map_data->player.dirX) * eng->map_data->player.moveSpeed;
 		}
 		else if (eng->map_data->player.dirY < 0 && eng->map_data->player.dirX >= 0)
 		{
-			if (!worldMap[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY + ((1 + eng->map_data->player.dirY)* eng->map_data->player.moveSpeed))])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX)][(int)(eng->map_data->player.posY + ((1 + eng->map_data->player.dirY)* eng->map_data->player.moveSpeed))])
 				eng->map_data->player.posY += (1 + eng->map_data->player.dirY)* eng->map_data->player.moveSpeed;
-			if (!worldMap[(int)(eng->map_data->player.posX + ((1 - eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
+			if (!eng->map_data->map[(int)(eng->map_data->player.posX + ((1 - eng->map_data->player.dirX) * eng->map_data->player.moveSpeed))][(int)(eng->map_data->player.posY)])
 				eng->map_data->player.posX += (1 - eng->map_data->player.dirX) * eng->map_data->player.moveSpeed;
 		}
 	}
@@ -147,11 +147,11 @@ int	main_loop(t_engine *eng)
 void	draw(t_engine *eng)
 {
 	ft_bzero(eng->mlx_data->data.data, SCREEN_WIDTH * SCREEN_HEIGHT);
-	for (int y = 0; y < HEIGHT; y++)
+	for (int y = 0; y < SCREEN_HEIGHT; y++)
 	{
-		for (int x = 0; x < WIDTH; x++)
+		for (int x = 0; x < SCREEN_WIDTH; x++)
 		{
-			eng->mlx_data->data.data[y * WIDTH + x] = eng->mlx_data->buf[y][x];
+			eng->mlx_data->data.data[y * SCREEN_WIDTH + x] = eng->mlx_data->buf[y][x];
 		}
 	}
 	 mlx_put_image_to_window(eng->mlx_data->mlx, eng->mlx_data->mlx_win, eng->mlx_data->data.img, 0, 0);
@@ -174,9 +174,9 @@ int calcul(t_engine *eng)
 {	
 	int x = 0;
 	
-		while (x < WIDTH)
+		while (x < SCREEN_WIDTH)
 		{
-			double cameraX = 2 * x / (double)WIDTH - 1;
+			double cameraX = 2 * x / (double)SCREEN_WIDTH - 1;
 			double rayDirX = eng->map_data->player.dirX + eng->map_data->player.planeX * cameraX;
 			double rayDirY = eng->map_data->player.dirY + eng->map_data->player.planeY * cameraX;
 
@@ -231,23 +231,23 @@ int calcul(t_engine *eng)
 					mapY += stepY;
 					side = 1;
 				}
-				if (worldMap[mapX][mapY] > 0) hit = 1;
+				if (eng->map_data->map[mapX][mapY] > 0) hit = 1;
 			}
 			if (side == 0)
 				perpWallDist = (mapX - eng->map_data->player.posX + (1 - stepX) / 2) / rayDirX;
 			else
 				perpWallDist = (mapY - eng->map_data->player.posY + (1 - stepY) / 2) / rayDirY;
 
-			int lineHeight = (int)(HEIGHT / perpWallDist);
+			int lineHeight = (int)(SCREEN_HEIGHT / perpWallDist);
 
-			int drawStart = -lineHeight / 2 + HEIGHT / 2;
+			int drawStart = -lineHeight / 2 + SCREEN_HEIGHT / 2;
 			if(drawStart < 0)
 				drawStart = 0;
-			int drawEnd = lineHeight / 2 + HEIGHT / 2;
-			if(drawEnd >= HEIGHT)
-				drawEnd = HEIGHT - 1;
+			int drawEnd = lineHeight / 2 + SCREEN_HEIGHT / 2;
+			if(drawEnd >= SCREEN_HEIGHT)
+				drawEnd = SCREEN_HEIGHT - 1;
 			
-			int texNum = worldMap[mapX][mapY];
+			int texNum = eng->map_data->map[mapX][mapY];
 
 			double wallX;
 			if (side == 0)
@@ -263,7 +263,7 @@ int calcul(t_engine *eng)
 				texX = texWidth - texX - 1;
 
 			double step = 1.0 * texHeight / lineHeight;
-			double texPos = (drawStart - HEIGHT / 2 + lineHeight / 2) * step;
+			double texPos = (drawStart - SCREEN_HEIGHT / 2 + lineHeight / 2) * step;
 			for (int z = 0; z < drawStart; z++)
 			{
 				eng->mlx_data->buf[z][x] = eng->mlx_data->color;
@@ -394,16 +394,16 @@ int	key_release(int key, t_win *mlx)
 {
 	if (key == 119)
 	{
-		if (!worldMap[(int)(mlx->perso.posX + mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
+		if (!eng->map_data->map[(int)(mlx->perso.posX + mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
 			mlx->perso.posX += mlx->perso.dirX * mlx->perso.moveSpeed;
-		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY + mlx->perso.dirY * mlx->perso.moveSpeed)])
+		if (!eng->map_data->map[(int)(mlx->perso.posX)][(int)(mlx->perso.posY + mlx->perso.dirY * mlx->perso.moveSpeed)])
 			mlx->perso.posY += mlx->perso.dirY * mlx->perso.moveSpeed;
 	}
 	if (key == 115)
 	{
-		if (!worldMap[(int)(mlx->perso.posX - mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
+		if (!eng->map_data->map[(int)(mlx->perso.posX - mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
 			mlx->perso.posX -= mlx->perso.dirX * mlx->perso.moveSpeed;
-		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY - mlx->perso.dirY * mlx->perso.moveSpeed)])
+		if (!eng->map_data->map[(int)(mlx->perso.posX)][(int)(mlx->perso.posY - mlx->perso.dirY * mlx->perso.moveSpeed)])
 			mlx->perso.posY -= mlx->perso.dirY * mlx->perso.moveSpeed;
 	}
 	if (key == 100)

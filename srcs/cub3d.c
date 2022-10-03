@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/28 19:32:45 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/03 20:53:10 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	main(int ac, char **av)
 
     mlx.mlx = mlx_init();
 
-    mlx.perso.posX = 2;
-	mlx.perso.posY = 4;
+    mlx.perso.posX = 1.5;
+	mlx.perso.posY = 4.5;
 	mlx.perso.dirX = 0;
 	mlx.perso.dirY = 1;
 	mlx.perso.planeX = (0.66 * mlx.perso.dirY);
@@ -75,11 +75,11 @@ int	main(int ac, char **av)
 	}
 	load_texture(&mlx);
 
-	mlx.perso.moveSpeed = 0.17;
-	mlx.perso.rotSpeed = 0.14;
+	mlx.perso.moveSpeed = 0.071;
+	mlx.perso.rotSpeed = 0.0351;
 
 	mlx.mlx_win = mlx_new_window(mlx.mlx, screenWidth, screenHeight, "cub3d");
-    mlx.data.img = mlx_new_image(mlx.mlx, 1920, 1080);
+    mlx.data.img = mlx_new_image(mlx.mlx, 1080, 720);
     mlx.data.data = (int *)mlx_get_data_addr(mlx.data.img, &mlx.data.bits_per_pixel, &mlx.data.line_length, &mlx.data.endian);
     mlx_hook(mlx.mlx_win, 2, 1L << 0, &key_press, &mlx);
     mlx_hook(mlx.mlx_win, 3, 1L << 1, &key_release, &mlx);

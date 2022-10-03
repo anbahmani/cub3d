@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/28 18:43:15 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/03 18:29:23 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@
 
 # define X_EVENT_KEY_PRESS 2
 # define X_EVENT_KEY_EXIT 17
-# define screenWidth 1920
-# define screenHeight 1080
+# define screenWidth 1080
+# define screenHeight 720
 # define texWidth 64
 # define texHeight 64
 # define mapWidth 24
 # define mapHeight 24
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1080
+# define HEIGHT 720
 
 typedef struct s_data
 {

@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:12:11 by raaga             #+#    #+#             */
-/*   Updated: 2022/09/28 19:55:12 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/03 20:55:12 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,70 +74,19 @@ int	main_loop(t_win *mlx)
 		mlx->perso.planeX = mlx->perso.planeX * cos(mlx->perso.rotSpeed) - mlx->perso.planeY * sin(mlx->perso.rotSpeed);
 		mlx->perso.planeY = oldPlaneX * sin(mlx->perso.rotSpeed) + mlx->perso.planeY * cos(mlx->perso.rotSpeed);
 	}
-	/* si dirY ou dirX est negative ou pas le 1 change */
 	if (mlx->right_pers)
 	{
-		if (mlx->perso.dirX >= 0 && mlx->perso.dirY >= 0)
-		{
-			if (!worldMap[(int)(mlx->perso.posX + ((1 - mlx->perso.dirX) * mlx->perso.moveSpeed))][(int)(mlx->perso.posY)])
-				mlx->perso.posX +=  (1 - mlx->perso.dirX) * mlx->perso.moveSpeed;
-			if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY - (1 - mlx->perso.dirY)* mlx->perso.moveSpeed)])
-				mlx->perso.posY -=  (1 - mlx->perso.dirY) * mlx->perso.moveSpeed;
-		}
-		else if (mlx->perso.dirX < 0 && mlx->perso.dirY >= 0)
-		{
-			if (!worldMap[(int)(mlx->perso.posX - ((1 + mlx->perso.dirX) * mlx->perso.moveSpeed))][(int)(mlx->perso.posY)])
-				mlx->perso.posX += (1 + mlx->perso.dirX) * mlx->perso.moveSpeed;
-			if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY + (1 - mlx->perso.dirY)* mlx->perso.moveSpeed)])
-				mlx->perso.posY += (1 - mlx->perso.dirY)* mlx->perso.moveSpeed;
-		}
-	
-		else if (mlx->perso.dirY < 0 && mlx->perso.dirX < 0)
-		{
-			if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY + ((1 - mlx->perso.dirY)* mlx->perso.moveSpeed))])
-				mlx->perso.posY += (1 + mlx->perso.dirY)* mlx->perso.moveSpeed;
-			if (!worldMap[(int)(mlx->perso.posX - ((1 + mlx->perso.dirX) * mlx->perso.moveSpeed))][(int)(mlx->perso.posY)])
-				mlx->perso.posX -= (1 + mlx->perso.dirX) * mlx->perso.moveSpeed;
-		}
-		else if (mlx->perso.dirY < 0 && mlx->perso.dirX >= 0)
-		{
-			if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY - ((1 + mlx->perso.dirY)* mlx->perso.moveSpeed))])
-				mlx->perso.posY -= (1 + mlx->perso.dirY)* mlx->perso.moveSpeed;
-			if (!worldMap[(int)(mlx->perso.posX - ((1 - mlx->perso.dirX) * mlx->perso.moveSpeed))][(int)(mlx->perso.posY)])
-				mlx->perso.posX -= (1 - mlx->perso.dirX) * mlx->perso.moveSpeed;
-		}
+		if (!worldMap[(int)(mlx->perso.posX + mlx->perso.dirY * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
+				mlx->perso.posX +=  mlx->perso.dirY * mlx->perso.moveSpeed;
+		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY - mlx->perso.dirX* mlx->perso.moveSpeed)])
+				mlx->perso.posY -=  mlx->perso.dirX * mlx->perso.moveSpeed;
 	}
 	if (mlx->left_pers)
 	{
-		if (mlx->perso.dirX >= 0 && mlx->perso.dirY >= 0)
-		{
-			if (!worldMap[(int)(mlx->perso.posX - ((1 - mlx->perso.dirX) * mlx->perso.moveSpeed))][(int)(mlx->perso.posY)])
-				mlx->perso.posX -=  (1 - mlx->perso.dirX) * mlx->perso.moveSpeed;
-			if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY + (1 - mlx->perso.dirY)* mlx->perso.moveSpeed)])
-				mlx->perso.posY +=  (1 - mlx->perso.dirY) * mlx->perso.moveSpeed;
-		}
-		else if (mlx->perso.dirX < 0 && mlx->perso.dirY >= 0)
-		{
-			if (!worldMap[(int)(mlx->perso.posX - ((1 + mlx->perso.dirX) * mlx->perso.moveSpeed))][(int)(mlx->perso.posY)])
-				mlx->perso.posX -= (1 + mlx->perso.dirX) * mlx->perso.moveSpeed;
-			if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY - (1 - mlx->perso.dirY)* mlx->perso.moveSpeed)])
-				mlx->perso.posY -= (1 - mlx->perso.dirY)* mlx->perso.moveSpeed;
-		}
-	
-		else if (mlx->perso.dirY < 0 && mlx->perso.dirX < 0)
-		{
-			if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY - ((1 - mlx->perso.dirY)* mlx->perso.moveSpeed))])
-				mlx->perso.posY -= (1 + mlx->perso.dirY)* mlx->perso.moveSpeed;
-			if (!worldMap[(int)(mlx->perso.posX + ((1 + mlx->perso.dirX) * mlx->perso.moveSpeed))][(int)(mlx->perso.posY)])
-				mlx->perso.posX += (1 + mlx->perso.dirX) * mlx->perso.moveSpeed;
-		}
-		else if (mlx->perso.dirY < 0 && mlx->perso.dirX >= 0)
-		{
-			if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY + ((1 + mlx->perso.dirY)* mlx->perso.moveSpeed))])
-				mlx->perso.posY += (1 + mlx->perso.dirY)* mlx->perso.moveSpeed;
-			if (!worldMap[(int)(mlx->perso.posX + ((1 - mlx->perso.dirX) * mlx->perso.moveSpeed))][(int)(mlx->perso.posY)])
-				mlx->perso.posX += (1 - mlx->perso.dirX) * mlx->perso.moveSpeed;
-		}
+		if (!worldMap[(int)(mlx->perso.posX - mlx->perso.dirY * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
+				mlx->perso.posX -=  mlx->perso.dirY * mlx->perso.moveSpeed;
+		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY + mlx->perso.dirX* mlx->perso.moveSpeed)])
+				mlx->perso.posY +=  mlx->perso.dirX * mlx->perso.moveSpeed;
 	}
 	calcul(mlx);
 	draw(mlx);
@@ -162,7 +111,6 @@ void	ft_bzero(void *s, size_t n)
 
 void	draw(t_win *mlx)
 {
-	ft_bzero(mlx->data.data, screenWidth * screenHeight);
 	for (int y = 0; y < HEIGHT; y++)
 	{
 		for (int x = 0; x < WIDTH; x++)
@@ -170,7 +118,8 @@ void	draw(t_win *mlx)
 			mlx->data.data[y * WIDTH + x] = mlx->buf[y][x];
 		}
 	}
-	 mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->data.img, 0, 0);
+	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->data.img, 0, 0);
+	 
 }
 
 void    print_line(t_win *data, int x, int y1, int y2, int color)
@@ -247,7 +196,8 @@ int calcul(t_win *mlx)
 					mapY += stepY;
 					side = 1;
 				}
-				if (worldMap[mapX][mapY] > 0) hit = 1;
+				if (worldMap[mapX][mapY] > 0) 
+					hit = 1;
 			}
 			if (side == 0)
 				perpWallDist = (mapX - mlx->perso.posX + (1 - stepX) / 2) / rayDirX;
@@ -339,7 +289,6 @@ void	load_texture(t_win *mlx)
 
 int	key_press(int key, t_win *mlx)
 {	
-	fprintf(stderr, "lslsl %d\n", key);
 	if (key == 119)
 	{
 		mlx->up = 1;
@@ -350,27 +299,30 @@ int	key_press(int key, t_win *mlx)
 	}
 	if (key == 100)
 	{
-		mlx->right = 1;
-
+		
+		mlx->right_pers = 1;
 	}
 	if (key == 97)
 	{
-		mlx->left = 1;
+		mlx->left_pers = 1;
+
 	}
 	if (key == 65361)
 	{
 		//left_pers;
-		mlx->left_pers = 1;
+				mlx->left = 1;
+		
 	}
 	if (key == 65363)
 	{
-		mlx->right_pers = 1;
+		mlx->right = 1;
 	}
 
 	
 	if (key == 65307)
 		exit(0); 
-	mlx_clear_window(mlx->mlx, mlx->mlx_win);
+	
+	//mlx_clear_window(mlx->mlx, mlx->mlx_win);
 	main_loop(mlx);
 	return (0);
 }
@@ -387,63 +339,20 @@ int	key_release(int key, t_win *mlx)
 	}
 	if (key == 100)
 	{
-		mlx->right = 0;
-
+		mlx->right_pers = 0;
 	}
 	if (key == 97)
 	{
-		mlx->left = 0;
+		mlx->left_pers = 0;
 	}
 	if (key == 65361)
-		mlx->left_pers = 0;
+		mlx->left = 0;	
 	if (key == 65363)
-		mlx->right_pers = 0;
-	
-/*	if (key == 53)
-		exit(0); 
-	mlx_clear_window(mlx->mlx, mlx->mlx_win);
-	main_loop(mlx);*/
-	return (0);
-}
-/*
-int	key_release(int key, t_win *mlx)
-{
-	if (key == 119)
-	{
-		if (!worldMap[(int)(mlx->perso.posX + mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
-			mlx->perso.posX += mlx->perso.dirX * mlx->perso.moveSpeed;
-		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY + mlx->perso.dirY * mlx->perso.moveSpeed)])
-			mlx->perso.posY += mlx->perso.dirY * mlx->perso.moveSpeed;
-	}
-	if (key == 115)
-	{
-		if (!worldMap[(int)(mlx->perso.posX - mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
-			mlx->perso.posX -= mlx->perso.dirX * mlx->perso.moveSpeed;
-		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY - mlx->perso.dirY * mlx->perso.moveSpeed)])
-			mlx->perso.posY -= mlx->perso.dirY * mlx->perso.moveSpeed;
-	}
-	if (key == 100)
-	{
-		double oldDirX = mlx->perso.dirX;
-		mlx->perso.dirX = mlx->perso.dirX * cos(-mlx->perso.rotSpeed) - mlx->perso.dirY * sin(-mlx->perso.rotSpeed);
-		mlx->perso.dirY = oldDirX * sin(-mlx->perso.rotSpeed) + mlx->perso.dirY * cos(-mlx->perso.rotSpeed);
-		double oldPlaneX = mlx->perso.planeX;
-		mlx->perso.planeX = mlx->perso.planeX * cos(-mlx->perso.rotSpeed) - mlx->perso.planeY * sin(-mlx->perso.rotSpeed);
-		mlx->perso.planeY = oldPlaneX * sin(-mlx->perso.rotSpeed) + mlx->perso.planeY * cos(-mlx->perso.rotSpeed);
-	}
-	if (key == 97)
-	{
-		double oldDirX = mlx->perso.dirX;
-		mlx->perso.dirX = mlx->perso.dirX * cos(mlx->perso.rotSpeed) - mlx->perso.dirY * sin(mlx->perso.rotSpeed);
-		mlx->perso.dirY = oldDirX * sin(mlx->perso.rotSpeed) + mlx->perso.dirY * cos(mlx->perso.rotSpeed);
-		double oldPlaneX = mlx->perso.planeX;
-		mlx->perso.planeX = mlx->perso.planeX * cos(mlx->perso.rotSpeed) - mlx->perso.planeY * sin(mlx->perso.rotSpeed);
-		mlx->perso.planeY = oldPlaneX * sin(mlx->perso.rotSpeed) + mlx->perso.planeY * cos(mlx->perso.rotSpeed);
-	}
+		mlx->right = 0;
 	
 	if (key == 53)
 		exit(0); 
-	mlx_clear_window(mlx->mlx, mlx->mlx_win);
+	//mlx_clear_window(mlx->mlx, mlx->mlx_win);
 	main_loop(mlx);
 	return (0);
-}*/
+}

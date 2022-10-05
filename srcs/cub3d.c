@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/01 04:24:21 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/05 19:12:27 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void display_data(t_map_data data)
 	printf("SO ->%s\n", data.south_text);
 	printf("EA ->%s\n", data.east_text);
 	printf("WE ->%s\n", data.west_text);
-	printf("C ->%d, %d, %d\n", data.ceiling_rgb.red, data.ceiling_rgb.green, data.ceiling_rgb.blue);
+	printf("C ->%d, %d, %d %d\n", data.ceiling_rgb.red, data.ceiling_rgb.green, data.ceiling_rgb.blue, data.ceiling_rgb.color);
 	printf("F ->%d, %d, %d\n", data.floor_rgb.red, data.floor_rgb.green, data.floor_rgb.blue);
 }
 
@@ -80,8 +80,7 @@ int	main(int ac, char **av)
 	printf("lstsize main after get data -> %d\n", ft_lstsize(eng.garbage_coll));
 	//win(mlx);
 	display_data(*eng.map_data);
-	eng.mlx_data->mlx = mlx_init();
-	check_text_file_error(&eng);
+	//check_text_file_error(&eng);
 	find_map(av[1], eng.map_data, eng.garbage_coll);
 	//eng.mlx_data = ft_malloc(sizeof(t_win), eng.garbage_coll);
 	//mlx.data.img = mlx_new_image(mlx.mlx, 1920, 1080);
@@ -96,6 +95,7 @@ int	main(int ac, char **av)
 	display_tab(eng.map_data->map);
 	display_data(*eng.map_data);
 	
+	play(&eng);
 	
 	
 	

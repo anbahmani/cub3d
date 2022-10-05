@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/05 17:28:42 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/05 18:27:56 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,8 @@
 
 /*----------------------------PERSO CONFIG DEFINE-----------------------------*/
 
-# define PERSO_MOVEMENT_SPEED 0.17
-# define PERSO_ROTATION_SPEED 0.14
-# define PERSO_PLANE_X 0
-# define PERSO_PLANE_Y 0.66
+# define PERSO_MOVEMENT_SPEED 0.071
+# define PERSO_ROTATION_SPEED 0.0351
 
 /*---------------------------------STRUCTURE----------------------------------*/
 
@@ -134,6 +132,7 @@ typedef struct s_rgb
 	int	red;
 	int	green;
 	int	blue;
+	int color;
 }	t_rgb;
 
 //TODO - delete if unused
@@ -200,12 +199,15 @@ void	set_color(t_rgb *colors, char **split);
 t_rgb	get_color(char *line, t_list *garb_coll);
 void	set_color(t_rgb *colors, char **split);
 int		count_file_line(char const *file_name, t_list *garb_c);
+void	init_perso(t_perso *perso, const char **map);
 
 /*--------------------------------RAYCASTING----------------------------------*/
 
 int		calcul(t_engine *eng);
 void    print_line(t_engine *eng, int x, int y1, int y2, int color);
 int		key_press(int key, t_engine *engine);
+void	play(t_engine *eng);
+void	draw(t_engine *eng);
 
 /*------------------------------------IHM-------------------------------------*/
 

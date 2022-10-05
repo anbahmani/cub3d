@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_file_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 09:20:12 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/05 17:59:31 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/05 21:14:24 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,15 @@ void	get_file_data_bis(t_map_data *data, t_list *garb_c, char *line)
 	else if (!ft_strncmp((const char *) line, "C ", 2))
 	{
 		data->ceiling_rgb = get_color(line, garb_c);
-		data->ceiling_rgb.color = pow((double)data->ceiling_rgb.red, 3.00);
-		data->ceiling_rgb.color += pow((double)data->ceiling_rgb.green, 2.00);
+		data->ceiling_rgb.color = data->ceiling_rgb.red * 65536;
+		data->ceiling_rgb.color += data->ceiling_rgb.green * 256;
 		data->ceiling_rgb.color += data->ceiling_rgb.blue;
 	}
 	else if (!ft_strncmp((const char *) line, "F ", 2))
 	{
 		data->floor_rgb = get_color(line, garb_c);
-		data->floor_rgb.color = pow((double)data->floor_rgb.red, 3.00);
-		data->floor_rgb.color += pow((double)data->floor_rgb.green, 2.00);
+		data->floor_rgb.color = data->floor_rgb.red * 65536;
+		data->floor_rgb.color += data->floor_rgb.green * 256;
 		data->floor_rgb.color += data->floor_rgb.blue;
 	}
 		

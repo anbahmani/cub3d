@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/05 19:12:27 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/05 19:57:45 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,12 @@ int	main(int ac, char **av)
 	//eng.mlx_data = ft_malloc(sizeof(t_win), eng.garbage_coll);
 	//mlx.data.img = mlx_new_image(mlx.mlx, 1920, 1080);
    // mlx.data.addr = mlx_get_data_addr(mlx.data.img, &mlx.data.bits_per_pixel, &mlx.data.line_length, &mlx.data.endian);
-	/*
-	mlx_loop_hook(eng.mlx_data->mlx, &main_loop, eng.mlx_data);
-    mlx_hook(eng.mlx_data->mlx_win, 2, 1L << 0, &key_press, eng.mlx_data);
-    mlx_hook(eng.mlx_data->mlx_win, 2, 1L << 0, &key_press, eng.mlx_data);
-    mlx_loop(eng.mlx_data->mlx);
-	*/
+
 	
 	display_tab(eng.map_data->map);
 	display_data(*eng.map_data);
-	
 	play(&eng);
-	
+	fprintf(stderr, "tesdfsdfsdfst\n");
 	
 	
 	clear(eng.garbage_coll);

@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/05 18:27:56 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/05 20:02:02 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@
 */
 /*----------------------------SCREEN DATA DEFINE------------------------------*/
 
-# define SCREEN_WIDTH 1920
-# define SCREEN_HEIGHT 1080
+# define SCREEN_WIDTH 1080
+# define SCREEN_HEIGHT 720
 
 /*----------------------------PERSO CONFIG DEFINE-----------------------------*/
 

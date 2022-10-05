@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:12:11 by raaga             #+#    #+#             */
-/*   Updated: 2022/10/03 20:55:12 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/05 16:42:56 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,13 +245,32 @@ int calcul(t_win *mlx)
 				int texY = (int)texPos & (texHeight - 1);
 				texPos += step;
 				int color = mlx->texture[texNum][texHeight * texY + texX];
+				if (mapX + (1 - stepX)/2 > mlx->perso.posX)
+				{
+					color = 0xFFFFFF; // NORD
+				}
+				else
+				{
+					color = 0x0000FF; // SUD
+				}
 				if (side == 1)
+				{
+					if (mapY + (1 - stepY)/2 > mlx->perso.posY)
+					{
+						color = 0xAAFFFF; //OUEST
+					}
+					else
+					{
+						color = 0x0000FF; //EST
+					}
 					color = (color >> 1) & 8355711;
+				}
 				mlx->buf[y][x] = color;
 				mlx->re_buf = 1;
 			}
 			x++;
 		}
+		
 	
 	return (0);
 }

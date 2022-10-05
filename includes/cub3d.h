@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/02 11:46:44 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/05 17:28:42 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ int		key_press(int key, t_engine *engine);
 
 void	my_mlx_pixel_put(t_win *mlx, int x, int y, int color);
 void	init_ihm(t_win *mlx_data);
-int		main_loop(t_win *mlx);
+int		main_loop(t_engine *eng);
 
 /*----------------------------------UTILS-------------------------------------*/
 

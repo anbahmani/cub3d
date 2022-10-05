@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/02 11:46:44 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/05 09:10:29 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ void	set_color(t_rgb *colors, char **split);
 t_rgb	get_color(char *line, t_list *garb_coll);
 void	set_color(t_rgb *colors, char **split);
 int		count_file_line(char const *file_name, t_list *garb_c);
+void	init_perso(t_perso *perso, const char **map);
 
 /*--------------------------------RAYCASTING----------------------------------*/
 

@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 22:44:28 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/01 04:06:23 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/05 09:02:20 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,5 @@ void	find_map(const char *file_name, t_map_data *data, t_list *garb_c)
 		ft_lstadd_back(&garb_c, ft_lstnew(line));
 	close(fd);
 	data->map = get_map(i, file_name, garb_c);
-	//fill_map(data, garb_c);
+	fill_map(data, garb_c);
 }

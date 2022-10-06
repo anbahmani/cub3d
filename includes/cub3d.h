@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/05 20:02:02 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:01:40 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@
 
 /*----------------------------PERSO CONFIG DEFINE-----------------------------*/
 
-# define PERSO_MOVEMENT_SPEED 0.071
-# define PERSO_ROTATION_SPEED 0.0351
+# define PERSO_MOVEMENT_SPEED 0.021
+# define PERSO_ROTATION_SPEED 0.0151
 
 /*---------------------------------STRUCTURE----------------------------------*/
 
@@ -159,10 +159,37 @@ typedef struct s_map_data
 	t_perso	player;
 }	t_map_data;
 
+typedef struct s_calcul_data
+{
+	double cameraX;
+	double rayDirX;
+	double rayDirY;
+	int mapX;
+	int mapY;
+	double sideDistX;
+	double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
+	double perpWallDist;
+	int stepX;
+	int stepY;
+	int hit;
+	int side;
+	int lineHeight;
+	double wallX;
+	int texNum;
+	int texX;
+	double step;
+	double texPos;
+	int drawStart;
+	int drawEnd;
+}	t_calcul_data;
+
 typedef struct s_engine
 {
 	t_map_data	*map_data;
 	t_win		*mlx_data;
+	t_calcul_data *calcul;
 	t_list		*garbage_coll;
 }	t_engine;
 
@@ -203,7 +230,7 @@ void	init_perso(t_perso *perso, const char **map);
 
 /*--------------------------------RAYCASTING----------------------------------*/
 
-int		calcul(t_engine *eng);
+int		calcul(t_engine *eng, int x);
 void    print_line(t_engine *eng, int x, int y1, int y2, int color);
 int		key_press(int key, t_engine *engine);
 void	play(t_engine *eng);

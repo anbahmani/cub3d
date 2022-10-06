@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:12:11 by raaga             #+#    #+#             */
-/*   Updated: 2022/10/05 20:44:00 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/06 19:20:29 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,18 @@ void    print_line(t_win *data, int x, int y1, int y2, int color)
     }
 }
 
+void	ceiling_or_floor(t_win *mlx, int x, int y, int color)
+{
+	int i;
+
+	i = 0;
+	while (i < y)
+	{
+		
+		i++;
+	}
+}
+
 int calcul(t_win *mlx)
 {	
 	int x = 0;
@@ -167,20 +179,17 @@ int calcul(t_win *mlx)
 				else
 				{
 					sideDistY += deltaDistY;
-					mapY += stepY;
-					side = 1;
-				}
-				if (worldMap[mapX][mapY] > 0) 
-					hit = 1;
-			}
-			if (side == 0)
-				perpWallDist = (mapX - mlx->perso.posX + (1 - stepX) / 2) / rayDirX;
-			else
-				perpWallDist = (mapY - mlx->perso.posY + (1 - stepY) / 2) / rayDirY;
+					mapY void	ceiling_or_floor(t_win *mlx, int x, int y, int color)
+{
+	int i;
 
-			int lineHeight = (int)(HEIGHT / perpWallDist);
-
-			int drawStart = -lineHeight / 2 + HEIGHT / 2;
+	i = 0;
+	while (i < y)
+	{
+		
+		i++;
+	}
+} = -lineHeight / 2 + HEIGHT / 2;
 			if(drawStart < 0)
 				drawStart = 0;
 			int drawEnd = lineHeight / 2 + HEIGHT / 2;
@@ -204,6 +213,7 @@ int calcul(t_win *mlx)
 
 			double step = 1.0 * texHeight / lineHeight;
 			double texPos = (drawStart - HEIGHT / 2 + lineHeight / 2) * step;
+			ceiling_or_floor(mlx, x, drawStart, mlx)
 			for (int z = 0; z < drawStart; z++)
 			{
 				mlx->buf[z][x] = mlx->color;

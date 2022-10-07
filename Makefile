@@ -1,6 +1,6 @@
 NAME        	=   cub3d
 
-CC          	=   gcc
+CC          	=   gcc #-fsanitize=address -g3
 
 SRC_DIR			= 	$(shell find srcs -type d) \
 

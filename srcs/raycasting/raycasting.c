@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 04:06:55 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/06 21:06:18 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/07 15:27:13 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,52 +16,51 @@ int	main_loop(t_engine *eng)
 {
 	double	old_dir_x;
 	double	old_plane_x;
-	
 	if (eng->mlx_data->up)
 	{
-		if (eng->map_data->map[(int)(eng->map_data->player.posY)][(int)(eng->map_data->player.posX + eng->map_data->player.dirX * eng->map_data->player.moveSpeed)] == '0')
-			eng->map_data->player.posX += eng->map_data->player.dirX * eng->map_data->player.moveSpeed;
-		if (eng->map_data->map[(int)(eng->map_data->player.posY + eng->map_data->player.dirY * eng->map_data->player.moveSpeed)][(int)(eng->map_data->player.posX)] == '0')
-			eng->map_data->player.posY += eng->map_data->player.dirY * eng->map_data->player.moveSpeed;
+		if (eng->map_data->map[(int)(eng->map_data->player.pos_y)][(int)(eng->map_data->player.pos_x + eng->map_data->player.dir_x * eng->map_data->player.move_speed)] == '0')
+			eng->map_data->player.pos_x += eng->map_data->player.dir_x * eng->map_data->player.move_speed;
+		if (eng->map_data->map[(int)(eng->map_data->player.pos_y + eng->map_data->player.dir_y * eng->map_data->player.move_speed)][(int)(eng->map_data->player.pos_x)] == '0')
+			eng->map_data->player.pos_y += eng->map_data->player.dir_y * eng->map_data->player.move_speed;
 	}
 	if (eng->mlx_data->down)
 	{
-		if (eng->map_data->map[(int)(eng->map_data->player.posY)][(int)(eng->map_data->player.posX - eng->map_data->player.dirX * eng->map_data->player.moveSpeed)] == '0')
-			eng->map_data->player.posX -= eng->map_data->player.dirX * eng->map_data->player.moveSpeed;
-		if (eng->map_data->map[(int)(eng->map_data->player.posY - eng->map_data->player.dirY * eng->map_data->player.moveSpeed)][(int)(eng->map_data->player.posX)] == '0')
-			eng->map_data->player.posY -= eng->map_data->player.dirY * eng->map_data->player.moveSpeed;
+		if (eng->map_data->map[(int)(eng->map_data->player.pos_y)][(int)(eng->map_data->player.pos_x - eng->map_data->player.dir_x * eng->map_data->player.move_speed)] == '0')
+			eng->map_data->player.pos_x -= eng->map_data->player.dir_x * eng->map_data->player.move_speed;
+		if (eng->map_data->map[(int)(eng->map_data->player.pos_y - eng->map_data->player.dir_y * eng->map_data->player.move_speed)][(int)(eng->map_data->player.pos_x)] == '0')
+			eng->map_data->player.pos_y -= eng->map_data->player.dir_y * eng->map_data->player.move_speed;
 	}
 	if (eng->mlx_data->right)
 	{
-		old_dir_x = eng->map_data->player.dirX;
-		eng->map_data->player.dirX = eng->map_data->player.dirX * cos(-eng->map_data->player.rotSpeed) - eng->map_data->player.dirY * sin(-eng->map_data->player.rotSpeed);
-		eng->map_data->player.dirY = old_dir_x * sin(-eng->map_data->player.rotSpeed) + eng->map_data->player.dirY * cos(-eng->map_data->player.rotSpeed);
-		old_plane_x = eng->map_data->player.planeX;
-		eng->map_data->player.planeX = eng->map_data->player.planeX * cos(-eng->map_data->player.rotSpeed) - eng->map_data->player.planeY * sin(-eng->map_data->player.rotSpeed);
-		eng->map_data->player.planeY = old_plane_x * sin(-eng->map_data->player.rotSpeed) + eng->map_data->player.planeY * cos(-eng->map_data->player.rotSpeed);
+		old_dir_x = eng->map_data->player.dir_x;
+		eng->map_data->player.dir_x = eng->map_data->player.dir_x * cos(-eng->map_data->player.rot_speed) - eng->map_data->player.dir_y * sin(-eng->map_data->player.rot_speed);
+		eng->map_data->player.dir_y = old_dir_x * sin(-eng->map_data->player.rot_speed) + eng->map_data->player.dir_y * cos(-eng->map_data->player.rot_speed);
+		old_plane_x = eng->map_data->player.plane_x;
+		eng->map_data->player.plane_x = eng->map_data->player.plane_x * cos(-eng->map_data->player.rot_speed) - eng->map_data->player.plane_y * sin(-eng->map_data->player.rot_speed);
+		eng->map_data->player.plane_y = old_plane_x * sin(-eng->map_data->player.rot_speed) + eng->map_data->player.plane_y * cos(-eng->map_data->player.rot_speed);
 	}
 	if (eng->mlx_data->left)
 	{
-		old_dir_x = eng->map_data->player.dirX;
-		eng->map_data->player.dirX = eng->map_data->player.dirX * cos(eng->map_data->player.rotSpeed) - eng->map_data->player.dirY * sin(eng->map_data->player.rotSpeed);
-		eng->map_data->player.dirY = old_dir_x * sin(eng->map_data->player.rotSpeed) + eng->map_data->player.dirY * cos(eng->map_data->player.rotSpeed);
-		old_plane_x = eng->map_data->player.planeX;
-		eng->map_data->player.planeX = eng->map_data->player.planeX * cos(eng->map_data->player.rotSpeed) - eng->map_data->player.planeY * sin(eng->map_data->player.rotSpeed);
-		eng->map_data->player.planeY = old_plane_x * sin(eng->map_data->player.rotSpeed) + eng->map_data->player.planeY * cos(eng->map_data->player.rotSpeed);
+		old_dir_x = eng->map_data->player.dir_x;
+		eng->map_data->player.dir_x = eng->map_data->player.dir_x * cos(eng->map_data->player.rot_speed) - eng->map_data->player.dir_y * sin(eng->map_data->player.rot_speed);
+		eng->map_data->player.dir_y = old_dir_x * sin(eng->map_data->player.rot_speed) + eng->map_data->player.dir_y * cos(eng->map_data->player.rot_speed);
+		old_plane_x = eng->map_data->player.plane_x;
+		eng->map_data->player.plane_x = eng->map_data->player.plane_x * cos(eng->map_data->player.rot_speed) - eng->map_data->player.plane_y * sin(eng->map_data->player.rot_speed);
+		eng->map_data->player.plane_y = old_plane_x * sin(eng->map_data->player.rot_speed) + eng->map_data->player.plane_y * cos(eng->map_data->player.rot_speed);
 	}
 	if (eng->mlx_data->right_pers)
 	{
-		if (eng->map_data->map[(int)(eng->map_data->player.posY)][(int)(eng->map_data->player.posX + eng->map_data->player.dirY * eng->map_data->player.moveSpeed)] == '0')
-				eng->map_data->player.posX +=  eng->map_data->player.dirY * eng->map_data->player.moveSpeed;
-		if (eng->map_data->map[(int)(eng->map_data->player.posY - eng->map_data->player.dirX* eng->map_data->player.moveSpeed)][(int)(eng->map_data->player.posX)] == '0')
-				eng->map_data->player.posY -=  eng->map_data->player.dirX * eng->map_data->player.moveSpeed;
+		if (eng->map_data->map[(int)(eng->map_data->player.pos_y)][(int)(eng->map_data->player.pos_x + eng->map_data->player.dir_y * eng->map_data->player.move_speed)] == '0')
+				eng->map_data->player.pos_x +=  eng->map_data->player.dir_y * eng->map_data->player.move_speed;
+		if (eng->map_data->map[(int)(eng->map_data->player.pos_y - eng->map_data->player.dir_x* eng->map_data->player.move_speed)][(int)(eng->map_data->player.pos_x)] == '0')
+				eng->map_data->player.pos_y -=  eng->map_data->player.dir_x * eng->map_data->player.move_speed;
 	}
 	if (eng->mlx_data->left_pers)
 	{
-		if (eng->map_data->map[(int)(eng->map_data->player.posY)][(int)(eng->map_data->player.posX - eng->map_data->player.dirY * eng->map_data->player.moveSpeed)] == '0')
-				eng->map_data->player.posX -=  eng->map_data->player.dirY * eng->map_data->player.moveSpeed;
-		if (eng->map_data->map[(int)(eng->map_data->player.posY + eng->map_data->player.dirX* eng->map_data->player.moveSpeed)][(int)(eng->map_data->player.posX)] == '0')
-				eng->map_data->player.posY +=  eng->map_data->player.dirX * eng->map_data->player.moveSpeed;
+		if (eng->map_data->map[(int)(eng->map_data->player.pos_y)][(int)(eng->map_data->player.pos_x - eng->map_data->player.dir_y * eng->map_data->player.move_speed)] == '0')
+				eng->map_data->player.pos_x -=  eng->map_data->player.dir_y * eng->map_data->player.move_speed;
+		if (eng->map_data->map[(int)(eng->map_data->player.pos_y + eng->map_data->player.dir_x* eng->map_data->player.move_speed)][(int)(eng->map_data->player.pos_x)] == '0')
+				eng->map_data->player.pos_y +=  eng->map_data->player.dir_x * eng->map_data->player.move_speed;
 	}
 	calcul(eng, 0);
 	draw(eng);
@@ -121,25 +120,25 @@ void	ceiling_or_floor(t_engine *eng, int x, int y, int color, int q)
 
 void	wall_draw(t_engine *eng, int x, int y, int z)
 {
-	int i;
+	int	i;
+	int	color;
 
 	i = y;
 	while (i < z)
 	{
-		int texY = (int)eng->calcul->texPos & (texHeight - 1);
-		eng->calcul->texPos += eng->calcul->step;
-		int color = eng->mlx_data->texture[eng->calcul->texNum][texHeight * texY + eng->calcul->texX];
-
-		if (eng->calcul->mapX + (1 - eng->calcul->stepX)/2 > eng->map_data->player.posX)
-			color = eng->mlx_data->texture[0][texHeight * texY + eng->calcul->texX];// NORD
+		eng->calcul->tex_y = (int)eng->calcul->tex_pos & (texHeight - 1);
+		eng->calcul->tex_pos += eng->calcul->step;
+		color = eng->mlx_data->texture[eng->calcul->tex_num][texHeight * eng->calcul->tex_y + eng->calcul->tex_x];
+		if (eng->calcul->map_x + (1 - eng->calcul->step_x) / 2 > eng->map_data->player.pos_x)
+			color = eng->mlx_data->texture[0][texHeight * eng->calcul->tex_y + eng->calcul->tex_x];// NORD
 		else
-			color = eng->mlx_data->texture[1][texHeight * texY + eng->calcul->texX]; // SUD
+			color = eng->mlx_data->texture[1][texHeight * eng->calcul->tex_y + eng->calcul->tex_x]; // SUD
 		if (eng->calcul->side == 1)
 		{
-			if (eng->calcul->mapY + (1 - eng->calcul->stepY)/2 > eng->map_data->player.posY)
-				color = eng->mlx_data->texture[3][texHeight * texY + eng->calcul->texX]; //OUEST
+			if (eng->calcul->map_y + (1 - eng->calcul->step_y) / 2 > eng->map_data->player.pos_y)
+				color = eng->mlx_data->texture[3][texHeight * eng->calcul->tex_y + eng->calcul->tex_x]; //OUEST
 			else
-				color = eng->mlx_data->texture[2][texHeight * texY + eng->calcul->texX];//EST
+				color = eng->mlx_data->texture[2][texHeight * eng->calcul->tex_y + eng->calcul->tex_x];//EST
 			color = (color >> 1) & 8355711;
 		}
 		eng->mlx_data->buf[i][x] = color;
@@ -150,13 +149,13 @@ void	wall_draw(t_engine *eng, int x, int y, int z)
 
 void init_var(t_engine *eng, int x)
 {
-	eng->calcul->cameraX = 2 * x / (double)SCREEN_WIDTH - 1;
-	eng->calcul->rayDirX = eng->map_data->player.dirX + eng->map_data->player.planeX * eng->calcul->cameraX;
-	eng->calcul->rayDirY = eng->map_data->player.dirY + eng->map_data->player.planeY * eng->calcul->cameraX;
-	eng->calcul->mapX = (int)eng->map_data->player.posX;
-	eng->calcul->mapY = (int)eng->map_data->player.posY;
-	eng->calcul->deltaDistX = fabs(1 / eng->calcul->rayDirX);
-	eng->calcul->deltaDistY = fabs(1 / eng->calcul->rayDirY);
+	eng->calcul->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
+	eng->calcul->ray_dir_x = eng->map_data->player.dir_x + eng->map_data->player.plane_x * eng->calcul->camera_x;
+	eng->calcul->ray_dir_y = eng->map_data->player.dir_y + eng->map_data->player.plane_y * eng->calcul->camera_x;
+	eng->calcul->map_x = (int)eng->map_data->player.pos_x;
+	eng->calcul->map_y = (int)eng->map_data->player.pos_y;
+	eng->calcul->delta_dist_x = fabs(1 / eng->calcul->ray_dir_x);
+	eng->calcul->delta_dist_y = fabs(1 / eng->calcul->ray_dir_y);
 	eng->calcul->hit = 0;
 }
 
@@ -164,34 +163,34 @@ void init_var(t_engine *eng, int x)
 void	calcul_dist_wall(t_engine *eng)
 {
 	if (eng->calcul->side == 0)
-		eng->calcul->perpWallDist = (eng->calcul->mapX - eng->map_data->player.posX + (1 - eng->calcul->stepX) / 2) / eng->calcul->rayDirX;
+		eng->calcul->perp_wall_dist = (eng->calcul->map_x - eng->map_data->player.pos_x + (1 - eng->calcul->step_x) / 2) / eng->calcul->ray_dir_x;
 	else
-		eng->calcul->perpWallDist = (eng->calcul->mapY - eng->map_data->player.posY + (1 - eng->calcul->stepY) / 2) / eng->calcul->rayDirY;
+		eng->calcul->perp_wall_dist = (eng->calcul->map_y - eng->map_data->player.pos_y + (1 - eng->calcul->step_y) / 2) / eng->calcul->ray_dir_y;
 	
 	if (eng->calcul->side == 0)
-		eng->calcul->wallX = eng->map_data->player.posY + eng->calcul->perpWallDist * eng->calcul->rayDirY;
+		eng->calcul->wall_x = eng->map_data->player.pos_y + eng->calcul->perp_wall_dist * eng->calcul->ray_dir_y;
 	else
-		eng->calcul->wallX = eng->map_data->player.posX + eng->calcul->perpWallDist * eng->calcul->rayDirX;
-	eng->calcul->wallX -= floor(eng->calcul->wallX);
+		eng->calcul->wall_x = eng->map_data->player.pos_x + eng->calcul->perp_wall_dist * eng->calcul->ray_dir_x;
+	eng->calcul->wall_x -= floor(eng->calcul->wall_x);
 }
 
 void	wall_detect(t_engine *eng)
 {
 	while (eng->calcul->hit == 0)
 	{
-		if (eng->calcul->sideDistX < eng->calcul->sideDistY)
+		if (eng->calcul->side_dist_x < eng->calcul->side_dist_y)
 		{
-			eng->calcul->sideDistX += eng->calcul->deltaDistX;
-			eng->calcul->mapX += eng->calcul->stepX;
+			eng->calcul->side_dist_x += eng->calcul->delta_dist_x;
+			eng->calcul->map_x += eng->calcul->step_x;
 			eng->calcul->side = 0;
 		}
 		else
 		{
-			eng->calcul->sideDistY += eng->calcul->deltaDistY;
-			eng->calcul->mapY += eng->calcul->stepY;
+			eng->calcul->side_dist_y += eng->calcul->delta_dist_y;
+			eng->calcul->map_y += eng->calcul->step_y;
 			eng->calcul->side = 1;
 		}
-		if (eng->map_data->map[eng->calcul->mapY][eng->calcul->mapX] > 48)
+		if (eng->map_data->map[eng->calcul->map_y][eng->calcul->map_x] > 48)
 			eng->calcul->hit = 1;
 	}
 	calcul_dist_wall(eng);
@@ -200,25 +199,25 @@ void	wall_detect(t_engine *eng)
 
 void	init_sideDist(t_engine *eng)
 {
-	if (eng->calcul->rayDirX < 0)
+	if (eng->calcul->ray_dir_x < 0)
 	{
-		eng->calcul->stepX = -1;
-		eng->calcul->sideDistX = (eng->map_data->player.posX - eng->calcul->mapX) * eng->calcul->deltaDistX;
+		eng->calcul->step_x = -1;
+		eng->calcul->side_dist_x = (eng->map_data->player.pos_x - eng->calcul->map_x) * eng->calcul->delta_dist_x;
 	}
 	else
 	{
-		eng->calcul->stepX = 1;
-		eng->calcul->sideDistX = (eng->calcul->mapX + 1.0 - eng->map_data->player.posX) * eng->calcul->deltaDistX;
+		eng->calcul->step_x = 1;
+		eng->calcul->side_dist_x = (eng->calcul->map_x + 1.0 - eng->map_data->player.pos_x) * eng->calcul->delta_dist_x;
 	}
-	if (eng->calcul->rayDirY < 0)
+	if (eng->calcul->ray_dir_y < 0)
 	{
-		eng->calcul->stepY = -1;
-		eng->calcul->sideDistY = (eng->map_data->player.posY - eng->calcul->mapY) * eng->calcul->deltaDistY;
+		eng->calcul->step_y = -1;
+		eng->calcul->side_dist_y = (eng->map_data->player.pos_y - eng->calcul->map_y) * eng->calcul->delta_dist_y;
 	}
 	else
 	{
-		eng->calcul->stepY = 1;
-		eng->calcul->sideDistY = (eng->calcul->mapY + 1.0 - eng->map_data->player.posY) * eng->calcul->deltaDistY;
+		eng->calcul->step_y = 1;
+		eng->calcul->side_dist_y = (eng->calcul->map_y + 1.0 - eng->map_data->player.pos_y) * eng->calcul->delta_dist_y;
 	}
 	wall_detect(eng);
 }
@@ -229,23 +228,23 @@ int calcul(t_engine *eng, int x)
 	{
 		init_var(eng, x);
 		init_sideDist(eng);
-		eng->calcul->lineHeight = (int)(SCREEN_HEIGHT / eng->calcul->perpWallDist);
-		eng->calcul->drawStart = -(eng->calcul->lineHeight) / 2 + SCREEN_HEIGHT / 2;
-		if(eng->calcul->drawStart < 0)
-			eng->calcul->drawStart = 0;
-		eng->calcul->drawEnd = eng->calcul->lineHeight / 2 + SCREEN_HEIGHT / 2;
-		if(eng->calcul->drawEnd >= SCREEN_HEIGHT)
-			eng->calcul->drawEnd = SCREEN_HEIGHT - 1;
-		eng->calcul->texX = (int)(eng->calcul->wallX * (double)texWidth);
-		if (eng->calcul->side == 0 && eng->calcul->rayDirX > 0)
-			eng->calcul->texX = texWidth - eng->calcul->texX - 1;
-		if (eng->calcul->side == 1 && eng->calcul->rayDirY < 0)
-			eng->calcul->texX = texWidth - eng->calcul->texX - 1;
-		eng->calcul->step = 1.0 * texHeight / eng->calcul->lineHeight;
-		eng->calcul->texPos = (eng->calcul->drawStart - SCREEN_HEIGHT / 2 + eng->calcul->lineHeight / 2) * eng->calcul->step;
-		ceiling_or_floor(eng, x, eng->calcul->drawStart, eng->map_data->ceiling_rgb.color, 0);
-		ceiling_or_floor(eng, x, eng->calcul->drawEnd, eng->map_data->floor_rgb.color, 1);
-		wall_draw(eng, x, eng->calcul->drawStart, eng->calcul->drawEnd);
+		eng->calcul->line_height = (int)(SCREEN_HEIGHT / eng->calcul->perp_wall_dist);
+		eng->calcul->draw_start = -(eng->calcul->line_height) / 2 + SCREEN_HEIGHT / 2;
+		if(eng->calcul->draw_start < 0)
+			eng->calcul->draw_start = 0;
+		eng->calcul->draw_end = eng->calcul->line_height / 2 + SCREEN_HEIGHT / 2;
+		if(eng->calcul->draw_end >= SCREEN_HEIGHT)
+			eng->calcul->draw_end = SCREEN_HEIGHT - 1;
+		eng->calcul->tex_x = (int)(eng->calcul->wall_x * (double)texWidth);
+		if (eng->calcul->side == 0 && eng->calcul->ray_dir_x > 0)
+			eng->calcul->tex_x = texWidth - eng->calcul->tex_x - 1;
+		if (eng->calcul->side == 1 && eng->calcul->ray_dir_y < 0)
+			eng->calcul->tex_x = texWidth - eng->calcul->tex_x - 1;
+		eng->calcul->step = 1.0 * texHeight / eng->calcul->line_height;
+		eng->calcul->tex_pos = (eng->calcul->draw_start - SCREEN_HEIGHT / 2 + eng->calcul->line_height / 2) * eng->calcul->step;
+		ceiling_or_floor(eng, x, eng->calcul->draw_start, eng->map_data->ceiling_rgb.color, 0);
+		ceiling_or_floor(eng, x, eng->calcul->draw_end, eng->map_data->floor_rgb.color, 1);
+		wall_draw(eng, x, eng->calcul->draw_start, eng->calcul->draw_end);
 		x++;
 	}
 	return (0);
@@ -343,7 +342,7 @@ void	play(t_engine *eng)
 {
 	eng->mlx_data->mlx = mlx_init();
 	init_perso(&eng->map_data->player, (const char **)eng->map_data->map);
-	eng->map_data->map[(int)eng->map_data->player.posY][(int)eng->map_data->player.posX] = '0';
+	eng->map_data->map[(int)eng->map_data->player.pos_y][(int)eng->map_data->player.pos_x] = '0';
 	exec_load(eng);
 	eng->mlx_data->re_buf = 0;
 	eng->mlx_data->mlx_win = mlx_new_window(eng->mlx_data->mlx, SCREEN_WIDTH , SCREEN_HEIGHT , "cub3d");

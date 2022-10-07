@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_perso.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 09:09:48 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/05 20:18:27 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/07 14:27:57 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 static void	init_perso_bis(t_perso *perso, const char **map, int i, int j)
 {
-	perso->posX = j + 0.5;
-	perso->posY = i + 0.5;
+	perso->pos_x = j + 0.5;
+	perso->pos_y = i + 0.5;
 	if (map[i][j] == 'W')
 	{
-		perso->dirX = -1;
-		perso->dirY = 0;
+		perso->dir_x = -1;
+		perso->dir_y = 0;
 	}
 	else if (map[i][j] == 'E')
 	{
-		perso->dirX = 1;
-		perso->dirY = 0;
+		perso->dir_x = 1;
+		perso->dir_y = 0;
 	}
 	else if (map[i][j] == 'N')
 	{
-		perso->dirX = 0;
-		perso->dirY = -1;
+		perso->dir_x = 0;
+		perso->dir_y = -1;
 	}
 	else if (map[i][j] == 'S')
 	{
-		perso->dirX = 0;
-		perso->dirY = 1;
+		perso->dir_x = 0;
+		perso->dir_y = 1;
 	}
 }
 
@@ -57,10 +57,10 @@ void	init_perso(t_perso *perso, const char **map)
 		}
 		i++;
 	}
-	perso->dirX = -1;
-	perso->dirY = 0;
-	perso->planeX = (0.66 * perso->dirY);;
-	perso->planeY = (0.66 * (-1 * perso->dirX));
-	perso->moveSpeed = PERSO_MOVEMENT_SPEED;
-	perso->rotSpeed = PERSO_ROTATION_SPEED;
+	perso->dir_x = -1;
+	perso->dir_y = 0;
+	perso->plane_x = (0.66 * perso->dir_y);;
+	perso->plane_y = (0.66 * (-1 * perso->dir_x));
+	perso->move_speed = PERSO_MOVEMENT_SPEED;
+	perso->rot_speed = PERSO_ROTATION_SPEED;
 }

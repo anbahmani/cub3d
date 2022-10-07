@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:12:11 by raaga             #+#    #+#             */
-/*   Updated: 2022/10/06 19:20:29 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/07 14:29:16 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,51 +16,51 @@ int	main_loop(t_win *mlx)
 {
     if (mlx->up)
 	{
-		if (!worldMap[(int)(mlx->perso.posX + mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
-			mlx->perso.posX += mlx->perso.dirX * mlx->perso.moveSpeed;
-		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY + mlx->perso.dirY * mlx->perso.moveSpeed)])
-			mlx->perso.posY += mlx->perso.dirY * mlx->perso.moveSpeed;
+		if (!worldMap[(int)(mlx->perso.pos_x + mlx->perso.dir_x * mlx->perso.move_speed)][(int)(mlx->perso.pos_y)])
+			mlx->perso.pos_x += mlx->perso.dir_x * mlx->perso.move_speed;
+		if (!worldMap[(int)(mlx->perso.pos_x)][(int)(mlx->perso.pos_y + mlx->perso.dir_y * mlx->perso.move_speed)])
+			mlx->perso.pos_y += mlx->perso.dir_y * mlx->perso.move_speed;
 	}
 	if (mlx->down)
 	{
-		if (!worldMap[(int)(mlx->perso.posX - mlx->perso.dirX * mlx->perso.moveSpeed)][(int)(mlx->perso.posY)])
-			mlx->perso.posX -= mlx->perso.dirX * mlx->perso.moveSpeed;
-		if (!worldMap[(int)(mlx->perso.posX)][(int)(mlx->perso.posY - mlx->perso.dirY * mlx->perso.moveSpeed)])
-			mlx->perso.posY -= mlx->perso.dirY * mlx->perso.moveSpeed;
+		if (!worldMap[(int)(mlx->perso.pos_x - mlx->perso.dir_x * mlx->perso.move_speed)][(int)(mlx->perso.pos_y)])
+			mlx->perso.pos_x -= mlx->perso.dir_x * mlx->perso.move_speed;
+		if (!worldMap[(int)(mlx->perso.pos_x)][(int)(mlx->perso.pos_y - mlx->perso.dir_y * mlx->perso.move_speed)])
+			mlx->perso.pos_y -= mlx->perso.dir_y * mlx->perso.move_speed;
 	}
 	if (mlx->right)
 	{
-		double oldDirX = mlx->perso.dirX;
-		mlx->perso.dirX = mlx->perso.dirX * cos(-mlx->perso.rotSpeed) - mlx->perso.dirY * sin(-mlx->perso.rotSpeed);
-		mlx->perso.dirY = oldDirX * sin(-mlx->perso.rotSpeed) + mlx->perso.dirY * cos(-mlx->perso.rotSpeed);
-		double oldPlaneX = mlx->perso.planeX;
-		mlx->perso.planeX = mlx->perso.planeX * cos(-mlx->perso.rotSpeed) - mlx->perso.planeY * sin(-mlx->perso.rotSpeed);
-		mlx->perso.planeY = oldPlaneX * sin(-mlx->perso.rotSpeed) + mlx->perso.planeY * cos(-mlx->perso.rotSpeed);
+		double olddir_x = mlx->perso.dir_x;
+		mlx->perso.dir_x = mlx->perso.dir_x * cos(-mlx->perso.rot_speed) - mlx->perso.dir_y * sin(-mlx->perso.rot_speed);
+		mlx->perso.dir_y = olddir_x * sin(-mlx->perso.rot_speed) + mlx->perso.dir_y * cos(-mlx->perso.rot_speed);
+		double oldplane_x = mlx->perso.plane_x;
+		mlx->perso.plane_x = mlx->perso.plane_x * cos(-mlx->perso.rot_speed) - mlx->perso.plane_y * sin(-mlx->perso.rot_speed);
+		mlx->perso.plane_y = oldplane_x * sin(-mlx->perso.rot_speed) + mlx->perso.plane_y * cos(-mlx->perso.rot_speed);
 	}
 	if (mlx->left)
 	{
-		double oldDirX = mlx->perso.dirX;
-		mlx->perso.dirX = mlx->perso.dirX * cos(mlx->perso.rotSpeed) - mlx->perso.dirY * sin(mlx->perso.rotSpeed);
-		mlx->perso.dirY = oldDirX * sin(mlx->perso.rotSpeed) + mlx->perso.dirY * cos(mlx->perso.rotSpeed);
-		double oldPlaneX = mlx->perso.planeX;
-		mlx->perso.planeX = mlx->perso.planeX * cos(mlx->perso.rotSpeed) - mlx->perso.planeY * sin(mlx->perso.rotSpeed);
-		mlx->perso.planeY = oldPlaneX * sin(mlx->perso.rotSpeed) + mlx->perso.planeY * cos(mlx->perso.rotSpeed);
+		double olddir_x = mlx->perso.dir_x;
+		mlx->perso.dir_x = mlx->perso.dir_x * cos(mlx->perso.rot_speed) - mlx->perso.dir_y * sin(mlx->perso.rot_speed);
+		mlx->perso.dir_y = olddir_x * sin(mlx->perso.rot_speed) + mlx->perso.dir_y * cos(mlx->perso.rot_speed);
+		double oldplane_x = mlx->perso.plane_x;
+		mlx->perso.plane_x = mlx->perso.plane_x * cos(mlx->perso.rot_speed) - mlx->perso.plane_y * sin(mlx->perso.rot_speed);
+		mlx->perso.plane_y = oldplane_x * sin(mlx->perso.rot_speed) + mlx->perso.plane_y * cos(mlx->perso.rot_speed);
 	}
 	if (mlx->right_pers)
 	{
 		printf("asdasdasdadasdasda\n");
-		if (!worldMap[(int)(mlx->perso.posY)][(int)(mlx->perso.posX + mlx->perso.dirY * mlx->perso.moveSpeed)])
-				mlx->perso.posX +=  mlx->perso.dirY * mlx->perso.moveSpeed;
-		if (!worldMap[(int)(mlx->perso.posY - mlx->perso.dirX* mlx->perso.moveSpeed)][(int)(mlx->perso.posX)])
-				mlx->perso.posY -=  mlx->perso.dirX * mlx->perso.moveSpeed;
+		if (!worldMap[(int)(mlx->perso.pos_y)][(int)(mlx->perso.pos_x + mlx->perso.dir_y * mlx->perso.move_speed)])
+				mlx->perso.pos_x +=  mlx->perso.dir_y * mlx->perso.move_speed;
+		if (!worldMap[(int)(mlx->perso.pos_y - mlx->perso.dir_x* mlx->perso.move_speed)][(int)(mlx->perso.pos_x)])
+				mlx->perso.pos_y -=  mlx->perso.dir_x * mlx->perso.move_speed;
 	}
 	if (mlx->left_pers)
 	{
 		printf("asdasdasdadasdasda\n");
-		if (!worldMap[(int)(mlx->perso.posY)][(int)(mlx->perso.posX - mlx->perso.dirY * mlx->perso.moveSpeed)])
-				mlx->perso.posX -=  mlx->perso.dirY * mlx->perso.moveSpeed;
-		if (!worldMap[(int)(mlx->perso.posY + mlx->perso.dirX* mlx->perso.moveSpeed)][(int)(mlx->perso.posX)])
-				mlx->perso.posY +=  mlx->perso.dirX * mlx->perso.moveSpeed;
+		if (!worldMap[(int)(mlx->perso.pos_y)][(int)(mlx->perso.pos_x - mlx->perso.dir_y * mlx->perso.move_speed)])
+				mlx->perso.pos_x -=  mlx->perso.dir_y * mlx->perso.move_speed;
+		if (!worldMap[(int)(mlx->perso.pos_y + mlx->perso.dir_x* mlx->perso.move_speed)][(int)(mlx->perso.pos_x)])
+				mlx->perso.pos_y +=  mlx->perso.dir_x * mlx->perso.move_speed;
 	}
 	calcul(mlx);
 	draw(mlx);
@@ -127,59 +127,59 @@ int calcul(t_win *mlx)
 	
 		while (x < WIDTH)
 		{
-			double cameraX = 2 * x / (double)WIDTH - 1;
-			double rayDirX = mlx->perso.dirX + mlx->perso.planeX * cameraX;
-			double rayDirY = mlx->perso.dirY + mlx->perso.planeY * cameraX;
+			double camera_x = 2 * x / (double)WIDTH - 1;
+			double ray_dir_x = mlx->perso.dir_x + mlx->perso.plane_x * camera_x;
+			double ray_dir_y = mlx->perso.dir_y + mlx->perso.plane_y * camera_x;
 
-			int mapX = (int)mlx->perso.posX;
-			int mapY = (int)mlx->perso.posY;
+			int map_x = (int)mlx->perso.pos_x;
+			int map_y = (int)mlx->perso.pos_y;
 
-			double sideDistX;
-			double sideDistY;
+			double side_dist_x;
+			double side_dist_y;
 
-			double deltaDistX = fabs(1 / rayDirX);
-			double deltaDistY = fabs(1 / rayDirY);
-			double perpWallDist;
+			double delta_dist_x = fabs(1 / ray_dir_x);
+			double delta_dist_y = fabs(1 / ray_dir_y);
+			double perp_wall_dist;
 
-			int stepX;
-			int stepY;
+			int step_x;
+			int step_y;
 
 			int hit = 0;
 			int side;
 
-			if (rayDirX < 0)
+			if (ray_dir_x < 0)
 			{
-				stepX = -1;
-				sideDistX = (mlx->perso.posX - mapX) * deltaDistX;
+				step_x = -1;
+				side_dist_x = (mlx->perso.pos_x - map_x) * delta_dist_x;
 			}
 			else
 			{
-				stepX = 1;
-				sideDistX = (mapX + 1.0 - mlx->perso.posX) * deltaDistX;
+				step_x = 1;
+				side_dist_x = (map_x + 1.0 - mlx->perso.pos_x) * delta_dist_x;
 			}
-			if (rayDirY < 0)
+			if (ray_dir_y < 0)
 			{
-				stepY = -1;
-				sideDistY = (mlx->perso.posY - mapY) * deltaDistY;
+				step_y = -1;
+				side_dist_y = (mlx->perso.pos_y - map_y) * delta_dist_y;
 			}
 			else
 			{
-				stepY = 1;
-				sideDistY = (mapY + 1.0 - mlx->perso.posY) * deltaDistY;
+				step_y = 1;
+				side_dist_y = (map_y + 1.0 - mlx->perso.pos_y) * delta_dist_y;
 			}
 
 			while (hit == 0)
 			{
-				if (sideDistX < sideDistY)
+				if (side_dist_x < side_dist_y)
 				{
-					sideDistX += deltaDistX;
-					mapX += stepX;
+					side_dist_x += delta_dist_x;
+					map_x += step_x;
 					side = 0;
 				}
 				else
 				{
-					sideDistY += deltaDistY;
-					mapY void	ceiling_or_floor(t_win *mlx, int x, int y, int color)
+					side_dist_y += delta_dist_y;
+					map_y void	ceiling_or_floor(t_win *mlx, int x, int y, int color)
 {
 	int i;
 
@@ -189,47 +189,47 @@ int calcul(t_win *mlx)
 		
 		i++;
 	}
-} = -lineHeight / 2 + HEIGHT / 2;
-			if(drawStart < 0)
-				drawStart = 0;
-			int drawEnd = lineHeight / 2 + HEIGHT / 2;
-			if(drawEnd >= HEIGHT)
-				drawEnd = HEIGHT - 1;
+} = -line_height / 2 + HEIGHT / 2;
+			if(draw_start < 0)
+				draw_start = 0;
+			int draw_end = line_height / 2 + HEIGHT / 2;
+			if(draw_end >= HEIGHT)
+				draw_end = HEIGHT - 1;
 			
-			int texNum = worldMap[mapX][mapY];
+			int tex_num = worldMap[map_x][map_y];
 
-			double wallX;
+			double wall_x;
 			if (side == 0)
-				wallX = mlx->perso.posY + perpWallDist * rayDirY;
+				wall_x = mlx->perso.pos_y + perp_wall_dist * ray_dir_y;
 			else
-				wallX = mlx->perso.posX + perpWallDist * rayDirX;
-			wallX -= floor(wallX);
+				wall_x = mlx->perso.pos_x + perp_wall_dist * ray_dir_x;
+			wall_x -= floor(wall_x);
 
-			int texX = (int)(wallX * (double)texWidth);
-			if (side == 0 && rayDirX > 0)
-				texX = texWidth - texX - 1;
-			if (side == 1 && rayDirY < 0)
-				texX = texWidth - texX - 1;
+			int tex_x = (int)(wall_x * (double)texWidth);
+			if (side == 0 && ray_dir_x > 0)
+				tex_x = texWidth - tex_x - 1;
+			if (side == 1 && ray_dir_y < 0)
+				tex_x = texWidth - tex_x - 1;
 
-			double step = 1.0 * texHeight / lineHeight;
-			double texPos = (drawStart - HEIGHT / 2 + lineHeight / 2) * step;
-			ceiling_or_floor(mlx, x, drawStart, mlx)
-			for (int z = 0; z < drawStart; z++)
+			double step = 1.0 * texHeight / line_height;
+			double tex_pos = (draw_start - HEIGHT / 2 + line_height / 2) * step;
+			ceiling_or_floor(mlx, x, draw_start, mlx)
+			for (int z = 0; z < draw_start; z++)
 			{
 				mlx->buf[z][x] = mlx->color;
 				mlx->re_buf = 1;
 			}
-			for (int t = drawEnd; t < screenHeight; t++)
+			for (int t = draw_end; t < screenHeight; t++)
 			{
 				mlx->buf[t][x] = 0xFFCC66;
 				mlx->re_buf = 1;
 			}
-			for (int y = drawStart; y < drawEnd; y++)
+			for (int y = draw_start; y < draw_end; y++)
 			{
-				int texY = (int)texPos & (texHeight - 1);
-				texPos += step;
-				int color = mlx->texture[texNum][texHeight * texY + texX];
-				if (mapX + (1 - stepX)/2 > mlx->perso.posX)
+				int tex_y = (int)tex_pos & (texHeight - 1);
+				tex_pos += step;
+				int color = mlx->texture[tex_num][texHeight * tex_y + tex_x];
+				if (map_x + (1 - step_x)/2 > mlx->perso.pos_x)
 				{
 					color = 0xFFFFFF; // NORD
 				}
@@ -239,7 +239,7 @@ int calcul(t_win *mlx)
 				}
 				if (side == 1)
 				{
-					if (mapY + (1 - stepY)/2 > mlx->perso.posY)
+					if (map_y + (1 - step_y)/2 > mlx->perso.pos_y)
 					{
 						color = 0xAAFFFF; //OUEST
 					}

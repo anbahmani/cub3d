@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/06 21:01:40 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/07 14:58:16 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,14 @@ typedef struct s_win
 
 typedef struct s_perso
 {
-	double posX;
-	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
-	double moveSpeed;
-	double rotSpeed;
+	double pos_x;
+	double pos_y;
+	double dir_x;
+	double dir_y;
+	double plane_x;
+	double plane_y;
+	double move_speed;
+	double rot_speed;
 } t_perso;
 
 typedef struct s_rgb
@@ -161,36 +161,37 @@ typedef struct s_map_data
 
 typedef struct s_calcul_data
 {
-	double cameraX;
-	double rayDirX;
-	double rayDirY;
-	int mapX;
-	int mapY;
-	double sideDistX;
-	double sideDistY;
-	double deltaDistX;
-	double deltaDistY;
-	double perpWallDist;
-	int stepX;
-	int stepY;
+	double camera_x;
+	double ray_dir_x;
+	double ray_dir_y;
+	int map_x;
+	int map_y;
+	double side_dist_x;
+	double side_dist_y;
+	double delta_dist_x;
+	double delta_dist_y;
+	double perp_wall_dist;
+	int step_x;
+	int step_y;
 	int hit;
 	int side;
-	int lineHeight;
-	double wallX;
-	int texNum;
-	int texX;
+	int line_height;
+	double wall_x;
+	int tex_num;
+	int tex_x;
+	int tex_y;
 	double step;
-	double texPos;
-	int drawStart;
-	int drawEnd;
+	double tex_pos;
+	int draw_start;
+	int draw_end;
 }	t_calcul_data;
 
 typedef struct s_engine
 {
-	t_map_data	*map_data;
-	t_win		*mlx_data;
-	t_calcul_data *calcul;
-	t_list		*garbage_coll;
+	t_map_data		*map_data;
+	t_win			*mlx_data;
+	t_calcul_data	*calcul;
+	t_list			*garbage_coll;
 }	t_engine;
 
 /*-------------------------------GET NEXT LINE--------------------------------*/

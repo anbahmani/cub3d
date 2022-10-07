@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/05 21:23:01 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/07 14:56:26 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,6 @@ int	main(int ac, char **av)
 	display_tab(eng.map_data->map);
 	display_data(*eng.map_data);
 	play(&eng);
-	fprintf(stderr, "tesdfsdfsdfst\n");
-	
-	
 	clear(eng.garbage_coll);
 	return (0);
 }

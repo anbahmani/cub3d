@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/07 14:58:16 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/07 19:41:10 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@
 
 /*----------------------------PERSO CONFIG DEFINE-----------------------------*/
 
-# define PERSO_MOVEMENT_SPEED 0.021
-# define PERSO_ROTATION_SPEED 0.0151
+# define PERSO_MOVEMENT_SPEED 0.071
+# define PERSO_ROTATION_SPEED 0.0351
 
 /*---------------------------------STRUCTURE----------------------------------*/
 

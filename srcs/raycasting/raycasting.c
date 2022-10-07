@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 04:06:55 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/07 15:27:13 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/07 20:09:29 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main_loop(t_engine *eng)
 {
 	double	old_dir_x;
 	double	old_plane_x;
+
 	if (eng->mlx_data->up)
 	{
 		if (eng->map_data->map[(int)(eng->map_data->player.pos_y)][(int)(eng->map_data->player.pos_x + eng->map_data->player.dir_x * eng->map_data->player.move_speed)] == '0')
@@ -149,6 +150,7 @@ void	wall_draw(t_engine *eng, int x, int y, int z)
 
 void init_var(t_engine *eng, int x)
 {
+	(void)x;
 	eng->calcul->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
 	eng->calcul->ray_dir_x = eng->map_data->player.dir_x + eng->map_data->player.plane_x * eng->calcul->camera_x;
 	eng->calcul->ray_dir_y = eng->map_data->player.dir_y + eng->map_data->player.plane_y * eng->calcul->camera_x;
@@ -235,6 +237,7 @@ int calcul(t_engine *eng, int x)
 		eng->calcul->draw_end = eng->calcul->line_height / 2 + SCREEN_HEIGHT / 2;
 		if(eng->calcul->draw_end >= SCREEN_HEIGHT)
 			eng->calcul->draw_end = SCREEN_HEIGHT - 1;
+		eng->calcul->tex_num = eng->map_data->map[eng->calcul->map_y][eng->calcul->map_x] - 48;
 		eng->calcul->tex_x = (int)(eng->calcul->wall_x * (double)texWidth);
 		if (eng->calcul->side == 0 && eng->calcul->ray_dir_x > 0)
 			eng->calcul->tex_x = texWidth - eng->calcul->tex_x - 1;
@@ -290,7 +293,6 @@ int	key_press(int key, t_engine *engine)
 		engine->mlx_data->right = 1;
 	if (key == 65307)
 		exit(0); 
-	main_loop(engine);
 	return (0);
 }
 
@@ -348,6 +350,12 @@ void	play(t_engine *eng)
 	eng->mlx_data->mlx_win = mlx_new_window(eng->mlx_data->mlx, SCREEN_WIDTH , SCREEN_HEIGHT , "cub3d");
     eng->mlx_data->data.img = mlx_new_image(eng->mlx_data->mlx, 1080, 720);
     eng->mlx_data->data.data = (int *)mlx_get_data_addr(eng->mlx_data->data.img, &eng->mlx_data->data.bits_per_pixel, &eng->mlx_data->data.line_length, &eng->mlx_data->data.endian);
+	eng->mlx_data->up = 0;
+	eng->mlx_data->down = 0;
+	eng->mlx_data->right_pers = 0;
+	eng->mlx_data->left_pers = 0;
+	eng->mlx_data->left = 0;
+	eng->mlx_data->right = 0;
 	mlx_hook(eng->mlx_data->mlx_win, 2, 1L << 0, &key_press,  eng);
     mlx_hook(eng->mlx_data->mlx_win, 3, 1L << 1, &key_release, eng);
 	mlx_loop_hook(eng->mlx_data->mlx, &main_loop, eng);

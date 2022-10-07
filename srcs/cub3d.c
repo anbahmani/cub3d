@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/07 14:56:26 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/07 19:53:13 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,16 @@ int	main(int ac, char **av)
 	t_engine	eng;
 	char	*first;
 
+	//(void)ac;
+	//av[1] = ft_strdup(av[2]);
+	//fprintf(stderr,"%s\n", av[1]);
 	first = malloc(sizeof(char));
 	if (!first)
 		quit_error_no_free(MALLOC_ERROR);
 	eng.garbage_coll = ft_lstnew(first);
 	eng.map_data = ft_malloc(sizeof(t_map_data), eng.garbage_coll);
 	eng.mlx_data = ft_malloc(sizeof(t_win), eng.garbage_coll);
+	eng.calcul = ft_malloc(sizeof(t_calcul_data), eng.garbage_coll);
 	check_error(ac, av, eng.garbage_coll);
 	get_file_data(av[1], eng.map_data, eng.garbage_coll);
 	printf("lstsize main after get data -> %d\n", ft_lstsize(eng.garbage_coll));

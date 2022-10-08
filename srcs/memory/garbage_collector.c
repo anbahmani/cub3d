@@ -6,11 +6,19 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 11:02:01 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/01 04:06:23 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/08 02:27:35 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ft_destroy_mlx(t_win *mlx_data)
+{
+	mlx_destroy_image(mlx_data->mlx, mlx_data->data.img);
+	mlx_destroy_window(mlx_data->mlx, mlx_data->mlx_win);
+	mlx_destroy_display(mlx_data->mlx);
+	free(mlx_data->mlx);
+}
 
 void	*ft_malloc(size_t size, t_list *garb_coll)
 {

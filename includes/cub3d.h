@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/07 19:41:10 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/08 07:12:43 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define FILE_IS_SYM_LINK "The input file is a symbolic link."
 # define TEXTURE_FILE_ERROR "This texture file is not correctly filled : "
 # define COLOR_ERROR "The colors from the file are not correctly written."
+# define MAP_ERROR "The map from the file is incorrectly filled"
 
 /*-------------------------------KEY EVENT DEFINE-----------------------------*/
 
@@ -63,20 +64,6 @@
 # define PERSO_ROTATION_SPEED 0.0351
 
 /*---------------------------------STRUCTURE----------------------------------*/
-
-
-//TODO - delete if unused
-/*
-typedef struct s_img
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		size_line;
-	int		endian;
-	int		*colors;
-}	t_img;
-*/
 
 typedef struct s_data
 {
@@ -134,16 +121,6 @@ typedef struct s_rgb
 	int	blue;
 	int color;
 }	t_rgb;
-
-//TODO - delete if unused
-/*
-typedef struct s_ihm
-{
-	void	*mlx;
-	void	*mlx_win;
-	t_img	img;
-}	t_ihm;
-*/
 
 typedef struct s_map_data
 {
@@ -210,6 +187,7 @@ void	quit_error(char *msg, t_list *garb_c);
 void	quit_error_no_free(char *msg);
 int		check_arg_number_error(int argc, t_list *garb_c);
 int		check_number_player(char **map);
+int		check_map_closed(const char **map);
 
 /*-----------------------------GARBAGE COLLECTOR------------------------------*/
 
@@ -227,21 +205,38 @@ void	set_color(t_rgb *colors, char **split);
 t_rgb	get_color(char *line, t_list *garb_coll);
 void	set_color(t_rgb *colors, char **split);
 int		count_file_line(char const *file_name, t_list *garb_c);
-void	init_perso(t_perso *perso, const char **map);
+void	init_perso(t_engine *eng);
 
 /*--------------------------------RAYCASTING----------------------------------*/
 
 int		calcul(t_engine *eng, int x);
 void    print_line(t_engine *eng, int x, int y1, int y2, int color);
 int		key_press(int key, t_engine *engine);
+int		key_release(int key, t_engine *eng);
 void	play(t_engine *eng);
 void	draw(t_engine *eng);
+void	exec_load(t_engine *eng);
+void	load_texture(t_engine *eng);
+void	load_image(t_engine *eng, int *texture, char *path, t_data *data);
+void	init_sideDist(t_engine *eng);
+void	wall_detect(t_engine *eng);
+void	calcul_dist_wall(t_engine *eng);
+void	init_var(t_engine *eng, int x);
+void	wall_draw(t_engine *eng, int x, int y, int z);
+void	ceiling_or_floor(t_engine *eng, int x, int y, int color, int q);
+int		get_move(t_engine *eng);
+void	right_pers(t_engine *eng);
+void	left_pers(t_engine *eng);
+void	move_up(t_engine *eng);
+void	move_down(t_engine *eng);
+void	move_left(t_engine *eng);
+void	move_right(t_engine *eng);
 
 /*------------------------------------IHM-------------------------------------*/
 
 void	my_mlx_pixel_put(t_win *mlx, int x, int y, int color);
 void	init_ihm(t_win *mlx_data);
-int		main_loop(t_engine *eng);
+void	ft_destroy_mlx(t_win *mlx_data);
 
 /*----------------------------------UTILS-------------------------------------*/
 
@@ -253,5 +248,9 @@ void	trim_split(char **tab);
 char	*ft_str_dup_cub(char *str, t_list *garb_c);
 int		is_orientation_char(char c);
 void	fill_map(t_map_data *data, t_list *garb_c);
+
+
+//TMP
+void	display_tab(char **split);
 
 #endif

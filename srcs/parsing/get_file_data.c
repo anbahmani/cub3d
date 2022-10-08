@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_file_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 09:20:12 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/05 21:14:24 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/08 02:22:06 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_rgb	get_color(char *line, t_list *garb_coll)
 		quit_error(COLOR_ERROR, garb_coll);
 	}
 	colors = (t_rgb *)ft_malloc(sizeof(t_rgb), garb_coll);
-	printf("lstsize color -> %d\n", ft_lstsize(garb_coll));
 	set_color(colors, split);
 	return (*colors);
 }
@@ -90,7 +89,6 @@ void	get_file_data(const char *file_name, t_map_data *data, t_list *garb_c)
 	while (get_next_line(fd, &line) != -1)
 	{
 		ft_lstadd_back(&garb_c, ft_lstnew(line));
-		printf("lstsize gnl get data -> %d\n", ft_lstsize(garb_c));
 		get_file_data_bis(data, garb_c, line);
 	}
 	if (line)

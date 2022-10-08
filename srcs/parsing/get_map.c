@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 22:44:28 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/05 09:02:20 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/08 01:43:20 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	count_file_line(char const *file_name, t_list *garb_c)
 		ft_lstadd_back(&garb_c, ft_lstnew(line));
 		cmp++;
 	}
+	if (line)
+		ft_lstadd_back(&garb_c, ft_lstnew(line));
 	close(fd);
 	return (cmp);
 }
@@ -81,6 +83,8 @@ char	**get_map(int start, const char *file_name, t_list *garb_c)
 		ft_lstadd_back(&garb_c, ft_lstnew(line));
 		i++;
 	}
+	if (line)
+		ft_lstadd_back(&garb_c, ft_lstnew(line));
 	map[i] = NULL;
 	close(fd);
 	return (map);
@@ -104,6 +108,8 @@ void	find_map(const char *file_name, t_map_data *data, t_list *garb_c)
 		i++;
 	}
 	while (get_next_line(fd, &line) != -1)
+		ft_lstadd_back(&garb_c, ft_lstnew(line));
+	if (line)
 		ft_lstadd_back(&garb_c, ft_lstnew(line));
 	close(fd);
 	data->map = get_map(i, file_name, garb_c);

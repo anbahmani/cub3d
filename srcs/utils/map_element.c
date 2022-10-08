@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_element.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 05:58:50 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/07 14:48:14 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/08 02:48:32 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static unsigned int	get_max_width(const char **map)
 			size = str_size;
 		i++;
 	}
-	return (str_size);
+	return (size);
 }
 
 static void	copy_and_fill(const char *str, char *line, unsigned int width)
@@ -44,7 +44,10 @@ static void	copy_and_fill(const char *str, char *line, unsigned int width)
 	i = 0;
 	while (str[i])
 	{
-		line[i] = str[i];
+		if (str[i] != ' ')
+			line[i] = str[i];
+		else
+			line[i] = '-';
 		i++;
 	}
 	while (i < width)
@@ -67,6 +70,7 @@ void	fill_map(t_map_data *data, t_list *garb_c)
 	{
 		line = ft_malloc(sizeof(char) * (width + 1), garb_c);
 		copy_and_fill((const char *)data->map[i], line, width);
+		data->map[i] = line;
 		i++;
 	}
 }

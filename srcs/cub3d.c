@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/07 19:53:13 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/08 04:20:51 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,6 @@ void display_data(t_map_data data)
 	printf("F ->%d, %d, %d\n", data.floor_rgb.red, data.floor_rgb.green, data.floor_rgb.blue);
 }
 
-#define screenHeight 1080
-
-void    win(t_win mlx)
-{
-
-    mlx.mlx = mlx_init();
-    mlx.mlx_win = mlx_new_window(mlx.mlx, 1080, 720, "cub3d");
-    //mlx_loop(mlx.mlx);
-}
 
 void	my_mlx_pixel_put(t_win *mlx, int x, int y, int color)
 {
@@ -53,25 +44,12 @@ void	my_mlx_pixel_put(t_win *mlx, int x, int y, int color)
 	dst = mlx->data.addr + (y * mlx->data.line_length + x * (mlx->data.bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
-/*
-int	main_loop(t_win *mlx)
-{
-    mlx->data.img = mlx_new_image(mlx->mlx, 1920, 1080);
-    mlx->data.addr = mlx_get_data_addr(mlx->data.img, &mlx->data.bits_per_pixel, &mlx->data.line_length, &mlx->data.endian);
-	calcul(mlx);
-    mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->data.img, 0, 0);
-    mlx_destroy_image(mlx->mlx, mlx->data.img);
-	return (0);
-}*/
 
 int	main(int ac, char **av)
 {
 	t_engine	eng;
 	char	*first;
 
-	//(void)ac;
-	//av[1] = ft_strdup(av[2]);
-	//fprintf(stderr,"%s\n", av[1]);
 	first = malloc(sizeof(char));
 	if (!first)
 		quit_error_no_free(MALLOC_ERROR);
@@ -81,19 +59,17 @@ int	main(int ac, char **av)
 	eng.calcul = ft_malloc(sizeof(t_calcul_data), eng.garbage_coll);
 	check_error(ac, av, eng.garbage_coll);
 	get_file_data(av[1], eng.map_data, eng.garbage_coll);
-	printf("lstsize main after get data -> %d\n", ft_lstsize(eng.garbage_coll));
-	//win(mlx);
-	display_data(*eng.map_data);
-	//check_text_file_error(&eng);
+	eng.mlx_data->mlx = mlx_init();
+	check_text_file_error(&eng);
+	mlx_destroy_display(eng.mlx_data->mlx);
+	free(eng.mlx_data->mlx);
 	find_map(av[1], eng.map_data, eng.garbage_coll);
-	//eng.mlx_data = ft_malloc(sizeof(t_win), eng.garbage_coll);
-	//mlx.data.img = mlx_new_image(mlx.mlx, 1920, 1080);
-   // mlx.data.addr = mlx_get_data_addr(mlx.data.img, &mlx.data.bits_per_pixel, &mlx.data.line_length, &mlx.data.endian);
-
-	
+	if (!check_map_closed((const char **)eng.map_data->map))
+		quit_error(MAP_ERROR, eng.garbage_coll);
 	display_tab(eng.map_data->map);
-	display_data(*eng.map_data);
+//	display_data(*eng.map_data);
 	play(&eng);
-	clear(eng.garbage_coll);
+	if(eng.garbage_coll)
+		clear(eng.garbage_coll);
 	return (0);
 }

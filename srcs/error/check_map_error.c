@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 06:29:58 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/25 02:32:46 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/08 02:58:59 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 static int	check_char_around(const char **map, int i, int j)
 {
-	if (i == 0 || i == count_str(map) - 1 || j == 0 || j == strlen(map[0]) - 1)
+	if (i == 0 || i == count_str((char **)map) - 1 || j == 0
+		|| j == (int)ft_strlen(map[0]) - 1)
 		return (0);
 	if (map[i - 1][j] == '-' || map[i + 1][j] == '-' || map[i][j - 1] == '-'
 		|| map[i][j + 1] == '-')
-	{
 		return (0);
-	}
 	return (1);
 }
 
@@ -44,4 +43,5 @@ int	check_map_closed(const char **map)
 		}
 		i++;
 	}
+	return (1);
 }

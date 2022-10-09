@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/08 07:12:43 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/09 19:00:45 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,12 @@ typedef struct s_win
 	int		buf[SCREEN_HEIGHT][SCREEN_WIDTH];
 	t_data	data;
 }	t_win;
+
+typedef struct s_pos_int
+{
+	int x;
+	int y;
+} t_pos_int;
 
 typedef struct s_perso
 {
@@ -210,7 +216,6 @@ void	init_perso(t_engine *eng);
 /*--------------------------------RAYCASTING----------------------------------*/
 
 int		calcul(t_engine *eng, int x);
-void    print_line(t_engine *eng, int x, int y1, int y2, int color);
 int		key_press(int key, t_engine *engine);
 int		key_release(int key, t_engine *eng);
 void	play(t_engine *eng);
@@ -218,12 +223,12 @@ void	draw(t_engine *eng);
 void	exec_load(t_engine *eng);
 void	load_texture(t_engine *eng);
 void	load_image(t_engine *eng, int *texture, char *path, t_data *data);
-void	init_sideDist(t_engine *eng);
+void	init_side_dist(t_engine *eng);
 void	wall_detect(t_engine *eng);
 void	calcul_dist_wall(t_engine *eng);
 void	init_var(t_engine *eng, int x);
 void	wall_draw(t_engine *eng, int x, int y, int z);
-void	ceiling_or_floor(t_engine *eng, int x, int y, int color, int q);
+void	ceiling_or_floor(t_engine *eng, int x, int q);
 int		get_move(t_engine *eng);
 void	right_pers(t_engine *eng);
 void	left_pers(t_engine *eng);
@@ -234,7 +239,6 @@ void	move_right(t_engine *eng);
 
 /*------------------------------------IHM-------------------------------------*/
 
-void	my_mlx_pixel_put(t_win *mlx, int x, int y, int color);
 void	init_ihm(t_win *mlx_data);
 void	ft_destroy_mlx(t_win *mlx_data);
 

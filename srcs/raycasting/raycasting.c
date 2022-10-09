@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 04:06:55 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/08 07:21:37 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/09 19:34:49 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,96 +14,61 @@
 
 void	draw(t_engine *eng)
 {
-	int y;
-	int x;
-	
+	int	y;
+	int	x;
+
 	y = 0;
 	while (y < SCREEN_HEIGHT)
 	{
 		x = 0;
 		while (x < SCREEN_WIDTH)
 		{
-			eng->mlx_data->data.data[y * SCREEN_WIDTH + x] = eng->mlx_data->buf[y][x];
+			eng->mlx_data->data.data[y * SCREEN_WIDTH + x]
+				= eng->mlx_data->buf[y][x];
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(eng->mlx_data->mlx, eng->mlx_data->mlx_win, eng->mlx_data->data.img, 0, 0);
+	mlx_put_image_to_window(eng->mlx_data->mlx, eng->mlx_data->mlx_win,
+		eng->mlx_data->data.img, 0, 0);
 }
 
-void    print_line(t_engine *eng, int x, int y1, int y2, int color)
+void	ceiling_or_floor(t_engine *eng, int x, int q)
 {
-    int y;
-
-    y = y1;
-	   
-	while (y <= y2)
-    {
-        my_mlx_pixel_put(eng->mlx_data,  x, y, color);
-        y++;
-    }
-}
-
-void	ceiling_or_floor(t_engine *eng, int x, int y, int color, int q)
-{
-	int i;
+	int	i;
+	int	y;
 
 	i = 0;
 	if (q == 0)
 	{
-		while (i < y)
+		while (i < eng->calcul->draw_start)
 		{
-			eng->mlx_data->buf[i][x] = color;
+			eng->mlx_data->buf[i][x] = eng->map_data->ceiling_rgb.color;
 			eng->mlx_data->re_buf = 1;
 			i++;
 		}
 	}
 	else
 	{
+		y = eng->calcul->draw_end;
 		while (y < SCREEN_HEIGHT)
 		{
-			eng->mlx_data->buf[y][x] = color;
+			eng->mlx_data->buf[y]
+			[x] = eng->map_data->floor_rgb.color;
 			eng->mlx_data->re_buf = 1;
 			y++;
 		}
 	}
 }
 
-void	wall_draw(t_engine *eng, int x, int y, int z)
-{
-	int	i;
-	int	color;
-
-	i = y;
-	while (i < z)
-	{
-		eng->calcul->tex_y = (int)eng->calcul->tex_pos & (texHeight - 1);
-		eng->calcul->tex_pos += eng->calcul->step;
-		color = eng->mlx_data->texture[eng->calcul->tex_num][texHeight * eng->calcul->tex_y + eng->calcul->tex_x];
-		if (eng->calcul->map_x + (1 - eng->calcul->step_x) / 2 > eng->map_data->player.pos_x)
-			color = eng->mlx_data->texture[0][texHeight * eng->calcul->tex_y + eng->calcul->tex_x];// NORD
-		else
-			color = eng->mlx_data->texture[1][texHeight * eng->calcul->tex_y + eng->calcul->tex_x]; // SUD
-		if (eng->calcul->side == 1)
-		{
-			if (eng->calcul->map_y + (1 - eng->calcul->step_y) / 2 > eng->map_data->player.pos_y)
-				color = eng->mlx_data->texture[3][texHeight * eng->calcul->tex_y + eng->calcul->tex_x]; //OUEST
-			else
-				color = eng->mlx_data->texture[2][texHeight * eng->calcul->tex_y + eng->calcul->tex_x];//EST
-			color = (color >> 1) & 8355711;
-		}
-		eng->mlx_data->buf[i][x] = color;
-		eng->mlx_data->re_buf = 1;
-		i++;
-	}
-}
-
-void init_var(t_engine *eng, int x)
+void	init_var(t_engine *eng, int x)
 {
 	(void)x;
 	eng->calcul->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
-	eng->calcul->ray_dir_x = eng->map_data->player.dir_x + eng->map_data->player.plane_x * eng->calcul->camera_x;
-	eng->calcul->ray_dir_y = eng->map_data->player.dir_y + eng->map_data->player.plane_y * eng->calcul->camera_x;
+	eng->calcul->ray_dir_x = eng->map_data->player.dir_x
+		+ eng->map_data->player.plane_x * eng->calcul->camera_x;
+	eng->calcul->ray_dir_y = eng->map_data->player.dir_y
+		+ eng->map_data->player.plane_y * eng->calcul->camera_x;
 	eng->calcul->map_x = (int)eng->map_data->player.pos_x;
 	eng->calcul->map_y = (int)eng->map_data->player.pos_y;
 	eng->calcul->delta_dist_x = fabs(1 / eng->calcul->ray_dir_x);
@@ -111,45 +76,7 @@ void init_var(t_engine *eng, int x)
 	eng->calcul->hit = 0;
 }
 
-
-void	calcul_dist_wall(t_engine *eng)
-{
-	if (eng->calcul->side == 0)
-		eng->calcul->perp_wall_dist = (eng->calcul->map_x - eng->map_data->player.pos_x + (1 - eng->calcul->step_x) / 2) / eng->calcul->ray_dir_x;
-	else
-		eng->calcul->perp_wall_dist = (eng->calcul->map_y - eng->map_data->player.pos_y + (1 - eng->calcul->step_y) / 2) / eng->calcul->ray_dir_y;
-	
-	if (eng->calcul->side == 0)
-		eng->calcul->wall_x = eng->map_data->player.pos_y + eng->calcul->perp_wall_dist * eng->calcul->ray_dir_y;
-	else
-		eng->calcul->wall_x = eng->map_data->player.pos_x + eng->calcul->perp_wall_dist * eng->calcul->ray_dir_x;
-	eng->calcul->wall_x -= floor(eng->calcul->wall_x);
-}
-
-void	wall_detect(t_engine *eng)
-{
-	while (eng->calcul->hit == 0)
-	{
-		if (eng->calcul->side_dist_x < eng->calcul->side_dist_y)
-		{
-			eng->calcul->side_dist_x += eng->calcul->delta_dist_x;
-			eng->calcul->map_x += eng->calcul->step_x;
-			eng->calcul->side = 0;
-		}
-		else
-		{
-			eng->calcul->side_dist_y += eng->calcul->delta_dist_y;
-			eng->calcul->map_y += eng->calcul->step_y;
-			eng->calcul->side = 1;
-		}
-		if (eng->map_data->map[eng->calcul->map_y][eng->calcul->map_x] > 48)
-			eng->calcul->hit = 1;
-	}
-	calcul_dist_wall(eng);
-}
-
-
-void	init_sideDist(t_engine *eng)
+void	init_side_dist(t_engine *eng)
 {
 	if (eng->calcul->ray_dir_x < 0)
 	{
@@ -179,7 +106,7 @@ int calcul(t_engine *eng, int x)
 	while (x < SCREEN_WIDTH)
 	{
 		init_var(eng, x);
-		init_sideDist(eng);
+		init_side_dist(eng);
 		eng->calcul->line_height = (int)(SCREEN_HEIGHT / eng->calcul->perp_wall_dist);
 		eng->calcul->draw_start = -(eng->calcul->line_height) / 2 + SCREEN_HEIGHT / 2;
 		if(eng->calcul->draw_start < 0)
@@ -195,8 +122,8 @@ int calcul(t_engine *eng, int x)
 			eng->calcul->tex_y = texWidth - eng->calcul->tex_x - 1;
 		eng->calcul->step = 1.0 * texHeight / eng->calcul->line_height;
 		eng->calcul->tex_pos = (eng->calcul->draw_start - SCREEN_HEIGHT / 2 + eng->calcul->line_height / 2) * eng->calcul->step;
-		ceiling_or_floor(eng, x, eng->calcul->draw_start, eng->map_data->ceiling_rgb.color, 0);
-		ceiling_or_floor(eng, x, eng->calcul->draw_end, eng->map_data->floor_rgb.color, 1);
+		ceiling_or_floor(eng, x, 0);
+		ceiling_or_floor(eng, x, 1);
 		wall_draw(eng, x, eng->calcul->draw_start, eng->calcul->draw_end);
 		x++;
 	}

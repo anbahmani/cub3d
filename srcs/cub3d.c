@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/08 04:20:51 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/09 15:15:26 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,6 @@ void display_data(t_map_data data)
 	printf("F ->%d, %d, %d\n", data.floor_rgb.red, data.floor_rgb.green, data.floor_rgb.blue);
 }
 
-
-void	my_mlx_pixel_put(t_win *mlx, int x, int y, int color)
-{
-	char	*dst;
- 
-	dst = mlx->data.addr + (y * mlx->data.line_length + x * (mlx->data.bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
 int	main(int ac, char **av)
 {
 	t_engine	eng;
@@ -66,7 +57,7 @@ int	main(int ac, char **av)
 	find_map(av[1], eng.map_data, eng.garbage_coll);
 	if (!check_map_closed((const char **)eng.map_data->map))
 		quit_error(MAP_ERROR, eng.garbage_coll);
-	display_tab(eng.map_data->map);
+//	display_tab(eng.map_data->map);
 //	display_data(*eng.map_data);
 	play(&eng);
 	if(eng.garbage_coll)

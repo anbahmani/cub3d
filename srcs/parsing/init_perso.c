@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_perso.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 09:09:48 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/08 04:13:05 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:23:48 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	init_perso(t_engine *eng)
 		}
 		i++;
 	}
-	eng->map_data->player.plane_x = (0.66 * eng->map_data->player.dir_y);;
-	eng->map_data->player.plane_y = (0.66 * (-1 * eng->map_data->player.dir_x));
+	eng->map_data->player.plane_x = (0.66 * (-1 * eng->map_data->player.dir_y));
+	eng->map_data->player.plane_y = (0.66 * (eng->map_data->player.dir_x));
 	eng->map_data->player.move_speed = PERSO_MOVEMENT_SPEED;
 	eng->map_data->player.rot_speed = PERSO_ROTATION_SPEED;
 }

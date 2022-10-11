@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 04:06:55 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/09 19:34:49 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:47:07 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,18 +163,19 @@ void	load_texture(t_engine *eng)
 
 int	key_press(int key, t_engine *engine)
 {	
+	fprintf(stderr, "qweqwe %d\n", key);
 	if (key == 119)
 		engine->mlx_data->up = 1;
 	if (key == 115)
 		engine->mlx_data->down = 1;
 	if (key == 100)
-		engine->mlx_data->right_pers = 1;
-	if (key == 97)
 		engine->mlx_data->left_pers = 1;
+	if (key == 97)
+		engine->mlx_data->right_pers = 1;
 	if (key == 65361)
-		engine->mlx_data->left = 1;
-	if (key == 65363)
 		engine->mlx_data->right = 1;
+	if (key == 65363)
+		engine->mlx_data->left = 1;
 	if (key == 65307)
 	{
 		ft_destroy_mlx(engine->mlx_data);
@@ -184,6 +185,13 @@ int	key_press(int key, t_engine *engine)
 	return (0);
 }
 
+int	la_croix(t_engine *engine)
+{
+	ft_destroy_mlx(engine->mlx_data);
+	clear(engine->garbage_coll);
+	exit(0);
+}
+
 int	key_release(int key, t_engine *eng)
 {
 	if (key == 119)
@@ -191,13 +199,13 @@ int	key_release(int key, t_engine *eng)
 	if (key == 115)
 		eng->mlx_data->down = 0;
 	if (key == 100)
-		eng->mlx_data->right_pers = 0;
-	if (key == 97)
 		eng->mlx_data->left_pers = 0;
+	if (key == 97)
+		eng->mlx_data->right_pers = 0;
 	if (key == 65361)
-		eng->mlx_data->left = 0;
-	if (key == 65363)
 		eng->mlx_data->right = 0;
+	if (key == 65363)
+		eng->mlx_data->left = 0;
 	return (0);
 }
 
@@ -245,6 +253,7 @@ void	exec_load(t_engine *eng)
 void	play(t_engine *eng)
 {
 	eng->mlx_data->mlx = mlx_init();
+	display_tab(eng->map_data->map);
 	init_perso(eng);
 	eng->map_data->map[(int)eng->map_data->player.pos_y][(int)eng->map_data->player.pos_x] = '0';
 	exec_load(eng);
@@ -258,8 +267,10 @@ void	play(t_engine *eng)
 	eng->mlx_data->left_pers = 0;
 	eng->mlx_data->left = 0;
 	eng->mlx_data->right = 0;
+	
 	mlx_hook(eng->mlx_data->mlx_win, 2, 1L << 0, &key_press,  eng);
     mlx_hook(eng->mlx_data->mlx_win, 3, 1L << 1, &key_release, eng);
+	mlx_hook(eng->mlx_data->mlx_win, 17, 0, &la_croix, eng);
 	mlx_loop_hook(eng->mlx_data->mlx, &get_move, eng);
     mlx_loop(eng->mlx_data->mlx);
 }

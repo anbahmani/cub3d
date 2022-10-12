@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 09:20:12 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/08 02:22:06 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:02:31 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ t_rgb	get_color(char *line, t_list *garb_coll)
 		exit(1);
 	}
 	trim_split(split);
-	if (!composed_with(split[0], "0123456789")
-		|| !composed_with(split[1], "0123456789")
-		|| !composed_with(split[2], "0123456789"))
+	if (!composed_with(split[0], "0123456789") || split[0][0] == '\0'
+		|| !composed_with(split[1], "0123456789") || split[1][0] == '\0'
+		|| !composed_with(split[2], "0123456789") || split[2][0] == '\0')
 	{
 		clear_str_tab(split);
 		quit_error(COLOR_ERROR, garb_coll);

@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/09 19:00:45 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/12 15:58:15 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ void	quit_error(char *msg, t_list *garb_c);
 void	quit_error_no_free(char *msg);
 int		check_arg_number_error(int argc, t_list *garb_c);
 int		check_number_player(char **map);
-int		check_map_closed(const char **map);
+int		check_map(const char **map);
 
 /*-----------------------------GARBAGE COLLECTOR------------------------------*/
 

@@ -22,9 +22,10 @@ vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 SRC			= 	cub3d.c \
 				get_next_line.c get_next_line_utils.c \
 				get_file_data.c get_map.c garbage_collector.c str_tools.c \
-				tab_tools.c digit_tools.c arg_error.c error.c texture_file_error.c \
-				input_file_error.c map_element.c init_perso.c  raycasting.c \
-				check_map_error.c side_pers.c move.c wall.c \
+				tab_tools.c digit_tools.c arg_error.c error.c \
+				input_file_error.c map_element.c init_perso.c  \
+				check_map_error.c \
+				side_pers.c move.c wall.c raycasting.c texture_file_error.c \
 				
 #texture_file_error.c
 

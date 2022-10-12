@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/11 14:59:04 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/12 16:01:50 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int ac, char **av)
 	mlx_destroy_display(eng.mlx_data->mlx);
 	free(eng.mlx_data->mlx);
 	find_map(av[1], eng.map_data, eng.garbage_coll);
-	if (!check_map_closed((const char **)eng.map_data->map))
+	if (!check_map((const char **)eng.map_data->map))
 		quit_error(MAP_ERROR, eng.garbage_coll);
 	display_tab(eng.map_data->map);
 	display_data(*eng.map_data);

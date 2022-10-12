@@ -6,11 +6,34 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 06:29:58 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/08 02:58:59 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/12 15:58:38 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	check_number_player(char **map)
+{
+	int	nb_p;
+	int	i;
+	int	j;
+
+	nb_p = 0;
+	i = 1;
+	while (map[i] != NULL)
+	{
+		j = 1;
+		while (map[i][j])
+		{
+			if (is_orientation_char(map[i][j]))
+				nb_p++;
+			j++;
+		}
+		i++;
+	}
+	return (nb_p == 1);
+}
+
 
 static int	check_char_around(const char **map, int i, int j)
 {
@@ -23,7 +46,7 @@ static int	check_char_around(const char **map, int i, int j)
 	return (1);
 }
 
-int	check_map_closed(const char **map)
+int	check_map(const char **map)
 {
 	int	i;
 	int	j;
@@ -43,5 +66,5 @@ int	check_map_closed(const char **map)
 		}
 		i++;
 	}
-	return (1);
+	return (check_number_player((char **)map));
 }

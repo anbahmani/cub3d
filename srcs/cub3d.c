@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/14 20:01:18 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:23:46 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void display_data(t_map_data data)
 int	main(int ac, char **av)
 {
 	t_engine	eng;
-	char	*first;
+	char		*first;
 
 	first = malloc(sizeof(char));
 	if (!first)
@@ -60,7 +60,7 @@ int	main(int ac, char **av)
 	display_tab(eng.map_data->map);
 	display_data(*eng.map_data);
 	play(&eng);
-	if(eng.garbage_coll)
+	if (eng.garbage_coll)
 		clear(eng.garbage_coll);
 	return (0);
 }

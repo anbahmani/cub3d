@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 06:29:58 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/12 15:58:38 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:24:30 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	check_number_player(char **map)
 	}
 	return (nb_p == 1);
 }
-
 
 static int	check_char_around(const char **map, int i, int j)
 {

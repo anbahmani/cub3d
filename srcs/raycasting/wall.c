@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 19:01:58 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/14 17:12:54 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/14 20:35:10 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ void	calcul_wall_color_east_west(t_engine *eng, int *color)
 			/ 2 > eng->map_data->player.pos_y)
 		{
 			*color = eng->mlx_data->texture[3]
-			[texHeight * eng->cal->tex_y + eng->cal->tex_x];
+			[TEX_HEIGHT * eng->cal->tex_y + eng->cal->tex_x];
 		}
 		else
 		{
 			*color = eng->mlx_data->texture[2]
-			[texHeight * eng->cal->tex_y + eng->cal->tex_x];
+			[TEX_HEIGHT * eng->cal->tex_y + eng->cal->tex_x];
 		}
 		*color = (*color >> 1) & 8355711;
 	}
@@ -86,12 +86,12 @@ void	calcul_wall_color_south_north(t_engine *eng, int *color)
 		/ 2 > eng->map_data->player.pos_x)
 	{
 		*color = eng->mlx_data->texture[0]
-		[texHeight * eng->cal->tex_y + eng->cal->tex_x];
+		[TEX_HEIGHT * eng->cal->tex_y + eng->cal->tex_x];
 	}
 	else
 	{
 		*color = eng->mlx_data->texture[1]
-		[texHeight * eng->cal->tex_y + eng->cal->tex_x];
+		[TEX_HEIGHT * eng->cal->tex_y + eng->cal->tex_x];
 	}
 }
 
@@ -103,10 +103,10 @@ void	wall_draw(t_engine *eng, int x, int y, int z)
 	i = y;
 	while (i < z)
 	{
-		eng->cal->tex_y = (int)eng->cal->tex_pos & (texHeight - 1);
+		eng->cal->tex_y = (int)eng->cal->tex_pos & (TEX_HEIGHT - 1);
 		eng->cal->tex_pos += eng->cal->step;
 		color = eng->mlx_data->texture[eng->cal->tex_num]
-		[texHeight * eng->cal->tex_y + eng->cal->tex_x];
+		[TEX_HEIGHT * eng->cal->tex_y + eng->cal->tex_x];
 		calcul_wall_color_south_north(eng, &color);
 		calcul_wall_color_east_west(eng, &color);
 		eng->mlx_data->buf[i][x] = color;

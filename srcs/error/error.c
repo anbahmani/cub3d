@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 09:33:54 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/08 02:21:52 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:27:42 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,17 @@ void	print_error(char *msg)
 
 void	quit_error(char *msg, t_list *garb_c)
 {
+	t_list	*tmp;
+
 	print_error(msg);
-	t_list *tmp;
 	tmp = garb_c;
 	while (tmp)
 	{
 		tmp = tmp->next;
 	}
-	
 	clear(garb_c);
 	exit(1);
 }
-
 
 void	quit_error_no_free(char *msg)
 {
@@ -40,7 +39,7 @@ void	quit_error_no_free(char *msg)
 	exit(1);
 }
 
-int		check_error(int ac, char **av, t_list *garb_c)
+int	check_error(int ac, char **av, t_list *garb_c)
 {
 	if (!check_arg_number_error(ac, garb_c)
 		|| !check_input_file_error(av[1], garb_c))

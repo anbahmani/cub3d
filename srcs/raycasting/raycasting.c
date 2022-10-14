@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 04:06:55 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/14 17:19:15 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/14 20:35:10 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,12 @@ int calcul(t_engine *eng, int x)
 		if(eng->cal->draw_end >= SCREEN_HEIGHT)
 			eng->cal->draw_end = SCREEN_HEIGHT - 1;
 		eng->cal->tex_num = eng->map_data->map[eng->cal->map_y][eng->cal->map_x] - 48;
-		eng->cal->tex_x = (int)(eng->cal->wall_x * (double)texWidth);
+		eng->cal->tex_x = (int)(eng->cal->wall_x * (double)TEX_WIDTH);
 		if (eng->cal->side == 0 && eng->cal->ray_dir_x > 0)
-			eng->cal->tex_x = texWidth - eng->cal->tex_x - 1;
+			eng->cal->tex_x = TEX_WIDTH - eng->cal->tex_x - 1;
 		if (eng->cal->side == 1 && eng->cal->ray_dir_y < 0)
-			eng->cal->tex_y = texWidth - eng->cal->tex_x - 1;
-		eng->cal->step = 1.0 * texHeight / eng->cal->line_height;
+			eng->cal->tex_y = TEX_WIDTH - eng->cal->tex_x - 1;
+		eng->cal->step = 1.0 * TEX_HEIGHT / eng->cal->line_height;
 		eng->cal->tex_pos = (eng->cal->draw_start - SCREEN_HEIGHT / 2 + eng->cal->line_height / 2) * eng->cal->step;
 		ceiling_or_floor(eng, x, 0);
 		ceiling_or_floor(eng, x, 1);
@@ -226,7 +226,7 @@ void	exec_load(t_engine *eng)
 	i = -1;
 	while (++i < 4)
 	{
-		eng->mlx_data->texture[i] = (int *)ft_malloc(sizeof(int) * (texHeight * texWidth), eng->garbage_coll);
+		eng->mlx_data->texture[i] = (int *)ft_malloc(sizeof(int) * (TEX_HEIGHT * TEX_WIDTH), eng->garbage_coll);
 		if (!eng->mlx_data->texture[i])
 			quit_error(MALLOC_ERROR, eng->garbage_coll);
 	}
@@ -234,7 +234,7 @@ void	exec_load(t_engine *eng)
 	while (++i < 4)
 	{
 		j = -1;
-		while (++j < texHeight * texWidth)
+		while (++j < TEX_HEIGHT * TEX_WIDTH)
 			eng->mlx_data->texture[i][j] = 0;
 	}
 	load_texture(eng);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tab_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 10:45:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/01 03:35:35 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:26:19 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	clear_str_tab(char **tab)
 	free(tab);
 }
 
-
 void	trim_split(char **tab)
 {
 	int		i;
@@ -54,7 +53,7 @@ char	**ft_tabncpy(char **tab, int n, t_list *garb_c)
 	char	**new_tab;
 
 	i = 0;
-	new_tab = ft_malloc(sizeof(char*) * n, garb_c);
+	new_tab = ft_malloc(sizeof(char *) * n, garb_c);
 	while (tab[i] && i < n)
 	{
 		new_tab[i] = tab[i];
@@ -68,17 +67,16 @@ void	del_last_empty_str(char **tab, t_list *garb_c)
 	int	i;
 	int	nb_str;
 	int	empty_str;
-	
+
 	nb_str = count_str(tab);
 	i = nb_str - 1;
 	empty_str = 0;
 	while (i)
 	{
 		if (tab[i][0])
-			break;
+			break ;
 		empty_str++;
 		i--;
 	}
 	tab = ft_tabncpy(tab, nb_str - empty_str, garb_c);
 }
-

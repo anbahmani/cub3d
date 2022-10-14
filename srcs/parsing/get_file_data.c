@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_file_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 09:20:12 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/12 14:02:31 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:24:47 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ void	get_file_data_bis(t_map_data *data, t_list *garb_c, char *line)
 		data->floor_rgb.color = data->floor_rgb.red * 65536;
 		data->floor_rgb.color += data->floor_rgb.green * 256;
 		data->floor_rgb.color += data->floor_rgb.blue;
-	}
-		
+	}	
 }
 
 void	get_file_data(const char *file_name, t_map_data *data, t_list *garb_c)

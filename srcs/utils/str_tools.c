@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:53:59 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/01 03:35:33 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:26:27 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	composed_with(char *str, const char *set)
 	}
 	return (1);
 }
-
 
 //maybe unused
 char	*ft_str_dup_cub(char *str, t_list *garb_c)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/14 20:01:03 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:38:33 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@
 
 /*-------------------------------TEXTURE SIZE DEFINE--------------------------*/
 
-#define texWidth 64
-#define texHeight 64
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
 
 /*-------------------------------MAP DATA DEFINE------------------------------*/
 /*
@@ -80,13 +80,13 @@ typedef struct s_data
 
 typedef struct s_win
 {
-	int color;
-	int up;
-	int down;
-	int right;
-	int left;
-	int left_pers;
-	int right_pers;
+	int		color;
+	int		up;
+	int		down;
+	int		right;
+	int		left;
+	int		left_pers;
+	int		right_pers;
 	void	*mlx;
 	void	*mlx_win;
 	void	*mlx_img;
@@ -97,35 +97,35 @@ typedef struct s_win
 	int		height_map;
 	int		width_map;
 	int		**texture;
-	int     re_buf;
+	int		re_buf;
 	int		buf[SCREEN_HEIGHT][SCREEN_WIDTH];
 	t_data	data;
 }	t_win;
 
 typedef struct s_pos_int
 {
-	int x;
-	int y;
-} t_pos_int;
+	int	x;
+	int	y;
+}	t_pos_int;
 
 typedef struct s_perso
 {
-	double pos_x;
-	double pos_y;
-	double dir_x;
-	double dir_y;
-	double plane_x;
-	double plane_y;
-	double move_speed;
-	double rot_speed;
-} t_perso;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	move_speed;
+	double	rot_speed;
+}	t_perso;
 
 typedef struct s_rgb
 {
 	int	red;
 	int	green;
 	int	blue;
-	int color;
+	int	color;
 }	t_rgb;
 
 typedef struct s_map_data
@@ -144,29 +144,29 @@ typedef struct s_map_data
 
 typedef struct s_calcul_data
 {
-	double camera_x;
-	double ray_dir_x;
-	double ray_dir_y;
-	int map_x;
-	int map_y;
-	double side_dist_x;
-	double side_dist_y;
-	double delta_dist_x;
-	double delta_dist_y;
-	double perp_wall_dist;
-	int step_x;
-	int step_y;
-	int hit;
-	int side;
-	int line_height;
-	double wall_x;
-	int tex_num;
-	int tex_x;
-	int tex_y;
-	double step;
-	double tex_pos;
-	int draw_start;
-	int draw_end;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		line_height;
+	double	wall_x;
+	int		tex_num;
+	int		tex_x;
+	int		tex_y;
+	double	step;
+	double	tex_pos;
+	int		draw_start;
+	int		draw_end;
 }	t_calcul_data;
 
 typedef struct s_engine
@@ -252,7 +252,6 @@ void	trim_split(char **tab);
 char	*ft_str_dup_cub(char *str, t_list *garb_c);
 int		is_orientation_char(char c);
 void	fill_map(t_map_data *data, t_list *garb_c);
-
 
 //TMP
 void	display_tab(char **split);

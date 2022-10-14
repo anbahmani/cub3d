@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_element.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 05:58:50 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/08 02:48:32 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:25:23 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_orientation_char(char c)
 static unsigned int	get_max_width(const char **map)
 {
 	unsigned int	size;
-	int	i;
+	int				i;
 	unsigned int	str_size;
 
 	i = 0;
@@ -61,9 +61,9 @@ static void	copy_and_fill(const char *str, char *line, unsigned int width)
 void	fill_map(t_map_data *data, t_list *garb_c)
 {
 	unsigned int	width;
-	char	*line;
-	int		i;
-	
+	char			*line;
+	int				i;
+
 	width = get_max_width((const char **)data->map);
 	i = 0;
 	while (data->map[i])

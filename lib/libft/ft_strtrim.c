@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 10:44:44 by abahmani          #+#    #+#             */
-/*   Updated: 2021/11/06 19:22:57 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/14 21:03:51 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 		if (isinset(s1[j], set))
 			j--;
 	}
-	if (j <= i)
+	if (j < i)
+	{
 		return (empty_str());
+	}
 	return (ft_substr(s1, i, j - i + 1));
 }

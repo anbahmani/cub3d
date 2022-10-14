@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/14 20:38:33 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/14 21:06:36 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,9 +207,8 @@ void	get_file_data_bis(t_map_data *data, t_list *garb_c, char *line);
 char	**get_map(int start, const char *file_name, t_list *garb_c);
 void	find_map(const char *file_name, t_map_data *data, t_list *garb_c);
 int		is_map_line(char *line);
-void	set_color(t_rgb *colors, char **split);
+void	set_color(t_rgb *colors, char **split, t_list *garb_coll);
 t_rgb	get_color(char *line, t_list *garb_coll);
-void	set_color(t_rgb *colors, char **split);
 int		count_file_line(char const *file_name, t_list *garb_c);
 void	init_perso(t_engine *eng);
 

@@ -3,21 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   get_file_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 09:20:12 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/14 20:24:47 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/14 21:07:12 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	set_color(t_rgb *colors, char **split)
+void	set_color(t_rgb *colors, char **split, t_list *garb_coll)
 {
 	colors->red = ft_atoi((const char *)split[0]);
 	colors->green = ft_atoi((const char *)split[1]);
 	colors->blue = ft_atoi((const char *)split[2]);
 	clear_str_tab(split);
+	if (colors->red < 0 || colors->red > 255)
+		quit_error(COLOR_ERROR, garb_coll);
+	if (colors->green < 0 || colors->green > 255)
+		quit_error(COLOR_ERROR, garb_coll);
+	if (colors->blue < 0 || colors->blue > 255)
+		quit_error(COLOR_ERROR, garb_coll);
 }
 
 t_rgb	get_color(char *line, t_list *garb_coll)
@@ -31,19 +37,18 @@ t_rgb	get_color(char *line, t_list *garb_coll)
 	if (nb_str > 3 || nb_str < 3)
 	{
 		clear_str_tab(split);
-		clear(garb_coll);
-		exit(1);
+		quit_error(COLOR_ERROR, garb_coll);
 	}
 	trim_split(split);
-	if (!composed_with(split[0], "0123456789") || split[0][0] == '\0'
-		|| !composed_with(split[1], "0123456789") || split[1][0] == '\0'
-		|| !composed_with(split[2], "0123456789") || split[2][0] == '\0')
+	if (!composed_with(split[0], "0123456789") || !ft_strlen(split[0])
+		|| !composed_with(split[1], "0123456789") || !ft_strlen(split[1])
+		|| !composed_with(split[2], "0123456789") || !ft_strlen(split[2]))
 	{
 		clear_str_tab(split);
 		quit_error(COLOR_ERROR, garb_coll);
 	}
 	colors = (t_rgb *)ft_malloc(sizeof(t_rgb), garb_coll);
-	set_color(colors, split);
+	set_color(colors, split, garb_coll);
 	return (*colors);
 }
 

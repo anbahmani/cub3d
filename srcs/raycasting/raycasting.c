@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 04:06:55 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/11 17:47:07 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/14 17:19:15 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ceiling_or_floor(t_engine *eng, int x, int q)
 	i = 0;
 	if (q == 0)
 	{
-		while (i < eng->calcul->draw_start)
+		while (i < eng->cal->draw_start)
 		{
 			eng->mlx_data->buf[i][x] = eng->map_data->ceiling_rgb.color;
 			eng->mlx_data->re_buf = 1;
@@ -50,7 +50,7 @@ void	ceiling_or_floor(t_engine *eng, int x, int q)
 	}
 	else
 	{
-		y = eng->calcul->draw_end;
+		y = eng->cal->draw_end;
 		while (y < SCREEN_HEIGHT)
 		{
 			eng->mlx_data->buf[y]
@@ -64,39 +64,39 @@ void	ceiling_or_floor(t_engine *eng, int x, int q)
 void	init_var(t_engine *eng, int x)
 {
 	(void)x;
-	eng->calcul->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
-	eng->calcul->ray_dir_x = eng->map_data->player.dir_x
-		+ eng->map_data->player.plane_x * eng->calcul->camera_x;
-	eng->calcul->ray_dir_y = eng->map_data->player.dir_y
-		+ eng->map_data->player.plane_y * eng->calcul->camera_x;
-	eng->calcul->map_x = (int)eng->map_data->player.pos_x;
-	eng->calcul->map_y = (int)eng->map_data->player.pos_y;
-	eng->calcul->delta_dist_x = fabs(1 / eng->calcul->ray_dir_x);
-	eng->calcul->delta_dist_y = fabs(1 / eng->calcul->ray_dir_y);
-	eng->calcul->hit = 0;
+	eng->cal->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
+	eng->cal->ray_dir_x = eng->map_data->player.dir_x
+		+ eng->map_data->player.plane_x * eng->cal->camera_x;
+	eng->cal->ray_dir_y = eng->map_data->player.dir_y
+		+ eng->map_data->player.plane_y * eng->cal->camera_x;
+	eng->cal->map_x = (int)eng->map_data->player.pos_x;
+	eng->cal->map_y = (int)eng->map_data->player.pos_y;
+	eng->cal->delta_dist_x = fabs(1 / eng->cal->ray_dir_x);
+	eng->cal->delta_dist_y = fabs(1 / eng->cal->ray_dir_y);
+	eng->cal->hit = 0;
 }
 
 void	init_side_dist(t_engine *eng)
 {
-	if (eng->calcul->ray_dir_x < 0)
+	if (eng->cal->ray_dir_x < 0)
 	{
-		eng->calcul->step_x = -1;
-		eng->calcul->side_dist_x = (eng->map_data->player.pos_x - eng->calcul->map_x) * eng->calcul->delta_dist_x;
+		eng->cal->step_x = -1;
+		eng->cal->side_dist_x = (eng->map_data->player.pos_x - eng->cal->map_x) * eng->cal->delta_dist_x;
 	}
 	else
 	{
-		eng->calcul->step_x = 1;
-		eng->calcul->side_dist_x = (eng->calcul->map_x + 1.0 - eng->map_data->player.pos_x) * eng->calcul->delta_dist_x;
+		eng->cal->step_x = 1;
+		eng->cal->side_dist_x = (eng->cal->map_x + 1.0 - eng->map_data->player.pos_x) * eng->cal->delta_dist_x;
 	}
-	if (eng->calcul->ray_dir_y < 0)
+	if (eng->cal->ray_dir_y < 0)
 	{
-		eng->calcul->step_y = -1;
-		eng->calcul->side_dist_y = (eng->map_data->player.pos_y - eng->calcul->map_y) * eng->calcul->delta_dist_y;
+		eng->cal->step_y = -1;
+		eng->cal->side_dist_y = (eng->map_data->player.pos_y - eng->cal->map_y) * eng->cal->delta_dist_y;
 	}
 	else
 	{
-		eng->calcul->step_y = 1;
-		eng->calcul->side_dist_y = (eng->calcul->map_y + 1.0 - eng->map_data->player.pos_y) * eng->calcul->delta_dist_y;
+		eng->cal->step_y = 1;
+		eng->cal->side_dist_y = (eng->cal->map_y + 1.0 - eng->map_data->player.pos_y) * eng->cal->delta_dist_y;
 	}
 	wall_detect(eng);
 }
@@ -107,24 +107,24 @@ int calcul(t_engine *eng, int x)
 	{
 		init_var(eng, x);
 		init_side_dist(eng);
-		eng->calcul->line_height = (int)(SCREEN_HEIGHT / eng->calcul->perp_wall_dist);
-		eng->calcul->draw_start = -(eng->calcul->line_height) / 2 + SCREEN_HEIGHT / 2;
-		if(eng->calcul->draw_start < 0)
-			eng->calcul->draw_start = 0;
-		eng->calcul->draw_end = eng->calcul->line_height / 2 + SCREEN_HEIGHT / 2;
-		if(eng->calcul->draw_end >= SCREEN_HEIGHT)
-			eng->calcul->draw_end = SCREEN_HEIGHT - 1;
-		eng->calcul->tex_num = eng->map_data->map[eng->calcul->map_y][eng->calcul->map_x] - 48;
-		eng->calcul->tex_x = (int)(eng->calcul->wall_x * (double)texWidth);
-		if (eng->calcul->side == 0 && eng->calcul->ray_dir_x > 0)
-			eng->calcul->tex_x = texWidth - eng->calcul->tex_x - 1;
-		if (eng->calcul->side == 1 && eng->calcul->ray_dir_y < 0)
-			eng->calcul->tex_y = texWidth - eng->calcul->tex_x - 1;
-		eng->calcul->step = 1.0 * texHeight / eng->calcul->line_height;
-		eng->calcul->tex_pos = (eng->calcul->draw_start - SCREEN_HEIGHT / 2 + eng->calcul->line_height / 2) * eng->calcul->step;
+		eng->cal->line_height = (int)(SCREEN_HEIGHT / eng->cal->perp_wall_dist);
+		eng->cal->draw_start = -(eng->cal->line_height) / 2 + SCREEN_HEIGHT / 2;
+		if(eng->cal->draw_start < 0)
+			eng->cal->draw_start = 0;
+		eng->cal->draw_end = eng->cal->line_height / 2 + SCREEN_HEIGHT / 2;
+		if(eng->cal->draw_end >= SCREEN_HEIGHT)
+			eng->cal->draw_end = SCREEN_HEIGHT - 1;
+		eng->cal->tex_num = eng->map_data->map[eng->cal->map_y][eng->cal->map_x] - 48;
+		eng->cal->tex_x = (int)(eng->cal->wall_x * (double)texWidth);
+		if (eng->cal->side == 0 && eng->cal->ray_dir_x > 0)
+			eng->cal->tex_x = texWidth - eng->cal->tex_x - 1;
+		if (eng->cal->side == 1 && eng->cal->ray_dir_y < 0)
+			eng->cal->tex_y = texWidth - eng->cal->tex_x - 1;
+		eng->cal->step = 1.0 * texHeight / eng->cal->line_height;
+		eng->cal->tex_pos = (eng->cal->draw_start - SCREEN_HEIGHT / 2 + eng->cal->line_height / 2) * eng->cal->step;
 		ceiling_or_floor(eng, x, 0);
 		ceiling_or_floor(eng, x, 1);
-		wall_draw(eng, x, eng->calcul->draw_start, eng->calcul->draw_end);
+		wall_draw(eng, x, eng->cal->draw_start, eng->cal->draw_end);
 		x++;
 	}
 	return (0);
@@ -137,7 +137,7 @@ void	load_image(t_engine *eng, int *texture, char *path, t_data *data)
 
 	y = 0;
 	data->img = mlx_xpm_file_to_image(eng->mlx_data->mlx, path, &data->img_width, &data->img_height);
-	data->data = (int *)mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->size_l, &data->endian);
+	data->data = (int *)mlx_get_data_addr(data->img, &data->bpp, &data->size_l, &data->endian);
 	while (y < data->img_height)
 	{
 		x = 0;
@@ -162,8 +162,7 @@ void	load_texture(t_engine *eng)
 }
 
 int	key_press(int key, t_engine *engine)
-{	
-	fprintf(stderr, "qweqwe %d\n", key);
+{
 	if (key == 119)
 		engine->mlx_data->up = 1;
 	if (key == 115)
@@ -214,38 +213,29 @@ void	exec_load(t_engine *eng)
 	int i;
 	int j;
 
-	i = 0;
-	while (i < SCREEN_HEIGHT)
+	i = -1;
+	while (++i < SCREEN_HEIGHT)
 	{
-		j = 0;
-		while (j < SCREEN_WIDTH)
-		{
+		j = -1;
+		while (++j < SCREEN_WIDTH)
 			eng->mlx_data->buf[i][j] = 0;
-			j++;
-		}
-		i++;
 	}
 	eng->mlx_data->texture = (int **)ft_malloc(sizeof(int *) * 4, eng->garbage_coll);
 	if (!(eng->mlx_data->texture))
 		quit_error(MALLOC_ERROR, eng->garbage_coll);
-	i = 0;
-	while (i < 4)
+	i = -1;
+	while (++i < 4)
 	{
 		eng->mlx_data->texture[i] = (int *)ft_malloc(sizeof(int) * (texHeight * texWidth), eng->garbage_coll);
 		if (!eng->mlx_data->texture[i])
 			quit_error(MALLOC_ERROR, eng->garbage_coll);
-		i++;
 	}
-	i = 0;
-	while (i < 4)
+	i = -1;
+	while (++i < 4)
 	{
-		j = 0;
-		while (j < texHeight * texWidth)
-		{
+		j = -1;
+		while (++j < texHeight * texWidth)
 			eng->mlx_data->texture[i][j] = 0;
-			j++;
-		}
-		i++;
 	}
 	load_texture(eng);
 }
@@ -260,14 +250,13 @@ void	play(t_engine *eng)
 	eng->mlx_data->re_buf = 0;
 	eng->mlx_data->mlx_win = mlx_new_window(eng->mlx_data->mlx, SCREEN_WIDTH , SCREEN_HEIGHT , "cub3d");
     eng->mlx_data->data.img = mlx_new_image(eng->mlx_data->mlx, 1080, 720);
-    eng->mlx_data->data.data = (int *)mlx_get_data_addr(eng->mlx_data->data.img, &eng->mlx_data->data.bits_per_pixel, &eng->mlx_data->data.line_length, &eng->mlx_data->data.endian);
+    eng->mlx_data->data.data = (int *)mlx_get_data_addr(eng->mlx_data->data.img, &eng->mlx_data->data.bpp, &eng->mlx_data->data.line_length, &eng->mlx_data->data.endian);
 	eng->mlx_data->up = 0;
 	eng->mlx_data->down = 0;
 	eng->mlx_data->right_pers = 0;
 	eng->mlx_data->left_pers = 0;
 	eng->mlx_data->left = 0;
 	eng->mlx_data->right = 0;
-	
 	mlx_hook(eng->mlx_data->mlx_win, 2, 1L << 0, &key_press,  eng);
     mlx_hook(eng->mlx_data->mlx_win, 3, 1L << 1, &key_release, eng);
 	mlx_hook(eng->mlx_data->mlx_win, 17, 0, &la_croix, eng);

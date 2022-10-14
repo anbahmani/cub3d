@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 19:01:58 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/11 16:21:28 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/14 17:12:54 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,67 +14,67 @@
 
 void	calcul_dist_wall(t_engine *eng)
 {
-	if (eng->calcul->side == 0)
+	if (eng->cal->side == 0)
 	{
-		eng->calcul->perp_wall_dist = (eng->calcul->map_x
-				- eng->map_data->player.pos_x + (1 - eng->calcul->step_x) / 2)
-			/ eng->calcul->ray_dir_x;
+		eng->cal->perp_wall_dist = (eng->cal->map_x
+				- eng->map_data->player.pos_x + (1 - eng->cal->step_x) / 2)
+			/ eng->cal->ray_dir_x;
 	}
 	else
 	{
-		eng->calcul->perp_wall_dist = (eng->calcul->map_y
-				- eng->map_data->player.pos_y + (1 - eng->calcul->step_y) / 2)
-			/ eng->calcul->ray_dir_y;
+		eng->cal->perp_wall_dist = (eng->cal->map_y
+				- eng->map_data->player.pos_y + (1 - eng->cal->step_y) / 2)
+			/ eng->cal->ray_dir_y;
 	}
-	if (eng->calcul->side == 0)
+	if (eng->cal->side == 0)
 	{
-		eng->calcul->wall_x = eng->map_data->player.pos_y
-			+ eng->calcul->perp_wall_dist * eng->calcul->ray_dir_y;
+		eng->cal->wall_x = eng->map_data->player.pos_y
+			+ eng->cal->perp_wall_dist * eng->cal->ray_dir_y;
 	}
 	else
 	{
-		eng->calcul->wall_x = eng->map_data->player.pos_x
-			+ eng->calcul->perp_wall_dist * eng->calcul->ray_dir_x;
+		eng->cal->wall_x = eng->map_data->player.pos_x
+			+ eng->cal->perp_wall_dist * eng->cal->ray_dir_x;
 	}
-	eng->calcul->wall_x -= floor(eng->calcul->wall_x);
+	eng->cal->wall_x -= floor(eng->cal->wall_x);
 }
 
 void	wall_detect(t_engine *eng)
 {
-	while (eng->calcul->hit == 0)
+	while (eng->cal->hit == 0)
 	{
-		if (eng->calcul->side_dist_x < eng->calcul->side_dist_y)
+		if (eng->cal->side_dist_x < eng->cal->side_dist_y)
 		{
-			eng->calcul->side_dist_x += eng->calcul->delta_dist_x;
-			eng->calcul->map_x += eng->calcul->step_x;
-			eng->calcul->side = 0;
+			eng->cal->side_dist_x += eng->cal->delta_dist_x;
+			eng->cal->map_x += eng->cal->step_x;
+			eng->cal->side = 0;
 		}
 		else
 		{
-			eng->calcul->side_dist_y += eng->calcul->delta_dist_y;
-			eng->calcul->map_y += eng->calcul->step_y;
-			eng->calcul->side = 1;
+			eng->cal->side_dist_y += eng->cal->delta_dist_y;
+			eng->cal->map_y += eng->cal->step_y;
+			eng->cal->side = 1;
 		}
-		if (eng->map_data->map[eng->calcul->map_y][eng->calcul->map_x] > 48)
-			eng->calcul->hit = 1;
+		if (eng->map_data->map[eng->cal->map_y][eng->cal->map_x] > 48)
+			eng->cal->hit = 1;
 	}
 	calcul_dist_wall(eng);
 }
 
 void	calcul_wall_color_east_west(t_engine *eng, int *color)
 {
-	if (eng->calcul->side == 1)
+	if (eng->cal->side == 1)
 	{
-		if (eng->calcul->map_y + (1 - eng->calcul->step_y)
+		if (eng->cal->map_y + (1 - eng->cal->step_y)
 			/ 2 > eng->map_data->player.pos_y)
 		{
 			*color = eng->mlx_data->texture[3]
-			[texHeight * eng->calcul->tex_y + eng->calcul->tex_x]; //OUEST
+			[texHeight * eng->cal->tex_y + eng->cal->tex_x];
 		}
 		else
 		{
 			*color = eng->mlx_data->texture[2]
-			[texHeight * eng->calcul->tex_y + eng->calcul->tex_x];//EST
+			[texHeight * eng->cal->tex_y + eng->cal->tex_x];
 		}
 		*color = (*color >> 1) & 8355711;
 	}
@@ -82,16 +82,16 @@ void	calcul_wall_color_east_west(t_engine *eng, int *color)
 
 void	calcul_wall_color_south_north(t_engine *eng, int *color)
 {
-	if (eng->calcul->map_x + (1 - eng->calcul->step_x)
+	if (eng->cal->map_x + (1 - eng->cal->step_x)
 		/ 2 > eng->map_data->player.pos_x)
 	{
 		*color = eng->mlx_data->texture[0]
-		[texHeight * eng->calcul->tex_y + eng->calcul->tex_x];// NORD
+		[texHeight * eng->cal->tex_y + eng->cal->tex_x];
 	}
 	else
 	{
 		*color = eng->mlx_data->texture[1]
-		[texHeight * eng->calcul->tex_y + eng->calcul->tex_x]; // SUD
+		[texHeight * eng->cal->tex_y + eng->cal->tex_x];
 	}
 }
 
@@ -103,10 +103,10 @@ void	wall_draw(t_engine *eng, int x, int y, int z)
 	i = y;
 	while (i < z)
 	{
-		eng->calcul->tex_y = (int)eng->calcul->tex_pos & (texHeight - 1);
-		eng->calcul->tex_pos += eng->calcul->step;
-		color = eng->mlx_data->texture[eng->calcul->tex_num]
-		[texHeight * eng->calcul->tex_y + eng->calcul->tex_x];
+		eng->cal->tex_y = (int)eng->cal->tex_pos & (texHeight - 1);
+		eng->cal->tex_pos += eng->cal->step;
+		color = eng->mlx_data->texture[eng->cal->tex_num]
+		[texHeight * eng->cal->tex_y + eng->cal->tex_x];
 		calcul_wall_color_south_north(eng, &color);
 		calcul_wall_color_east_west(eng, &color);
 		eng->mlx_data->buf[i][x] = color;

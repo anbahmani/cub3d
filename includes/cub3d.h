@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/12 15:58:15 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:01:03 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_data
 	int		img_width;
 	int		img_height;
 	int		size_l;
-	int		bits_per_pixel;
+	int		bpp;
 	int		line_length;
 	int		endian;
 }	t_data;
@@ -173,7 +173,7 @@ typedef struct s_engine
 {
 	t_map_data		*map_data;
 	t_win			*mlx_data;
-	t_calcul_data	*calcul;
+	t_calcul_data	*cal;
 	t_list			*garbage_coll;
 }	t_engine;
 

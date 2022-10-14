@@ -16,7 +16,7 @@ MiniLibX - Manipulating images
 .fi
 .B mlx_get_data_addr
 (
-.I void *img_ptr, int *bits_per_pixel, int *size_line, int *endian
+.I void *img_ptr, int *bpp, int *size_line, int *endian
 );
 
 .nf
@@ -99,7 +99,7 @@ to modify it later. The
 .I img_ptr
 parameter specifies the image to use. The three next parameters should
 be the addresses of three different valid integers.
-.I bits_per_pixel
+.I bpp
 will be filled with the number of bits needed to represent a pixel color
 (also called the depth of the image).
 .I size_line
@@ -118,10 +118,10 @@ returns a
 .I char *
 address that represents the begining of the memory area where the image
 is stored. From this adress, the first
-.I bits_per_pixel
+.I bpp
 bits represent the color of the first pixel in the first line of
 the image. The second group of
-.I bits_per_pixel
+.I bpp
 bits represent the second pixel of the first line, and so on.
 Add
 .I size_line
@@ -140,7 +140,7 @@ can change. The user usually represents a color in RGB mode, using
 one byte for each component (see
 .B mlx_pixel_put
 manual). This must be translated to fit the
-.I bits_per_pixel
+.I bpp
 requirement of the image, and make the color understandable to the X-Server.
 That is the purpose of the
 .B mlx_get_color_value
@@ -150,7 +150,7 @@ parameter, and returns an
 .I unsigned int
 value.
 The
-.I bits_per_pixel
+.I bpp
 least significant bits of this value can be stored in the image.
 
 Keep in mind that the least significant bits position depends on the local

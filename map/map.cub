@@ -3,7 +3,7 @@ SO ./pics/redbrick.xpm
 WE ./pics/redbrick.xpm
 EA ./pics/redbrick.xpm
 
-F 189, 154, 46
+F 189    , 154, 46
 C 15,202,202
 
 11111111111111111   11111

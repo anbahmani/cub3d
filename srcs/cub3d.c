@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/12 16:01:50 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:01:18 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int ac, char **av)
 	eng.garbage_coll = ft_lstnew(first);
 	eng.map_data = ft_malloc(sizeof(t_map_data), eng.garbage_coll);
 	eng.mlx_data = ft_malloc(sizeof(t_win), eng.garbage_coll);
-	eng.calcul = ft_malloc(sizeof(t_calcul_data), eng.garbage_coll);
+	eng.cal = ft_malloc(sizeof(t_calcul_data), eng.garbage_coll);
 	check_error(ac, av, eng.garbage_coll);
 	get_file_data(av[1], eng.map_data, eng.garbage_coll);
 	eng.mlx_data->mlx = mlx_init();

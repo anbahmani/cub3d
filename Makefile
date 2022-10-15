@@ -25,7 +25,8 @@ SRC			= 	cub3d.c \
 				tab_tools.c digit_tools.c arg_error.c error.c \
 				input_file_error.c map_element.c init_perso.c  \
 				check_map_error.c \
-				side_pers.c move.c wall.c raycasting.c texture_file_error.c
+				side_pers.c move.c wall.c raycasting.c texture_file_error.c \
+				init_side_dist.c calcul.c key.c exec_load.c load.c
 
 
 OBJ			=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))

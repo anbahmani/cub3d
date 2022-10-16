@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   check_data_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/23 08:12:55 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/16 05:42:59 by abahmani         ###   ########.fr       */
+/*   Created: 2022/10/16 04:43:02 by abahmani          #+#    #+#             */
+/*   Updated: 2022/10/16 09:52:34 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
-void	ft_lstclear(t_list **lst, void (*del)(void	*))
-{
-	t_list	*l;
+#include "cub3d.h"
 
-	l = *lst;
-	while (l)
-	{
-		(*lst) = (*lst)->next;
-		ft_lstdelone(l, (*del));
-		l = *lst;
-	}
-	*lst = NULL;
+void	check_data_error(t_engine *eng)
+{
+	if (eng->map_data->ceiling_rgb.init == 0
+		|| eng->map_data->floor_rgb.init == 0)
+		quit_error(COLOR_ERROR, eng->garbage_coll);
 }

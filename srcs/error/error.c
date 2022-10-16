@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 09:33:54 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/14 20:27:42 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/16 10:45:32 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,7 @@ void	print_error(char *msg)
 
 void	quit_error(char *msg, t_list *garb_c)
 {
-	t_list	*tmp;
-
 	print_error(msg);
-	tmp = garb_c;
-	while (tmp)
-	{
-		tmp = tmp->next;
-	}
 	clear(garb_c);
 	exit(1);
 }

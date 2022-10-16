@@ -6,96 +6,55 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 09:20:12 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/14 21:07:12 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/16 19:26:13 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	set_color(t_rgb *colors, char **split, t_list *garb_coll)
-{
-	colors->red = ft_atoi((const char *)split[0]);
-	colors->green = ft_atoi((const char *)split[1]);
-	colors->blue = ft_atoi((const char *)split[2]);
-	clear_str_tab(split);
-	if (colors->red < 0 || colors->red > 255)
-		quit_error(COLOR_ERROR, garb_coll);
-	if (colors->green < 0 || colors->green > 255)
-		quit_error(COLOR_ERROR, garb_coll);
-	if (colors->blue < 0 || colors->blue > 255)
-		quit_error(COLOR_ERROR, garb_coll);
-}
-
-t_rgb	get_color(char *line, t_list *garb_coll)
-{
-	t_rgb	*colors;
-	char	**split;
-	int		nb_str;
-
-	split = ft_split(line + 2, ',');
-	nb_str = count_str(split);
-	if (nb_str > 3 || nb_str < 3)
-	{
-		clear_str_tab(split);
-		quit_error(COLOR_ERROR, garb_coll);
-	}
-	trim_split(split);
-	if (!composed_with(split[0], "0123456789") || !ft_strlen(split[0])
-		|| !composed_with(split[1], "0123456789") || !ft_strlen(split[1])
-		|| !composed_with(split[2], "0123456789") || !ft_strlen(split[2]))
-	{
-		clear_str_tab(split);
-		quit_error(COLOR_ERROR, garb_coll);
-	}
-	colors = (t_rgb *)ft_malloc(sizeof(t_rgb), garb_coll);
-	set_color(colors, split, garb_coll);
-	return (*colors);
-}
-
-static void	trim_and_add_gc(char **text, t_list *garb_c, char *line)
+static void	trim_and_add_gc(char **text, t_engine *eng, char *line)
 {
 	*text = ft_strtrim(line + 2, " \t");
-	ft_lstadd_back(&garb_c, ft_lstnew(*text));
+	ft_lstadd_back(&eng->garbage_coll, ft_lstnew(*text));
 }
 
-void	get_file_data_bis(t_map_data *data, t_list *garb_c, char *line)
+static int	is_doublon(char *text, t_map_data *data)
 {
-	if (!ft_strncmp((const char *) line, "NO ", 3))
-		trim_and_add_gc(&data->north_text, garb_c, line);
-	else if (!ft_strncmp((const char *) line, "SO ", 3))
-		trim_and_add_gc(&data->south_text, garb_c, line);
-	else if (!ft_strncmp((const char *) line, "WE ", 3))
-		trim_and_add_gc(&data->west_text, garb_c, line);
-	else if (!ft_strncmp((const char *) line, "EA ", 3))
-		trim_and_add_gc(&data->east_text, garb_c, line);
+	if (text)
+		data->doublon_text = 1;
+	return (1);
+}
+
+void	get_file_data_bis(t_engine *eng, char *line)
+{
+	if (!ft_strncmp((const char *) line, "NO ", 3)
+		&& is_doublon(eng->map_data->north_text, eng->map_data))
+		trim_and_add_gc(&eng->map_data->north_text, eng, line);
+	else if (!ft_strncmp((const char *) line, "SO ", 3)
+		&& is_doublon(eng->map_data->south_text, eng->map_data))
+		trim_and_add_gc(&eng->map_data->south_text, eng, line);
+	else if (!ft_strncmp((const char *) line, "WE ", 3)
+		&& is_doublon(eng->map_data->west_text, eng->map_data))
+		trim_and_add_gc(&eng->map_data->west_text, eng, line);
+	else if (!ft_strncmp((const char *) line, "EA ", 3)
+		&& is_doublon(eng->map_data->east_text, eng->map_data))
+		trim_and_add_gc(&eng->map_data->east_text, eng, line);
 	else if (!ft_strncmp((const char *) line, "C ", 2))
-	{
-		data->ceiling_rgb = get_color(line, garb_c);
-		data->ceiling_rgb.color = data->ceiling_rgb.red * 65536;
-		data->ceiling_rgb.color += data->ceiling_rgb.green * 256;
-		data->ceiling_rgb.color += data->ceiling_rgb.blue;
-	}
+		init_color(eng, line, &eng->map_data->ceiling_rgb);
 	else if (!ft_strncmp((const char *) line, "F ", 2))
-	{
-		data->floor_rgb = get_color(line, garb_c);
-		data->floor_rgb.color = data->floor_rgb.red * 65536;
-		data->floor_rgb.color += data->floor_rgb.green * 256;
-		data->floor_rgb.color += data->floor_rgb.blue;
-	}	
+		init_color(eng, line, &eng->map_data->floor_rgb);
 }
 
-void	get_file_data(const char *file_name, t_map_data *data, t_list *garb_c)
+void	get_file_data(t_engine *eng)
 {
-	int		fd;
-	char	*line;
+	int	i;
 
-	fd = open(file_name, O_RDONLY);
-	while (get_next_line(fd, &line) != -1)
+	i = 0;
+	while (eng->file_content[i])
 	{
-		ft_lstadd_back(&garb_c, ft_lstnew(line));
-		get_file_data_bis(data, garb_c, line);
+		get_file_data_bis(eng, eng->file_content[i]);
+		i++;
 	}
-	if (line)
-		ft_lstadd_back(&garb_c, ft_lstnew(line));
-	close(fd);
+	if (eng->map_data->doublon_text == 1)
+		quit_error(DOUBLON_TEXTURE_ERROR, eng->garbage_coll);
 }

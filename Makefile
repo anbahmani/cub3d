@@ -21,15 +21,16 @@ vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 
 SRC			= 	cub3d.c \
 				get_next_line.c get_next_line_utils.c \
-				get_file_data.c get_map.c garbage_collector.c str_tools.c \
+				get_file_data.c get_map.c garbage_collector.c str_tools.c color.c \
 				tab_tools.c digit_tools.c arg_error.c error.c \
-				input_file_error.c map_element.c init_perso.c  \
-				check_map_error.c \
+				input_file_error.c map_element.c init_perso.c file_content.c \
+				check_map_error.c check_data_error.c \
 				side_pers.c move.c wall.c raycasting.c texture_file_error.c \
 				init_side_dist.c calcul.c key.c exec_load.c load.c
 
 
-OBJ			=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
+OBJ			=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o)) \
+				includes/cub3d.h
 
 DEPS		= 	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.d))
 
@@ -85,7 +86,7 @@ re:	fclean all
 
 clean:
 	@echo "Deleting Objects Directory $(OBJ_DIR) ... \c"
-	@$(foreach file, $(OBJ), rm -rf $(file))
+	@rm -rf obj/*.o
 	@echo "DONE\n-----"
 
 fclean:	clean

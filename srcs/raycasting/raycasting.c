@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 04:06:55 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/15 17:59:54 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/16 03:37:45 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	la_croix(t_engine *engine)
 void	play(t_engine *eng)
 {
 	eng->mlx_data->mlx = mlx_init();
-	display_tab(eng->map_data->map);
 	init_perso(eng);
 	eng->map_data->map[(int)eng->map_data->player.pos_y]
 	[(int)eng->map_data->player.pos_x] = '0';

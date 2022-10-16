@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 10:53:47 by abahmani          #+#    #+#             */
-/*   Updated: 2022/09/17 15:20:48 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/16 14:46:53 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ int	end(int ret, char **str, char **line)
 	{
 		*line = *str;
 		*str = NULL;
-		if (*line[0])
-			return (0);
-		return (-1);
+		return (0);
 	}
 	else
 	{
@@ -67,7 +65,7 @@ int	fill_buf(char *buf, char **line, char **str, int ret)
 		*str = ft_substr_gnl(*str, newline + 1, ft_strlen(*str) - newline, 0);
 		return (1);
 	}
-	*str = ft_strjoin(*str, buf);
+	*str = ft_strjoin_gnl(*str, buf);
 	return (0);
 }
 
@@ -85,18 +83,18 @@ int	free_str(int newline, char **str)
 int	get_next_line(int fd, char **line)
 {
 	int				ret;
-	char			buf[100 + 1];
+	char			buf[20 + 1];
 	static char		*str = NULL;
 	int				newline;
 
-	if (!line || 100 <= 0 || read(fd, buf, 0))
+	if (!line || 20 <= 0 || read(fd, buf, 0))
 		return (-1);
 	if (!str)
 	{
 		str = malloc(sizeof(char));
 		str[0] = '\0';
 	}
-	ret = read(fd, buf, 100);
+	ret = read(fd, buf, 20);
 	while (ret > 0)
 	{
 		newline = fill_buf(buf, line, &str, ret);

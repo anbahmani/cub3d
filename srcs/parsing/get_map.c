@@ -6,32 +6,11 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 22:44:28 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/08 01:43:20 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/16 19:26:53 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	count_file_line(char const *file_name, t_list *garb_c)
-{
-	int		fd;
-	int		cmp;
-	char	*line;
-
-	fd = open(file_name, O_RDONLY);
-	if (fd == -1)
-		return (-1);
-	cmp = 0;
-	while (get_next_line(fd, &line) != -1)
-	{
-		ft_lstadd_back(&garb_c, ft_lstnew(line));
-		cmp++;
-	}
-	if (line)
-		ft_lstadd_back(&garb_c, ft_lstnew(line));
-	close(fd);
-	return (cmp);
-}
 
 int	is_map_line(char *line)
 {
@@ -51,67 +30,45 @@ int	is_map_line(char *line)
 	return (no_map_comp);
 }
 
-static void	iter_gnl(int start, int fd, t_list *garb_c)
+int	count_line_map(int start, t_engine *eng)
 {
-	int		i;
-	char	*line;
+	int	count;
 
-	i = 0;
-	while (i < start)
-	{
-		get_next_line(fd, &line);
-		ft_lstadd_back(&garb_c, ft_lstnew(line));
-		i++;
-	}
+	count = 0;
+	while (eng->file_content[start++])
+		count++;
+	return (count);
 }
 
-char	**get_map(int start, const char *file_name, t_list *garb_c)
+char	**get_map(int start, t_engine *eng)
 {
 	char	**map;
-	int		fd;
 	int		i;
-	char	*line;
 
-	map = ft_malloc(sizeof(char *) * count_file_line(file_name,
-				garb_c) - start + 1, garb_c);
-	fd = open(file_name, O_RDONLY);
-	iter_gnl(start, fd, garb_c);
+	map = ft_malloc(sizeof(char *) * (count_line_map(start, eng) + 1),
+			eng->garbage_coll);
 	i = 0;
-	while (get_next_line(fd, &line) != -1)
+	while (eng->file_content[start])
 	{
-		map[i] = line;
-		ft_lstadd_back(&garb_c, ft_lstnew(line));
+		map[i] = eng->file_content[start];
+		start++;
 		i++;
 	}
-	if (line)
-		ft_lstadd_back(&garb_c, ft_lstnew(line));
 	map[i] = NULL;
-	close(fd);
 	return (map);
 }
 
-void	find_map(const char *file_name, t_map_data *data, t_list *garb_c)
+void	find_map(t_engine *eng)
 {
-	int		fd;
 	int		i;
-	char	*line;
 
-	fd = open(file_name, O_RDONLY);
-	if (fd == -1)
-		quit_error(FD_ERROR, garb_c);
 	i = 0;
-	while (get_next_line(fd, &line) != -1)
+	while (eng->file_content[i])
 	{
-		ft_lstadd_back(&garb_c, ft_lstnew(line));
-		if (is_map_line(line))
+		if (is_map_line(eng->file_content[i]))
 			break ;
 		i++;
 	}
-	while (get_next_line(fd, &line) != -1)
-		ft_lstadd_back(&garb_c, ft_lstnew(line));
-	if (line)
-		ft_lstadd_back(&garb_c, ft_lstnew(line));
-	close(fd);
-	data->map = get_map(i, file_name, garb_c);
-	fill_map(data, garb_c);
+	eng->map_data->map = get_map(i, eng);
+	fill_map(eng->map_data, eng->garbage_coll);
 }

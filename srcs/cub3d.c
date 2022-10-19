@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:20 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/16 19:34:21 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:23:19 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_data(t_engine *eng, const char *file_name)
 
 void	check_screen_error(void)
 {
-	if (SCREEN_WIDTH < 720 || SCREEN_WIDTH > 1080 || SCREEN_HEIGHT < 480
+	if (SCREEN_WIDTH < 72 || SCREEN_WIDTH > 1080 || SCREEN_HEIGHT < 48
 		|| SCREEN_HEIGHT > 1920)
 	{
 		print_error(SCREEN_ERROR);

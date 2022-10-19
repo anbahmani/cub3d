@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_file_error.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 18:00:05 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/16 19:40:10 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:53:07 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static int	check_texture_file_name(char const *file_name)
 void	check_text_file_error(t_engine *engine)
 {
 	engine->mlx_data->mlx = mlx_init();
+	if (!engine->mlx_data->mlx)
+		quit_error(MLX_ERROR, engine->garbage_coll);
 	if (!check_texture_file_name((const char *)engine->map_data->north_text)
 		|| !check_texture_file_name((const char *)engine->map_data->south_text)
 		|| !check_texture_file_name((const char *)engine->map_data->west_text)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 06:29:58 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/19 18:43:57 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:12:18 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	check_map(const char **map)
 	int	j;
 
 	i = 0;
+	if (!map[i])
+		return (0);
 	while (map[i])
 	{
 		j = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 04:06:55 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/16 03:37:45 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:53:54 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ void	play(t_engine *eng)
 	eng->mlx_data->re_buf = 0;
 	eng->mlx_data->mlx_win = mlx_new_window(eng->mlx_data->mlx,
 			SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
-	eng->mlx_data->data.img = mlx_new_image(eng->mlx_data->mlx, 1080, 720);
+	eng->mlx_data->data.img = mlx_new_image(eng->mlx_data->mlx,
+			SCREEN_WIDTH, SCREEN_HEIGHT);
 	eng->mlx_data->data.data = (int *)mlx_get_data_addr(eng->mlx_data->data.img,
 			&eng->mlx_data->data.bpp, &eng->mlx_data->data.line_length,
 			&eng->mlx_data->data.endian);

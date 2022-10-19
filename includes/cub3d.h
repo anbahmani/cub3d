@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 14:11:33 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/16 19:38:26 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:54:00 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define SCREEN_ERROR "The size of the screen is incorrect."
 # define SIZE_TEXTURE_ERROR "The size of this texture is incorrect : "
 # define DOUBLON_COLOR_ERROR "A color is in double."
+# define MLX_ERROR "A mlx error occured."
 
 /*-------------------------------KEY EVENT DEFINE-----------------------------*/
 
@@ -60,8 +61,8 @@
 */
 /*----------------------------SCREEN DATA DEFINE------------------------------*/
 
-# define SCREEN_WIDTH 1080
-# define SCREEN_HEIGHT 720
+# define SCREEN_WIDTH 720
+# define SCREEN_HEIGHT 480
 
 /*----------------------------PERSO CONFIG DEFINE-----------------------------*/
 

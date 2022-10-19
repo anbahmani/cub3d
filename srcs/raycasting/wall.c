@@ -6,7 +6,7 @@
 /*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 19:01:58 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/14 20:35:10 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/19 16:57:28 by raaga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,14 @@ void	calcul_wall_color_east_west(t_engine *eng, int *color)
 		if (eng->cal->map_y + (1 - eng->cal->step_y)
 			/ 2 > eng->map_data->player.pos_y)
 		{
-			*color = eng->mlx_data->texture[3]
+			*color = eng->mlx_data->texture[0]
 			[TEX_HEIGHT * eng->cal->tex_y + eng->cal->tex_x];
 		}
 		else
 		{
-			*color = eng->mlx_data->texture[2]
+			*color = eng->mlx_data->texture[1]
 			[TEX_HEIGHT * eng->cal->tex_y + eng->cal->tex_x];
-		}
-		*color = (*color >> 1) & 8355711;
+		}	
 	}
 }
 
@@ -85,14 +84,15 @@ void	calcul_wall_color_south_north(t_engine *eng, int *color)
 	if (eng->cal->map_x + (1 - eng->cal->step_x)
 		/ 2 > eng->map_data->player.pos_x)
 	{
-		*color = eng->mlx_data->texture[0]
+		*color = eng->mlx_data->texture[3]
 		[TEX_HEIGHT * eng->cal->tex_y + eng->cal->tex_x];
 	}
 	else
 	{
-		*color = eng->mlx_data->texture[1]
+		*color = eng->mlx_data->texture[2]
 		[TEX_HEIGHT * eng->cal->tex_y + eng->cal->tex_x];
 	}
+	*color = (*color >> 1) & 8355711;
 }
 
 void	wall_draw(t_engine *eng, int x, int y, int z)

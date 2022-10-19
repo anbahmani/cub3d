@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raaga <raaga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 06:29:58 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/14 20:24:30 by raaga            ###   ########.fr       */
+/*   Updated: 2022/10/19 18:43:57 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ static int	check_char_around(const char **map, int i, int j)
 	return (1);
 }
 
+static int	is_map_char(char c)
+{
+	if (c == '0' || c == '1' || c == '-' || is_orientation_char(c))
+		return (1);
+	return (0);
+}
+
 int	check_map(const char **map)
 {
 	int	i;
@@ -56,6 +63,8 @@ int	check_map(const char **map)
 		j = 0;
 		while (map[i][j])
 		{
+			if (!is_map_char(map[i][j]))
+				return (0);
 			if (map[i][j] == '0' || is_orientation_char(map[i][j]))
 			{
 				if (!check_char_around(map, i, j))

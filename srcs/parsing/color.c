@@ -6,7 +6,7 @@
 /*   By: abahmani <abahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 18:45:40 by abahmani          #+#    #+#             */
-/*   Updated: 2022/10/16 19:37:58 by abahmani         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:04:03 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	check_trim_color(char *str, t_engine *eng)
 {
 	char	*tmp;
 
-	tmp = ft_strtrim(str + 2, " \t");
+	tmp = ft_strtrim(str + 1, " \t");
 	if (!ft_isdigit(tmp[0]) || !ft_isdigit(tmp[ft_strlen(tmp) - 1]))
 	{
 		free(tmp);
